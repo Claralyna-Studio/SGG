@@ -13,6 +13,15 @@ public class pin_guesser : MonoBehaviour
     Color curr_colr;
     [SerializeField] private List<pin_guesser> pinLain;
     ColorBlock but_clor;
+    LineRenderer line;
+    private void Awake()
+    {
+        line = GameObject.FindObjectOfType<LineRenderer>();
+        line.enabled = false;
+        pin = GameObject.Find("PIN");
+        //pin.GetComponent<Animator>().Play("drag"); 
+        //pin.GetComponent<Animator>().SetBool("dragging",true);
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -31,10 +40,10 @@ public class pin_guesser : MonoBehaviour
         //but_clor.normalColor = curr_colr;
         //button.colors = but_clor;
 
-        pin = GameObject.Find("PIN");
         selected = false;
         pinLain = new List<pin_guesser>(FindObjectsOfType<pin_guesser>());
         pinLain.Remove(this);
+
     }
     Vector2 mousePos;
     // Update is called once per frame
@@ -46,6 +55,10 @@ public class pin_guesser : MonoBehaviour
         {
             mousePos = Input.mousePosition;
         }*/
+        if(!isClicked)
+        {
+            pin.transform.position = Input.mousePosition;
+        }
         if(selected)
         {
             //curr_colr = Color.green;
@@ -63,10 +76,16 @@ public class pin_guesser : MonoBehaviour
     {
         if (!isClicked)
         {
+            //pin.GetComponent<Animator>().SetBool("dragging", false);
             mousePos = Input.mousePosition;
             gm.pin = mousePos;
             isClicked = true;
             clicked();
+            line.enabled = true;
+            Vector3[] pos = new Vector3[2];
+            pos[0] = new Vector3(Camera.main.ScreenToWorldPoint(pin.transform.position).x, Camera.main.ScreenToWorldPoint(pin.transform.position).y, 1);
+            pos[1] = new Vector3(gm.city.transform.position.x, gm.city.transform.position.y, 1);
+            line.SetPositions(pos);
         }
     }
     public void clicked()

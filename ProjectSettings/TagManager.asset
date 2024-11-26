@@ -46,3 +46,6 @@ TagManager:
   - name: pin
     uniqueID: 1858597731
     locked: 0
+  - name: text
+    uniqueID: 2336488691
+    locked: 0

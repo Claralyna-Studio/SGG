@@ -11,7 +11,7 @@ public class geoM : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textProv;
     [SerializeField] private TextMeshProUGUI textAkurasi;
     [SerializeField] private List<GameObject> cities;
-    [SerializeField] private GameObject city;
+    public GameObject city;
     [SerializeField] private float toleransi_jarak = 0.05f;
     [SerializeField] private float akurasi = 0f;
     [SerializeField] private Image bubble;
@@ -47,6 +47,7 @@ public class geoM : MonoBehaviour
     }
     public void pinned()
     {
+        city.GetComponent<Image>().enabled = true;
         counting = true;
         pin = Camera.main.ScreenToWorldPoint(pin);
         Debug.Log(Vector2.Distance(pin,city.transform.position));
@@ -56,7 +57,7 @@ public class geoM : MonoBehaviour
         }
         else
         {
-            akurasi = (10f-Vector2.Distance(pin, city.transform.position)) * 10f;
+            akurasi = (100f - (Vector2.Distance(pin, city.transform.position) * 20f));
         }
         akurasi = Mathf.Round(akurasi * 100f) / 100f;
         //textAkurasi.text = akurasi.ToString() + "%";
