@@ -14,7 +14,7 @@ TagManager:
   - Water
   - UI
   - particleUI
-  - 
+  - obstacles
   - 
   - 
   - 
@@ -48,4 +48,7 @@ TagManager:
     locked: 0
   - name: text
     uniqueID: 2336488691
+    locked: 0
+  - name: New Layer 3
+    uniqueID: 3370003363
     locked: 0

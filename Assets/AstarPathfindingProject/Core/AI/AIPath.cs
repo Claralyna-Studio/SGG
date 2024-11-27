@@ -157,10 +157,10 @@ namespace Pathfinding {
 		public bool constrainInsideGraph = false;
 
 		/// <summary>Current path which is followed</summary>
-		protected Path path;
+		public Path path;
 
-		/// <summary>Helper which calculates points along the current path</summary>
-		protected PathInterpolator interpolator = new PathInterpolator();
+        /// <summary>Helper which calculates points along the current path</summary>
+        protected PathInterpolator interpolator = new PathInterpolator();
 
 		#region IAstarAI implementation
 
