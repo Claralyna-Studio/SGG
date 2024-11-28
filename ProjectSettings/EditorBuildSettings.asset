@@ -8,4 +8,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/main_menu.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/gameplay.unity
+    guid: eafc1ff1f4942d24ea5cdcf2f37da2cd
+  - enabled: 1
+    path: Assets/Scenes/Indo_guesser.unity
+    guid: c40b23263b2e533498b7fcd4b380ebb7
+  - enabled: 1
+    path: Assets/Scenes/propince.unity
+    guid: a12d688824a92c443ade2207aeaef9c8
   m_configObjects: {}

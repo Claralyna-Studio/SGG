@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class sprite_to_UI_pos : MonoBehaviour
 {
     GameObject pos;
+    RectTransform rectTransform;
+    [SerializeField] private float kurangX;
+    [SerializeField] private float kurangY;
     // Start is called before the first frame update
     void Awake()
     {
@@ -13,7 +16,8 @@ public class sprite_to_UI_pos : MonoBehaviour
         if(pos.gameObject.GetComponent<Image>().enabled)
         {
             pos.gameObject.GetComponent<Image>().enabled = false;
-        }        
+        }
+        rectTransform = pos.GetComponent<RectTransform>();
     }
 
     // Update is called once per frame
@@ -21,6 +25,16 @@ public class sprite_to_UI_pos : MonoBehaviour
     {
 
         transform.position = pos.gameObject.transform.position;
-        transform.localScale = pos.gameObject.transform.lossyScale * 100f;
+        //transform.localScale = rectTransform.lossyScale * 50f;
+        //Debug.Log(rectTransform.rect.size);
+        //transform.localScale = new Vector2(rectTransform.rect.size.x - kurangX, rectTransform.rect.size.y - kurangY);
+        transform.localScale = new Vector2(rectTransform.rect.size.x / kurangX, rectTransform.rect.size.y / kurangY);
+
+/*        float pixelCountForOneUnit = Screen.height * 0.5f / Camera.main.orthographicSize;
+        float scaleX = rectTransform.width / pixelCountForOneUnit;
+        float scaleY = rectTransform.height / pixelCountForOneUnit;
+
+        Vector3 scale = new Vector3(scaleX, scaleY, 1.0f);
+        transform.localScale = scale;*/
     }
 }

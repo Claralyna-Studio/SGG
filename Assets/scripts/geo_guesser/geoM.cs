@@ -18,6 +18,7 @@ public class geoM : MonoBehaviour
     Color correct = Color.green;
     private void Awake()
     {
+        Screen.SetResolution(1920, 1080, true);
         cities = new List<GameObject>(0);
         for(int i=0;i < GameObject.Find("CITIES").transform.childCount;i++)
         {

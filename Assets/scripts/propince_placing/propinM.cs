@@ -16,6 +16,7 @@ public class propinM : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Screen.SetResolution(1920, 1080, true);
         provs = FindObjectsOfType<province>();
         //curr_province = provinces[Random.Range(0, provinces.Count)];
         for (int i = 0; i < 6; i++)
