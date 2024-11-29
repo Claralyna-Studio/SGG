@@ -26,7 +26,14 @@ public class clickable_prov : MonoBehaviour
         //Debug.Log("clicked " + this.gameObject.name);
         if(gm.canShip)
         {
+            if (!gm.isCooking[gm.provs.IndexOf(this.gameObject.transform)])
+            {
 
+            }
+            else
+            {
+                //the food is still cooking
+            }
         }
     }
 }

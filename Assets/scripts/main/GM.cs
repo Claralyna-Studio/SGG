@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
+using System.Globalization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -33,10 +34,36 @@ public class GM : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-/*        for(int i=0;i<provs.Count;i++)
+        moneyText.text = money.ToString("C", CultureInfo.CurrentCulture);
+        crystalText.text = crystal.ToString("C", CultureInfo.CurrentCulture);
+        /*        for(int i=0;i<provs.Count;i++)
+                {
+                    provs[i].GetComponent<SpriteRenderer>().enabled = isCooking[i];
+                }*/
+
+        //timer
+/*        if (timerGo)
         {
-            provs[i].GetComponent<SpriteRenderer>().enabled = isCooking[i];
-        }*/
+            if (timer > 0)
+            {
+                timer -= Time.deltaTime;
+                if (timer <= timerAlert && !flicker)
+                {
+                    flicker = true;
+                    timerText.color = Color.red;
+                    StartCoroutine(alerting());
+                }
+            }
+            else
+            {
+                timer = 0;
+                isLose = true;
+            }
+        }
+        int menit = Mathf.FloorToInt(timer / 60);
+        int detik = Mathf.FloorToInt(timer % 60);
+        timerText.text = string.Format("{0:00}:{1:00}", menit, detik);*/
+
         AstarPath.active.Scan();
     }
     public void spawning(Transform prov)
@@ -80,5 +107,13 @@ public class GM : MonoBehaviour
     public void backMenu()
     {
         SceneManager.LoadScene(0);
+    }
+    public void addMoney(int plus)
+    {
+        money += plus;
+    }
+    public void addCrystal(int plus)
+    {
+        crystal += plus;
     }
 }
