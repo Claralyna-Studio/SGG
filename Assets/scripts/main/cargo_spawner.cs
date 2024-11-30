@@ -24,9 +24,10 @@ public class cargo_spawner : MonoBehaviour
     {
         
     }
-    public void spawn(Transform target)
+    public void spawn(Transform target, tray order)
     {
         GameObject clone = Instantiate(cargo_prefab, pos.position, Quaternion.identity);
+        clone.GetComponent<AIAgent>().Tray = order;
         clone.GetComponent<AIAgent>().foods = food;
         clone.GetComponent<AIAgent>().masakTime = masakTime;
         clone.GetComponent<AIAgent>().speed = speed;

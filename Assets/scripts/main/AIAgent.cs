@@ -17,9 +17,11 @@ public class AIAgent : MonoBehaviour
     public bool canMove = false;
     SpriteRenderer sp;
     pathRenderer trail;
+    public tray Tray;
     // Start is called before the first frame update
     void Start()
     {
+        Tray.isCooking = true;
         bubble.color = Color.red;
         //target = GameObject.Find("TARGET_CARGO").transform;
         gm = FindObjectOfType<GM>();
@@ -77,6 +79,7 @@ public class AIAgent : MonoBehaviour
                 int idx = gm.provs.IndexOf(target);
                 gm.isCooking[idx] = false;
                 trail.deleteTrail();
+                Tray.doneCooking();
                 //target.gameObject.GetComponent<PolygonCollider2D>().enabled = true;
                 foreach (PolygonCollider2D col in target.GetComponent<clickable_prov>().colliders_to_be_unactived)
                 {

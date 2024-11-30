@@ -17,7 +17,7 @@ public class GM : MonoBehaviour
     public List<bool> isCooking;
     public int level;
     public int day;
-    public bool startDay = false;
+    public bool startDay = true;
     [SerializeField] private TextMeshProUGUI levelText;
     [SerializeField] private TextMeshProUGUI dayText;
     [SerializeField] private TextMeshProUGUI timeText;
@@ -26,9 +26,11 @@ public class GM : MonoBehaviour
     public long money = 0;
     public long crystal = 0;
     public bool canShip = false;
+    [SerializeField] private Animator timeAnim;
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1;
         spawner = FindObjectOfType<cargo_spawner>();
         traySpawner = FindObjectOfType<traySpawner>();
         pauseUI.SetActive(false);
@@ -42,9 +44,12 @@ public class GM : MonoBehaviour
     }
     char money2 = ' ';
     char crystal2 = ' ';
+    [SerializeField] private GameObject startButton;
     // Update is called once per frame
     void Update()
     {
+        timeAnim.SetBool("startDay", startDay);
+        startButton.SetActive(!startDay);
         //moneyText.text = money.ToString("C", CultureInfo.CreateSpecificCulture("id-id"));
 /*        if (money >= 1000 && money < 1000000)
         {
@@ -148,7 +153,7 @@ public class GM : MonoBehaviour
         StartCoroutine(timing());
         StartCoroutine(traySpawner.spawnOrder());
     }
-    public void spawning(Transform prov, Sprite food)
+    public void spawning(Transform prov, Sprite food, tray order)
     {
         int idx = provs.IndexOf(prov);
         //not cooking
@@ -161,7 +166,7 @@ public class GM : MonoBehaviour
                 col.enabled = false;
             }
             spawner.food = food;
-            spawner.spawn(prov);
+            spawner.spawn(prov, order);
         }
         //cooking
         else
