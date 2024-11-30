@@ -5,11 +5,14 @@ using UnityEngine;
 
 public class AIAgent : MonoBehaviour
 {
+    [SerializeField] private SpriteRenderer food;
+    public Sprite foods;
+    [SerializeField] private SpriteRenderer bubble;
     public float masakTime = 10f;
     GM gm;
     private GameObject bali;
     private AIPath path;
-    [SerializeField] private float speed;
+    public float speed;
     public Transform target;
     public bool canMove = false;
     SpriteRenderer sp;
@@ -17,6 +20,7 @@ public class AIAgent : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        bubble.color = Color.red;
         //target = GameObject.Find("TARGET_CARGO").transform;
         gm = FindObjectOfType<GM>();
         sp = GetComponent<SpriteRenderer>();
@@ -29,11 +33,11 @@ public class AIAgent : MonoBehaviour
     bool coroutineCalled = false;
     bool trailFuncCalled = false;
     bool resting = false;
-    Vector3 scale = Vector3.one * 0.2f;
+    Vector3 scale = Vector3.one * 0.7f;
     // Update is called once per frame
     void Update()
     {
-        transform.localScale = Vector3.Lerp(transform.localScale, scale, Time.deltaTime * 5f);
+        transform.parent.localScale = Vector3.Lerp(transform.parent.localScale, scale, Time.deltaTime * 5f);
         path.canMove = canMove;
         if(canMove)
         {
@@ -44,6 +48,7 @@ public class AIAgent : MonoBehaviour
                 trail.startTrail();
             }
             path.maxSpeed = speed;
+            //path.speed = speed;
             if(path.reachedDestination && !coroutineCalled)
             {
                 coroutineCalled = true;
@@ -99,6 +104,8 @@ public class AIAgent : MonoBehaviour
     {
         target.GetComponent<SpriteRenderer>().enabled = true;
         yield return new WaitForSeconds(masakTime);
+        bubble.color = Color.green;
+        path.pickNextWaypointDist = 0.2f;
         target.GetComponent<SpriteRenderer>().enabled = false;
         path.destination = bali.transform.position;
     }
