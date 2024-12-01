@@ -6,35 +6,60 @@ public class cargo_spawner : MonoBehaviour
 {
     GM gm;
     [SerializeField] private GameObject cargo_prefab;
-    [SerializeField] private List<GameObject> clones;
+    public List<GameObject> clones;
+    public int maxBoats = 5;
     public Sprite food;
-    public float masakTime = 10f;
+    traySpawner spawner;
+    public List<float> masakTime;
     public float speed = 0.5f;
     int idxLast = 0;
     Transform pos;
     // Start is called before the first frame update
     void Start()
     {
+        spawner = FindObjectOfType<traySpawner>();
         pos = GameObject.Find("sprites").transform.Find("Bali");
         gm = FindObjectOfType<GM>();
     }
-
+    public bool tutup = true;
     // Update is called once per frame
     void Update()
     {
-        
+        if(!gm.startDay && clones.Count <= 0 && !tutup && spawner.trayCount <= 0)
+        {
+            tutup = true;
+            gm.close_day();
+        }
+        clones.RemoveAll(x => x == null);
     }
     public void spawn(Transform target, tray order)
     {
-        GameObject clone = Instantiate(cargo_prefab, pos.position, Quaternion.identity);
-        clone.transform.GetChild(1).GetComponent<AIAgent>().Tray = order;
-        clone.transform.GetChild(1).GetComponent<AIAgent>().foods = food;
-        clone.transform.GetChild(1).GetComponent<AIAgent>().masakTime = masakTime;
-        clone.transform.GetChild(1).GetComponent<AIAgent>().speed = speed;
-        clone.transform.GetChild(1).GetComponent<AIAgent>().target = target;
-        clone.transform.GetChild(1).GetComponent<AIAgent>().canMove = true;
-        clones.Add(clone);
-        gm.cargos.Add(clone.transform.GetChild(1).GetComponent<AIAgent>());
-        idxLast++;
+        if(!gm.lose)
+        {
+            int idx = 0;
+            if(target.gameObject.tag == "Bali")
+            {
+                idx = 0;
+            }
+            else if(target.gameObject.tag == "Jawa")
+            {
+                idx = 1;
+            }
+            GameObject clone = Instantiate(cargo_prefab, pos.position, Quaternion.identity);
+            clone.transform.GetChild(1).GetComponent<AIAgent>().Tray = order;
+            clone.transform.GetChild(1).GetComponent<AIAgent>().foods = food;
+            clone.transform.GetChild(1).GetComponent<AIAgent>().masakTime = masakTime[idx];
+            clone.transform.GetChild(1).GetComponent<AIAgent>().speed = speed;
+            clone.transform.GetChild(1).GetComponent<AIAgent>().target = target;
+            clone.transform.GetChild(1).GetComponent<AIAgent>().canMove = true;
+            clones.Add(clone);
+            gm.cargos.Add(clone.transform.GetChild(1).GetComponent<AIAgent>());
+            idxLast++;
+        }
     }
+    public void doneShip(GameObject cargo)
+    {
+        //clones.RemoveAt(clones.IndexOf(cargo));
+        clones.Remove(cargo);
+    }    
 }

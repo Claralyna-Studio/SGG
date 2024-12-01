@@ -10,6 +10,8 @@ using UnityEngine.UI;
 
 public class GM : MonoBehaviour
 {
+    [SerializeField] private GameObject upgradesUI;
+    [SerializeField] private Animator gameoverUI;
     cargo_spawner spawner;
     traySpawner traySpawner;
     [SerializeField] private GameObject pauseUI;
@@ -20,7 +22,7 @@ public class GM : MonoBehaviour
     public List<Transform> provs;
     public List<bool> isCooking;
     public int level;
-    public int day;
+    public int day = 0;
     public bool startDay = true;
     [SerializeField] private TextMeshProUGUI levelText;
     [SerializeField] private TextMeshProUGUI dayText;
@@ -60,9 +62,18 @@ public class GM : MonoBehaviour
     char money2 = ' ';
     char crystal2 = ' ';
     [SerializeField] private GameObject startButton;
+    public bool lose = false;
     // Update is called once per frame
     void Update()
     {
+        //gameover
+        if(GameObject.Find("hearts").transform.childCount <= 0)
+        {
+            lose = true;
+            gameoverUI.SetBool("lose", true);
+            Time.timeScale = 0;
+        }
+
         if(PlayerPrefs.HasKey("bgm") && PlayerPrefs.HasKey("sfx"))
         {
             PlayerPrefs.SetFloat("bgm",Mathf.Log10(bgm.value) * 20);
@@ -77,7 +88,8 @@ public class GM : MonoBehaviour
         }
 
         timeAnim.SetBool("startDay", startDay);
-        startButton.SetActive(!startDay);
+        //startButton.SetActive(!startDay);
+        startButton.GetComponent<Animator>().SetBool("start",!closed);
         //moneyText.text = money.ToString("C", CultureInfo.CreateSpecificCulture("id-id"));
         /*        if (money >= 1000 && money < 1000000)
                 {
@@ -107,7 +119,7 @@ public class GM : MonoBehaviour
         if (money >= 1000000)
         {
             money2 = 'M';
-            moneyText.text = (money / 1000000).ToString("##,#") + money2;
+            moneyText.text = ((float)money / 1000000f).ToString("#.00") + money2;
             //moneyText.text = (curr_money / 1000000).ToString("##,#") + money2;
         }
         else if(money > 0)
@@ -129,7 +141,7 @@ public class GM : MonoBehaviour
         if(crystal >= 1000000)
         {
             crystal2 = 'M';
-            crystalText.text = (crystal/1000000).ToString("##,#") + crystal2;
+            crystalText.text = ((float)crystal/1000000f).ToString("#,00") + crystal2;
             //crystalText.text = (curr_crystal/1000000).ToString("##,#") + crystal2;
         }
         else if(crystal > 0)
@@ -195,36 +207,54 @@ public class GM : MonoBehaviour
                 startDay = false;
             }
         }
-
+    }
+    public bool closed = true;
+    public void close_day()
+    {
+        closed = true;
+        //upgradesUI.SetActive(true);
+        upgradesUI.GetComponent<Animator>().SetBool("tutup", true);
     }
     public void start_day()
     {
-        day++;
-        jam = 8;
-        menit = 0;
-        startDay = true;
-        StartCoroutine(timing());
-        StartCoroutine(traySpawner.spawnOrder());
+        if(!lose)
+        {
+            closed = false;
+            upgradesUI.GetComponent<Animator>().SetBool("tutup", false);
+            //upgradesUI.SetActive(false);
+            day++;
+            jam = 8;
+            menit = 0;
+            startDay = true;
+            spawner.tutup = false;
+            StartCoroutine(timing());
+            StartCoroutine(traySpawner.spawnOrder());
+            dayText.text = "Day: " + day.ToString("##,#");
+        }
     }
     public void spawning(Transform prov, Sprite food, tray order)
     {
-        int idx = provs.IndexOf(prov);
-        //not cooking
-        if (!isCooking[idx])
+        if (spawner.clones.Count < spawner.maxBoats)
         {
-            isCooking[idx] = true;
-            //prov.gameObject.GetComponent<PolygonCollider2D>().enabled = false;
-            foreach (PolygonCollider2D col in prov.GetComponent<clickable_prov>().colliders_to_be_unactived)
+            int idx = provs.IndexOf(prov);
+            //not cooking
+            if (!isCooking[idx])
             {
-                col.enabled = false;
+                isCooking[idx] = true;
+                //prov.gameObject.GetComponent<PolygonCollider2D>().enabled = false;
+                foreach (PolygonCollider2D col in prov.GetComponent<clickable_prov>().colliders_to_be_unactived)
+                {
+                    //col.enabled = false;
+                    col.isTrigger = true;
+                }
+                spawner.food = food;
+                spawner.spawn(prov, order);
             }
-            spawner.food = food;
-            spawner.spawn(prov, order);
-        }
-        //cooking
-        else
-        {
+            //cooking
+            else
+            {
 
+            }
         }
     }
     bool paused = false;

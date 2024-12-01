@@ -9,6 +9,7 @@ public class tray : MonoBehaviour
 {
     GameObject moneyPlus_particle;
     traySpawner spawner;
+    cargo_spawner spawner2;
     GM gm;
     public Sprite food;
     public string provName;
@@ -24,12 +25,14 @@ public class tray : MonoBehaviour
     [SerializeField] private notepad note;
     public bool isCooking = false;
     public bool restriction = false;
-    public List<string> restrictions;
+    public List<GameObject> restrictions;
+    [SerializeField] private List<GameObject> curr_restrictions;
     public bool done = false;
     //public static bool isClicked;
     // Start is called before the first frame update
     void Start()
     {
+        spawner2 = FindObjectOfType<cargo_spawner>();
         moneyPlus_particle = GameObject.Find("UI").transform.GetChild(0).gameObject;
         prov = GameObject.Find("sprites").transform.Find(provName);
         food_notepad = GameObject.Find("FOOD_NOTEPAD").GetComponent<Image>();
@@ -68,11 +71,12 @@ public class tray : MonoBehaviour
         anim.SetBool("cooking", isCooking);
         anim.SetBool("done", done);
     }
-    bool clicked2 = false;
+    [SerializeField] private bool clicked2 = false;
     public void clicked()
     {
-        if (!penanda.GetComponent<Image>().enabled && !isCooking)
+        if (!clicked2 && !penanda.GetComponent<Image>().enabled && spawner2.clones.Count < spawner2.maxBoats && !isCooking && !gm.lose)
         {
+            //clicked2 = true;
             spawner.curr_tray = this;
             if(!restriction)
             {
@@ -86,6 +90,20 @@ public class tray : MonoBehaviour
                 //tray.isClicked = true;
             }
         }
+        else if(clicked2 && penanda.GetComponent<Image>().enabled && spawner2.clones.Count < spawner2.maxBoats && !isCooking && !gm.lose)
+        {
+            
+            //clicked2 = false;
+            exitNotePad();
+        }
+    }
+    public void hasClicked()
+    {
+        clicked2 = true;
+    }
+    public void hasClicked2()
+    {
+        clicked2 = false;
     }
     public void ship()
     {
@@ -106,13 +124,23 @@ public class tray : MonoBehaviour
     }
     public void exitNotePad()
     {
-        if (note.order == this)
+        if (!restriction)
         {
+            penanda.GetComponent <Image>().enabled = false;
             gm.canShip = false;
-            note.order = null;
-            anim2.SetBool("in", false);
             anim.SetBool("clicked", false);
-            //tray.isClicked = false;
+        }
+        else
+        {
+            if (note.order == this)
+            {
+                penanda.GetComponent<Image>().enabled = false;
+                gm.canShip = false;
+                note.order = null;
+                anim2.SetBool("in", false);
+                anim.SetBool("clicked", false);
+                //tray.isClicked = false;
+            }   
         }
     }
     public void doneCooking()
@@ -133,5 +161,16 @@ public class tray : MonoBehaviour
     public void destroying()
     {
         Destroy(gameObject);
+    }
+    public void getRestrictions(GameObject restrict)
+    {
+        if(!curr_restrictions.Contains(restrict))
+        {
+            curr_restrictions.Add(restrict);
+        }
+        else
+        {
+            curr_restrictions.Remove(restrict);
+        }
     }
 }

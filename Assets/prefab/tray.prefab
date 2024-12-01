@@ -35,7 +35,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.215, y: 0.15160605}
   m_AnchorMax: {x: 0.90500003, y: 0.734}
-  m_AnchoredPosition: {x: -1.449997, y: -2.344162}
+  m_AnchoredPosition: {x: -1.449997, y: -2.3446198}
   m_SizeDelta: {x: -50.5, y: 26.92}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2536655698546823687
@@ -428,12 +428,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   food: {fileID: 0}
+  provName: 
+  prov: {fileID: 0}
   penanda: {fileID: 0}
   img:
   - {fileID: 2536655700042030082}
   - {fileID: 2536655698546823684}
   coins: 0
+  anim2: {fileID: 0}
+  note: {fileID: 0}
   isCooking: 0
+  restriction: 0
+  restrictions: []
+  done: 0
 --- !u!95 &2536655699623323760
 Animator:
   serializedVersion: 4
@@ -584,13 +591,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2536655700173751622}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.6313726}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -632,7 +639,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.9607844, g: 0.9607844, b: 0.9607844, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.9607844, g: 0.9607844, b: 0.9607844, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -651,13 +658,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2536655699623323775}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 2536655699623323761}
+        m_TargetAssemblyTypeName: tray, Assembly-CSharp
+        m_MethodName: exitNotePad
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

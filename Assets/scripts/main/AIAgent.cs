@@ -18,9 +18,11 @@ public class AIAgent : MonoBehaviour
     SpriteRenderer sp;
     pathRenderer trail;
     public tray Tray;
+    cargo_spawner spawner;
     // Start is called before the first frame update
     void Start()
     {
+        spawner = FindObjectOfType<cargo_spawner>();
         bubble = transform.parent.Find("bubble").GetComponent<SpriteRenderer>();
         Tray.isCooking = true;
         bubble.color = Color.red;
@@ -80,14 +82,14 @@ public class AIAgent : MonoBehaviour
             {
                 scale = Vector3.zero;
                 trailFuncCalled = false;
-                int idx = gm.provs.IndexOf(target);
-                gm.isCooking[idx] = false;
                 trail.deleteTrail();
                 Tray.doneCooking();
+                spawner.doneShip(this.gameObject);
                 //target.gameObject.GetComponent<PolygonCollider2D>().enabled = true;
                 foreach (PolygonCollider2D col in target.GetComponent<clickable_prov>().colliders_to_be_unactived)
                 {
-                    col.enabled = true;
+                    //col.enabled = true;
+                    col.isTrigger = false;
                 }
             }
             //path.maxSpeed = speed*100;
@@ -103,6 +105,11 @@ public class AIAgent : MonoBehaviour
             canMove = true;
         }
     }
+/*    private void OnDestroy()
+    {
+        spawner.clones.Remove(this.gameObject);
+        spawner.doneShip(this.gameObject);
+    }*/
     void doneRest()
     {
         resting = false;
@@ -111,6 +118,8 @@ public class AIAgent : MonoBehaviour
     {
         target.GetComponent<SpriteRenderer>().enabled = true;
         yield return new WaitForSeconds(masakTime);
+        int idx = gm.provs.IndexOf(target);
+        gm.isCooking[idx] = false;
         bubble.color = Color.green;
         path.pickNextWaypointDist = 0.2f;
         target.GetComponent<SpriteRenderer>().enabled = false;

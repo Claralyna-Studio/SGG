@@ -24,7 +24,7 @@ public class sprite_to_UI_pos : MonoBehaviour
     void Update()
     {
 
-        transform.position = pos.gameObject.transform.position;
+        transform.position = pos.transform.position;
         //transform.localScale = rectTransform.lossyScale * 50f;
         //Debug.Log(rectTransform.rect.size);
         //transform.localScale = new Vector2(rectTransform.rect.size.x - kurangX, rectTransform.rect.size.y - kurangY);
