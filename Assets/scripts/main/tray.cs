@@ -15,6 +15,8 @@ public class tray : MonoBehaviour
     [SerializeField] private Animator anim2;
     [SerializeField] private notepad note;
     public bool isCooking = false;
+    public bool restriction = false;
+    public List<string> restrictions;
     //public static bool isClicked;
     // Start is called before the first frame update
     void Start()

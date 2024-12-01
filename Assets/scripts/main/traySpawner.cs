@@ -21,15 +21,8 @@ public class traySpawner : MonoBehaviour
     }
     [SerializeField] orders[] order;
     [SerializeField] orders curr_order;
-    public bool Bali = false;
-    public bool Banten = false;
-    public bool Jogja = false;
-    public bool Jakarta = false;
-    public bool Jawa_Barat = false;
-    public bool Jawa_Tengah = false;
-    public bool Jawa_Timur = false;
-    public bool NTB = false;
-    public bool NTT = false;
+    [Header("isi sama persis dgn nama province di struct")]
+    public List<string> provs_can_go;
     // Start is called before the first frame update
     void Start()
     {
@@ -45,8 +38,11 @@ public class traySpawner : MonoBehaviour
     {
         if (gm.startDay && trayCount < trayMax)
         {
-            int a = UnityEngine.Random.Range(0, order.Length);
-            curr_order = order[a];
+            do
+            {
+                int a = UnityEngine.Random.Range(0, order.Length);
+                curr_order = order[a];
+            } while (!provs_can_go.Contains(curr_order.province));
             int b = UnityEngine.Random.Range(0, curr_order.food.Count);
             GameObject clone = Instantiate(tray_prefab, parent.transform);
             //clone.transform.localScale = Vector3.one;

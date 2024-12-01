@@ -4,6 +4,7 @@ using System.Data.SqlTypes;
 using System.Globalization;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -12,6 +13,9 @@ public class GM : MonoBehaviour
     cargo_spawner spawner;
     traySpawner traySpawner;
     [SerializeField] private GameObject pauseUI;
+    [SerializeField] private AudioMixer mixer;
+    [SerializeField] private Slider bgm;
+    [SerializeField] private Slider sfx;
     public List<AIAgent> cargos;
     public List<Transform> provs;
     public List<bool> isCooking;
@@ -30,6 +34,15 @@ public class GM : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (!PlayerPrefs.HasKey("bgm") || !PlayerPrefs.HasKey("sfx"))
+        {
+            PlayerPrefs.SetFloat("bgm", 1);
+            PlayerPrefs.SetFloat("sfx", 1);
+            bgm.value = 1;
+            sfx.value = 1;
+            mixer.SetFloat("bgm", PlayerPrefs.GetFloat("bgm"));
+            mixer.SetFloat("sfx", PlayerPrefs.GetFloat("sfx"));
+        }
         Time.timeScale = 1;
         spawner = FindObjectOfType<cargo_spawner>();
         traySpawner = FindObjectOfType<traySpawner>();
@@ -48,6 +61,19 @@ public class GM : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(PlayerPrefs.HasKey("bgm") && PlayerPrefs.HasKey("sfx"))
+        {
+            PlayerPrefs.SetFloat("bgm",Mathf.Log10(bgm.value) * 20);
+            PlayerPrefs.SetFloat("sfx",Mathf.Log10(sfx.value) * 20);
+            mixer.SetFloat("bgm", PlayerPrefs.GetFloat("bgm"));
+            mixer.SetFloat("sfx", PlayerPrefs.GetFloat("sfx"));
+        }
+        else
+        {
+            mixer.SetFloat("bgm", Mathf.Log10(bgm.value) * 20);
+            mixer.SetFloat("sfx", Mathf.Log10(sfx.value) * 20);
+        }
+
         timeAnim.SetBool("startDay", startDay);
         startButton.SetActive(!startDay);
         //moneyText.text = money.ToString("C", CultureInfo.CreateSpecificCulture("id-id"));
