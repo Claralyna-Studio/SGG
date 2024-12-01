@@ -12,17 +12,21 @@ public class traySpawner : MonoBehaviour
     [SerializeField] private int trayCount;
     [SerializeField] private int trayMax = 2;
     [SerializeField] private GameObject tray_prefab;
+    [SerializeField] private List<string> restrictions;
+    public tray curr_tray;
     //[SerializeField] private Dictionary<string, Sprite> order;
     [Serializable]
     struct orders
     {
         public string province;
         public List<Sprite> food;
+        public List<int> prices;
     }
     [SerializeField] orders[] order;
     [SerializeField] orders curr_order;
-    [Header("isi sama persis dgn nama province di struct")]
-    public List<string> provs_can_go;
+
+    [SerializeField] private List<string> canProv;
+    [SerializeField] private List<int> canProv_maxFood;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,10 +46,16 @@ public class traySpawner : MonoBehaviour
             {
                 int a = UnityEngine.Random.Range(0, order.Length);
                 curr_order = order[a];
-            } while (!provs_can_go.Contains(curr_order.province));
-            int b = UnityEngine.Random.Range(0, curr_order.food.Count);
+            } while (!canProv.Contains(curr_order.province));
+            /*            int a = UnityEngine.Random.Range(0, canProv.Count);
+                        curr_order = order[a];*/
+            int idx = canProv.IndexOf(curr_order.province);
+            //int b = UnityEngine.Random.Range(0, curr_order.food.Count);
+            int b = UnityEngine.Random.Range(0, idx);
             GameObject clone = Instantiate(tray_prefab, parent.transform);
             //clone.transform.localScale = Vector3.one;
+            clone.gameObject.GetComponent<tray>().coins = curr_order.prices[b];
+            clone.gameObject.GetComponent<tray>().provName = curr_order.province;
             clone.gameObject.GetComponent<tray>().food = curr_order.food[b];
             clone.transform.SetParent(parent.transform, false);
         }
@@ -87,5 +97,10 @@ public class traySpawner : MonoBehaviour
     public void unhover(Image img)
     {
         img.color = Color.white;
+    }
+    public void ship(Transform prov)
+    {
+        curr_tray.prov = prov;
+        curr_tray.ship();
     }
 }

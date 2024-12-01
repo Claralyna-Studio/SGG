@@ -93,7 +93,7 @@ public class pathRenderer : MonoBehaviour
         }
         else
         {
-            Destroy(transform.parent.gameObject);
+            Destroy(transform.parent.gameObject.transform.parent.gameObject);
             lineRenderer.positionCount = 0;
         }
     }

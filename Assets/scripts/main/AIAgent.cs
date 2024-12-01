@@ -21,21 +21,25 @@ public class AIAgent : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        bubble = transform.parent.Find("bubble").GetComponent<SpriteRenderer>();
         Tray.isCooking = true;
         bubble.color = Color.red;
         //target = GameObject.Find("TARGET_CARGO").transform;
         gm = FindObjectOfType<GM>();
         sp = GetComponent<SpriteRenderer>();
         //sp.enabled = false;
-        bali = GameObject.Find("sprites").transform.Find("Bali").gameObject;
+        //bali = GameObject.Find("sprites").transform.Find("Bali").gameObject;
+        bali = GameObject.Find("CITIES").transform.Find("Denpasar").gameObject;
         trail = transform.GetChild(0).GetComponent<pathRenderer>();
         path = GetComponent<AIPath>();
+        food.sprite = foods;
+        food.sprite = foods;
     }
 
     bool coroutineCalled = false;
     bool trailFuncCalled = false;
     bool resting = false;
-    Vector3 scale = Vector3.one * 0.7f;
+    Vector3 scale = Vector3.one * 0.5f;
     // Update is called once per frame
     void Update()
     {

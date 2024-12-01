@@ -6,6 +6,7 @@ public class clickable_prov : MonoBehaviour
 {
     GM gm;
     public List<PolygonCollider2D> colliders_to_be_unactived;
+    traySpawner tray_spawner;
     private void Awake()
     {
         colliders_to_be_unactived.Add(this.gameObject.GetComponent<PolygonCollider2D>());
@@ -13,6 +14,7 @@ public class clickable_prov : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        tray_spawner = FindObjectOfType<traySpawner>();
         gm = FindObjectOfType<GM>();
     }
 
@@ -23,12 +25,12 @@ public class clickable_prov : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        //Debug.Log("clicked " + this.gameObject.name);
+        Debug.Log("clicked " + this.gameObject.name);
         if(gm.canShip)
         {
             if (!gm.isCooking[gm.provs.IndexOf(this.gameObject.transform)])
             {
-
+                tray_spawner.ship(transform);
             }
             else
             {

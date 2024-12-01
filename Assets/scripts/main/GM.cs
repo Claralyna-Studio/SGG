@@ -28,6 +28,8 @@ public class GM : MonoBehaviour
     [SerializeField] private TextMeshProUGUI moneyText;
     [SerializeField] private TextMeshProUGUI crystalText;
     public long money = 0;
+    public long curr_money = 0;
+    public long curr_crystal = 0;
     public long crystal = 0;
     public bool canShip = false;
     [SerializeField] private Animator timeAnim;
@@ -77,24 +79,46 @@ public class GM : MonoBehaviour
         timeAnim.SetBool("startDay", startDay);
         startButton.SetActive(!startDay);
         //moneyText.text = money.ToString("C", CultureInfo.CreateSpecificCulture("id-id"));
-/*        if (money >= 1000 && money < 1000000)
-        {
-            //moneyText.text = money.ToString("##,#");
-            money2 = 'K';
-            moneyText.text = (money/1000).ToString() + money2;
-        }*/
-        if(money >= 1000000)
+        /*        if (money >= 1000 && money < 1000000)
+                {
+                    //moneyText.text = money.ToString("##,#");
+                    money2 = 'K';
+                    moneyText.text = (money/1000).ToString() + money2;
+                }*/
+        /*        if(curr_money < money)
+                {
+                    curr_money++;
+                }
+                else
+                {
+                    curr_money--;
+                }
+                if (curr_crystal < crystal)
+                {
+                    curr_crystal++;
+                }
+                else
+                {
+                    curr_crystal--;
+                }*/
+/*        curr_money = (long)Mathf.MoveTowards(curr_money, money, Time.deltaTime * 5000f);
+        curr_crystal = (long)Mathf.MoveTowards(curr_crystal, crystal, Time.deltaTime * 5000f);*/
+
+        if (money >= 1000000)
         {
             money2 = 'M';
             moneyText.text = (money / 1000000).ToString("##,#") + money2;
+            //moneyText.text = (curr_money / 1000000).ToString("##,#") + money2;
         }
         else if(money > 0)
         {
             moneyText.text = money.ToString("##,#");
+            //moneyText.text = curr_money.ToString("##,#");
         }
         else
         {
             moneyText.text = money.ToString();
+            //moneyText.text = curr_money.ToString();
         }
 /*        if (crystal >= 1000 && crystal < 1000000)
         {
@@ -106,15 +130,18 @@ public class GM : MonoBehaviour
         {
             crystal2 = 'M';
             crystalText.text = (crystal/1000000).ToString("##,#") + crystal2;
+            //crystalText.text = (curr_crystal/1000000).ToString("##,#") + crystal2;
         }
         else if(crystal > 0)
         {
             //crystalText.text = crystal.ToString();
             crystalText.text = crystal.ToString("##,#");
+            //crystalText.text = curr_crystal.ToString("##,#");
         }
         else
         {
             crystalText.text = crystal.ToString();
+            //crystalText.text = curr_crystal.ToString();
         }
         /*        for(int i=0;i<provs.Count;i++)
                 {
