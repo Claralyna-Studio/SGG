@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class tray : MonoBehaviour
 {
+    public float cookTime;
     GameObject moneyPlus_particle;
     traySpawner spawner;
     cargo_spawner spawner2;

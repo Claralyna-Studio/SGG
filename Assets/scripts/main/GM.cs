@@ -10,6 +10,7 @@ using UnityEngine.UI;
 
 public class GM : MonoBehaviour
 {
+    public bool isReadingRecipe = false;
     [SerializeField] private GameObject upgradesUI;
     [SerializeField] private Animator gameoverUI;
     cargo_spawner spawner;
@@ -191,8 +192,8 @@ public class GM : MonoBehaviour
         if(startDay)
         {
             timeText.text = string.Format("{0:00}:{1:00}", jam, menit);
-            yield return new WaitForSeconds(4);
-            if(jam < 18)
+            yield return new WaitForSeconds(4.5f);
+            if (jam < 18)
             {
                 StartCoroutine(timing());
                 menit += 30;
@@ -206,6 +207,7 @@ public class GM : MonoBehaviour
             {
                 startDay = false;
             }
+            timeText.text = string.Format("{0:00}:{1:00}", jam, menit);
         }
     }
     public bool closed = true;

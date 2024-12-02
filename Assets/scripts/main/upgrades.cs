@@ -3,28 +3,35 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static System.Net.Mime.MediaTypeNames;
 
 public class upgrades : MonoBehaviour
 {
     GM gm;
+    public bool isUpgrading = false;
     traySpawner tray_spawner;
     cargo_spawner cargo;
     [SerializeField] private List<GameObject> meja_upgrade;
-    [Header("1=Bali, 2=Jawa")]
+    public List<string> pulauUnlockedName;
+    public List<bool> pulauUnlocked;
+    [Header("per prov")]
     [SerializeField] private List<float> foodPrep_seconds;
     [SerializeField] private List<int> berapaKaliUpgrade;
     [SerializeField] private TextMeshProUGUI moneyText;
     [SerializeField] private TextMeshProUGUI crystalText;
     [SerializeField] private int moneyBoat;
     [SerializeField] private int crystalBoat;
-    int money = 0;
-    int crystal = 0;
+    [SerializeField] private int money = 0;
+    [SerializeField] private int crystal = 0;
     public List<Coroutine> upgrading;
     // Start is called before the first frame update
     void Start()
     {
         upgrading = new List<Coroutine>(2);
+        upgrading.Add(null);
+        upgrading.Add(null);
+        upgrading.Add(null);
+        upgrading.Add(null);
+        upgrading.Add(null);
         upgrading.Add(null);
         upgrading.Add(null);
         gm = FindObjectOfType<GM>();
@@ -46,11 +53,13 @@ public class upgrades : MonoBehaviour
         }
         if (gm.money >= money && gm.crystal >= crystal && waktu[idx] <= 0)
         {
-            buy_button.interactable = true;
+            //buy_button.interactable = true;
+            buy_button.gameObject.GetComponent<Image>().color = Color.white;
         }
         else
         {
-            buy_button.interactable = false;
+            //buy_button.interactable = false;
+            buy_button.gameObject.GetComponent<Image>().color = Color.red;
         }
 
         if(clicked) GetComponent<Animator>().SetBool("in", gm.closed);
@@ -92,15 +101,58 @@ public class upgrades : MonoBehaviour
     public void pindah()
     {
         //upgrading.Add(StartCoroutine(upgradeTimer(1)));
-        if (curr_prov.gameObject.tag == "Bali")
+        if (curr_prov.gameObject.name == "Bali")
         {
             idx = 0;
             money = 100;
             crystal = 100;
         }
-        else if(curr_prov.gameObject.tag == "Jawa")
+        else if(curr_prov.gameObject.name == "Nusa Tenggara Timur")
         {
             idx = 1;
+            money = 100;
+            crystal = 100;
+        }
+        else if (curr_prov.gameObject.name == "Nusa Tenggara Barat")
+        {
+            idx = 2;
+            money = 100;
+            crystal = 100;
+        }
+
+        else if(curr_prov.gameObject.name == "Banten")
+        {
+            idx = 3;
+            money = 100;
+            crystal = 100;
+        }
+        else if (curr_prov.gameObject.name == "DKI Jakarta")
+        {
+            idx = 4;
+            money = 100;
+            crystal = 100;
+        }
+        else if (curr_prov.gameObject.name == "Jawa Barat")
+        {
+            idx = 5;
+            money = 100;
+            crystal = 100;
+        }
+        else if (curr_prov.gameObject.name == "Jawa tengah")
+        {
+            idx = 6;
+            money = 100;
+            crystal = 100;
+        }
+        else if (curr_prov.gameObject.name == "D.I. Yogyakarta")
+        {
+            idx = 7;
+            money = 100;
+            crystal = 100;
+        }
+        else if (curr_prov.gameObject.name == "Jawa Timur")
+        {
+            idx = 8;
             money = 100;
             crystal = 100;
         }
@@ -131,6 +183,7 @@ public class upgrades : MonoBehaviour
     {
         if(gm.money >= money && gm.crystal >= crystal)
         {
+            isUpgrading = true;
             /*        if (curr_prov.gameObject.tag == "Bali")
                     {
                         idx = 0;
@@ -184,6 +237,7 @@ public class upgrades : MonoBehaviour
         if (waktu[idx] > 0) StartCoroutine(upgradeTimer(idx));
         else
         {
+            isUpgrading = false;
             cargo.masakTime[idx]--;
             foodPrep_seconds[idx] -= 1;
             berapaKaliUpgrade[idx]++;

@@ -9,6 +9,7 @@ using System;
 public class traySpawner : MonoBehaviour
 {
     GM gm;
+    public float orderTime = 5f;
     [SerializeField] private Transform parent;
     public int trayCount;
     public int trayMax = 2;
@@ -23,6 +24,7 @@ public class traySpawner : MonoBehaviour
         public string province;
         public List<Sprite> food;
         public List<int> prices;
+        public List<float> cookTime;
     }
     [SerializeField] private orders[] order;
     [SerializeField] private orders curr_order;
@@ -63,7 +65,7 @@ public class traySpawner : MonoBehaviour
             clone.gameObject.GetComponent<tray>().food = curr_order.food[b];
             clone.transform.SetParent(parent.transform, false);
         }
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(orderTime);
         if(!gm.lose && gm.startDay)
         {
             StartCoroutine(spawnOrder());
@@ -88,7 +90,7 @@ public class traySpawner : MonoBehaviour
     [SerializeField] private TextMeshProUGUI text;
     public void upgradeWaktuText(int time)
     {
-        if (!upgraded)
+        if (!upgraded && gm.money >= upgradeTray[idx] && idx <= 3)
         {
             upg.waktu.Add(time);
             idxUpgradeTime = upg.waktu.Count-1;

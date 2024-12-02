@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: cac14afc25e5409458992d9d0b0f9948
+guid: 5cbdf1a23398e584caf4fb1e18b02bf7
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -117,22 +117,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: bir pletok_0
+      name: book corner_0
       rect:
         serializedVersion: 2
-        x: 568
-        y: 444
-        width: 777
-        height: 601
+        x: 35
+        y: 27
+        width: 66
+        height: 81
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d3db214b7d1109d4fa826b38ce1547d1
-      internalID: -1086090775
+      spriteID: 92c46aa5da25abb4c96664043bc301a8
+      internalID: 2025639623
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      bir pletok_0: -1086090775
+      book corner_0: 2025639623
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
