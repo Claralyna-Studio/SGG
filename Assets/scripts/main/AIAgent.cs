@@ -41,7 +41,7 @@ public class AIAgent : MonoBehaviour
     bool coroutineCalled = false;
     bool trailFuncCalled = false;
     bool resting = false;
-    Vector3 scale = Vector3.one * 0.5f;
+    Vector3 scale = Vector3.one * 0.7f;
     // Update is called once per frame
     void Update()
     {

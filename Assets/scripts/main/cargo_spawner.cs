@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class cargo_spawner : MonoBehaviour
 {
     GM gm;
+    [SerializeField] private TextMeshProUGUI cargoText;
     [SerializeField] private GameObject cargo_prefab;
     public List<GameObject> clones;
     public int maxBoats = 5;
@@ -25,6 +27,7 @@ public class cargo_spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        cargoText.text = "Boats: " + clones.Count.ToString() + "/" + maxBoats.ToString();
         if(!gm.startDay && clones.Count <= 0 && !tutup && spawner.trayCount <= 0)
         {
             tutup = true;

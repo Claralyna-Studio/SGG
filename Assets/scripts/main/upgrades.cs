@@ -8,6 +8,7 @@ public class upgrades : MonoBehaviour
 {
     GM gm;
     public bool isUpgrading = false;
+    public bool isUpgradingBoat = false;
     traySpawner tray_spawner;
     cargo_spawner cargo;
     [SerializeField] private List<GameObject> meja_upgrade;
@@ -16,12 +17,14 @@ public class upgrades : MonoBehaviour
     [Header("per prov")]
     [SerializeField] private List<float> foodPrep_seconds;
     [SerializeField] private List<int> berapaKaliUpgrade;
+    [SerializeField] private List<int> crystalSpeedUp;
     [SerializeField] private TextMeshProUGUI moneyText;
     [SerializeField] private TextMeshProUGUI crystalText;
     [SerializeField] private int moneyBoat;
     [SerializeField] private int crystalBoat;
     [SerializeField] private int money = 0;
     [SerializeField] private int crystal = 0;
+    [SerializeField] private GameObject upgradeBoatButton;
     public List<Coroutine> upgrading;
     // Start is called before the first frame update
     void Start()
@@ -46,11 +49,35 @@ public class upgrades : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (waktu[idx] <= 0)
+        if (cargo.masakTime[idx] <= 0)
         {
-            float currFoodPrep = foodPrep_seconds[idx];
-            timerText.text = "Faster Food Preperations: \n" + currFoodPrep.ToString() + " seconds -> " + (currFoodPrep -= 1).ToString() + " seconds";
+            buy_button.gameObject.SetActive(false);
+            timerText.text = "Maximum food preperations reached!";
         }
+        else
+        {
+            if (waktu[idx] <= 0)
+            {
+                float currFoodPrep = foodPrep_seconds[idx];
+                timerText.text = "Faster Food Preperations: \n" + currFoodPrep.ToString() + " seconds -> " + (currFoodPrep -= 1).ToString() + " seconds";
+            }
+            buy_button.gameObject.SetActive(true);
+        }
+        moneyText.text = money.ToString("##,#");
+        crystalText.text = crystal.ToString("##,#");
+        non_active[3].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = crystalSpeedUp[idx].ToString();
+        upgradeBoatButton.GetComponent<Animator>().SetBool("in",gm.closed);
+        if(!isUpgradingBoat && gm.money >= moneyBoat && gm.crystal >= crystalBoat)
+        {
+            upgradeBoatButton.GetComponent<Image>().enabled = true;
+            upgradeBoatButton.transform.GetChild(1).GetComponent<Image>().color = Color.white;
+        }
+        else
+        {
+            upgradeBoatButton.GetComponent <Image>().enabled = false;
+            upgradeBoatButton.transform.GetChild(1).GetComponent<Image>().color = Color.red;
+        }
+
         if (gm.money >= money && gm.crystal >= crystal && waktu[idx] <= 0)
         {
             //buy_button.interactable = true;
@@ -98,6 +125,9 @@ public class upgrades : MonoBehaviour
     public List<int> waktu;
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private Button buy_button;
+    [Header("0 = moneyText, 1 = textSPeedUp, 2 = crystalButton")]
+    [SerializeField] private GameObject[] non_active;
+    //[SerializeField] private Button crystalButton;
     public void pindah()
     {
         //upgrading.Add(StartCoroutine(upgradeTimer(1)));
@@ -138,7 +168,7 @@ public class upgrades : MonoBehaviour
             money = 100;
             crystal = 100;
         }
-        else if (curr_prov.gameObject.name == "Jawa tengah")
+        else if (curr_prov.gameObject.name == "Jawa Tengah")
         {
             idx = 6;
             money = 100;
@@ -156,8 +186,6 @@ public class upgrades : MonoBehaviour
             money = 100;
             crystal = 100;
         }
-        moneyText.text = money.ToString("##,#");
-        crystalText.text = crystal.ToString("##,#");
         transform.position = pos.position;
         clicked = true;
         if (waktu[idx] > 0)
@@ -165,12 +193,27 @@ public class upgrades : MonoBehaviour
             timerText.text = "Calculating...";
         }
     }
-
+    public void finishUpg()
+    {
+        if(gm.crystal >= crystalSpeedUp[idx])
+        {
+            timerText.text = "Finishing Up...";
+            non_active[0].SetActive(true);
+            non_active[1].SetActive(true);
+            non_active[2].SetActive(false);
+            non_active[3].SetActive(false);
+            gm.crystal -= crystalSpeedUp[idx];
+            crystalSpeedUp[idx] += 3;
+            isUpgrading = false;
+            waktu[idx] = 0;
+        }
+    }
     [SerializeField] private int idx = 0;
     public void upgradeBoat(TextMeshProUGUI text)
     {
-        if(gm.money >= moneyBoat && gm.crystal >= crystalBoat)
+        if(!isUpgradingBoat && gm.money >= moneyBoat && gm.crystal >= crystalBoat)
         {
+            isUpgradingBoat = true;
             gm.money -= moneyBoat;
             gm.crystal -= crystalBoat;
             waktu.Add(30);
@@ -183,6 +226,10 @@ public class upgrades : MonoBehaviour
     {
         if(gm.money >= money && gm.crystal >= crystal)
         {
+            non_active[0].SetActive(false);
+            non_active[1].SetActive(false);
+            non_active[2].SetActive(true);
+            non_active[3].SetActive(true);
             isUpgrading = true;
             /*        if (curr_prov.gameObject.tag == "Bali")
                     {
@@ -237,6 +284,10 @@ public class upgrades : MonoBehaviour
         if (waktu[idx] > 0) StartCoroutine(upgradeTimer(idx));
         else
         {
+            non_active[0].SetActive(true);
+            non_active[1].SetActive(true);
+            non_active[2].SetActive(false);
+            non_active[3].SetActive(false);
             isUpgrading = false;
             cargo.masakTime[idx]--;
             foodPrep_seconds[idx] -= 1;
@@ -264,6 +315,9 @@ public class upgrades : MonoBehaviour
         if (waktu[idx] > 0) StartCoroutine(upgradeTimerBoat(idx,text));
         else
         {
+            isUpgradingBoat = false;
+            moneyBoat += 5;
+            crystalBoat += 5;
             cargo.speed += 0.1f;
             text.text = "Boat Speed: " + cargo.speed;
         }

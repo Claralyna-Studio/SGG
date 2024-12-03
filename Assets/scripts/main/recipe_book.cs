@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class recipe_book : MonoBehaviour
 {
     GM gm;
+    upgrades upg;
     [SerializeField] private GameObject mark;
 
     [SerializeField] private int index1 = 0;
@@ -43,6 +44,7 @@ public class recipe_book : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        upg = FindObjectOfType<upgrades>();
         gm = FindObjectOfType<GM>();
         //UI = GameObject.Find("RECIPE_BOOK(UI)").GetComponent<Animator>();
     }
@@ -50,15 +52,26 @@ public class recipe_book : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isUI)
+        if (isUI)
         {
+            for (int i = 0; i < mark.transform.childCount; i++)
+            {
+                if (upg.pulauUnlockedName.Contains(mark.transform.GetChild(i).name))
+                {
+                    mark.transform.GetChild(i).GetComponent<Button>().enabled = true;
+                }
+                else
+                {
+                    mark.transform.GetChild(i).GetComponent<Button>().enabled = false;
+                }
+            }
             curr_recipe1 = recipes[index1];
             /*            desc1.text = "Description: " + curr_recipe1.description;
                         desc2.text = "Description: " + curr_recipe2.description;
                         curr_recipe1 = recipes[index1];
                         curr_recipe2 = recipes[index2];*/
             food_name.text = curr_recipe1.food_name;
-            desc3.text = "Description: \n" + curr_recipe1.description;
+            desc3.text = "Description: \n" + curr_recipe1.description + "\nOrigin: " + curr_recipe1.prov;
             food1.sprite = curr_recipe1.food;
             drink1.sprite = curr_recipe1.food;
 
@@ -101,21 +114,29 @@ public class recipe_book : MonoBehaviour
                 food2.enabled = false;
                 drink2.enabled = true;
             }*/
-            if(index1 >= recipes.Count)
+            if(index1 >= recipes.Count-1)
             {
-                nextS.color = Color.gray;
+                //nextS.color = Color.gray;
+                nextS.transform.parent.GetComponent<Button>().enabled = false;
+                nextS.enabled = false;
             }
             else
             {
-                nextS.color = Color.white;
+                //nextS.color = Color.white;
+                nextS.transform.parent.GetComponent<Button>().enabled = true;
+                nextS.enabled = true;
             }
             if (index1 <= 0)
             {
-                prevS.color = Color.gray;
+                //prevS.color = Color.gray;
+                prevS.transform.parent.GetComponent<Button>().enabled = false;
+                prevS.enabled = false;
             }
             else
             {
-                prevS.color = Color.white;
+                //prevS.color = Color.white;
+                prevS.transform.parent.GetComponent<Button>().enabled = true;
+                prevS.enabled = true;
             }
         }
     }
@@ -133,40 +154,62 @@ public class recipe_book : MonoBehaviour
         UI.SetBool("clicked", false);
         GetComponent<Animator>().SetBool("clicked", false);
     }
+    bool pindahMark = false;
+    int tempIndex;
+    public void goToMark(int idx)
+    {
+        if(index1 > idx)
+        {
+            tempIndex = idx;
+            pindahMark = true;
+            flip();
+        }
+        else if(index1 < idx)
+        {
+            tempIndex = idx;
+            pindahMark = true;
+            flip2();
+        }
+    }
     public void munculUI()
     {
         UI.SetBool("in", click);
     }
     public void next()
     {
-        if (index1 < recipes.Count-1)
+        if (!pindahMark && index1 < recipes.Count-1)
         {
             index1++;
             //index2++;
         }
+        else if(pindahMark && index1 < recipes.Count - 1)
+        {
+            pindahMark = false;
+            index1 = tempIndex;
+        }
     }
     public void prev()
     {
-        if(index1 > 0)
+        if(!pindahMark && index1 > 0)
         {
             index1--;
             //index2--;
         }
+        else if(pindahMark && index1 > 0)
+        {
+            pindahMark = false;
+            index1 = tempIndex;
+        }
     }
     public void flip()
     {
-        if (index1 > 0)
-        {
-            GetComponent<Animator>().ResetTrigger("flip2");
-            GetComponent<Animator>().SetTrigger("flip");
-        }
+        GetComponent<Animator>().ResetTrigger("flip2");
+        GetComponent<Animator>().SetTrigger("flip");
+        
     }
     public void flip2()
     {
-        if (index1 < recipes.Count - 1)
-        {
-            GetComponent<Animator>().ResetTrigger("flip");
-            GetComponent<Animator>().SetTrigger("flip2");
-        }
+        GetComponent<Animator>().ResetTrigger("flip");
+        GetComponent<Animator>().SetTrigger("flip2");
     }
 }
