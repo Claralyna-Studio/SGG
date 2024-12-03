@@ -29,7 +29,9 @@ public class upgrades : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        upgrading = new List<Coroutine>(2);
+        upgrading = new List<Coroutine>();
+        upgrading.Add(null);
+        upgrading.Add(null);
         upgrading.Add(null);
         upgrading.Add(null);
         upgrading.Add(null);

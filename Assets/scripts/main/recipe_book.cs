@@ -139,6 +139,10 @@ public class recipe_book : MonoBehaviour
                 prevS.enabled = true;
             }
         }
+        else
+        {
+            GetComponent<Animator>().SetBool("in",gm.closed);
+        }
     }
     bool click = false;
     public void clicked()

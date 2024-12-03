@@ -27,7 +27,7 @@ public class cargo_spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        cargoText.text = "Boats: " + clones.Count.ToString() + "/" + maxBoats.ToString();
+        cargoText.text = clones.Count.ToString() + "/" + maxBoats.ToString();
         if(!gm.startDay && clones.Count <= 0 && !tutup && spawner.trayCount <= 0)
         {
             tutup = true;

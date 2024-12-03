@@ -6,6 +6,7 @@ using UnityEngine;
 public class AIAgent : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer food;
+    [SerializeField] private SpriteRenderer drink;
     public Sprite foods;
     [SerializeField] private SpriteRenderer bubble;
     public float masakTime = 10f;
@@ -35,7 +36,18 @@ public class AIAgent : MonoBehaviour
         trail = transform.GetChild(0).GetComponent<pathRenderer>();
         path = GetComponent<AIPath>();
         food.sprite = foods;
-        food.sprite = foods;
+        /*if(foods.name != "bajigur" || foods.name != "esdawet")
+        {
+            drink.enabled = false;
+            food.enabled = true;
+            food.sprite = foods;
+        }
+        else
+        {
+            food.enabled = false;
+            drink.enabled = true;
+            drink.sprite = foods;
+        }*/
     }
 
     bool coroutineCalled = false;
