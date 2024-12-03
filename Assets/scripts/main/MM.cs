@@ -24,6 +24,13 @@ public class MM : MonoBehaviour
             mixer.SetFloat("bgm", PlayerPrefs.GetFloat("bgm"));
             mixer.SetFloat("sfx", PlayerPrefs.GetFloat("sfx"));
         }
+        else
+        {
+            bgm.value = PlayerPrefs.GetFloat("bgm");
+            sfx.value = PlayerPrefs.GetFloat("sfx");
+            mixer.SetFloat("bgm", PlayerPrefs.GetFloat("bgm"));
+            mixer.SetFloat("sfx", PlayerPrefs.GetFloat("sfx"));
+        }
         Time.timeScale = 1;
         Screen.SetResolution(1920, 1080, true);
         optionUI.SetActive(false);

@@ -22,9 +22,18 @@ public class upgrades : MonoBehaviour
     [SerializeField] private TextMeshProUGUI crystalText;
     [SerializeField] private int moneyBoat;
     [SerializeField] private int crystalBoat;
+    [SerializeField] private int moneyBoatSpeed;
+    [SerializeField] private int crystalBoatSpeed;
     [SerializeField] private int money = 0;
     [SerializeField] private int crystal = 0;
-    [SerializeField] private GameObject upgradeBoatButton;
+
+    [SerializeField] private Animator upgradeBoatButton;
+    [SerializeField] private TextMeshProUGUI upgradeBoatText;
+    [SerializeField] private Button upgradeBoatSprt;
+
+    [SerializeField] private Animator upgradeBoatButtonSpeed;
+    [SerializeField] private TextMeshProUGUI upgradeBoatSpeedText;
+    [SerializeField] private Button upgradeBoatSpeedSprt;
     public List<Coroutine> upgrading;
     // Start is called before the first frame update
     void Start()
@@ -69,17 +78,55 @@ public class upgrades : MonoBehaviour
         crystalText.text = crystal.ToString("##,#");
         non_active[3].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = crystalSpeedUp[idx].ToString();
         upgradeBoatButton.GetComponent<Animator>().SetBool("in",gm.closed);
-        if(!isUpgradingBoat && gm.money >= moneyBoat && gm.crystal >= crystalBoat)
+        if(!isUpgradingBoat)
         {
-            upgradeBoatButton.GetComponent<Image>().enabled = true;
-            upgradeBoatButton.transform.GetChild(1).GetComponent<Image>().color = Color.white;
+            if(gm.money >= moneyBoat && gm.crystal >= crystalBoat)
+            {
+                upgradeBoatSprt.GetComponent<Image>().enabled = true;
+                upgradeBoatButton.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<Image>().color = Color.white;
+            }
+            else
+            {
+                upgradeBoatSprt.GetComponent<Image>().enabled = false;
+                upgradeBoatButton.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<Image>().color = Color.red;
+            }
+            if(gm.money >= moneyBoatSpeed && gm.crystal >= crystalBoatSpeed)
+            {
+                upgradeBoatSpeedSprt.GetComponent<Image>().enabled = true;
+                upgradeBoatButtonSpeed.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<Image>().color = Color.white;
+            }
+            else
+            {
+                upgradeBoatSpeedSprt.GetComponent<Image>().enabled = false;
+                upgradeBoatButtonSpeed.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<Image>().color = Color.red;
+            }
         }
         else
         {
-            upgradeBoatButton.GetComponent <Image>().enabled = false;
-            upgradeBoatButton.transform.GetChild(1).GetComponent<Image>().color = Color.red;
+            upgradeBoatSprt.GetComponent <Image>().enabled = false;
+            upgradeBoatSpeedSprt.GetComponent<Image>().enabled = false;
+            upgradeBoatButton.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<Image>().color = Color.red;
+            upgradeBoatButtonSpeed.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<Image>().color = Color.red;
+
         }
 
+        if (cargo.maxBoats >= 10)
+        {
+            upgradeBoatButton.SetBool("in", false);
+        }
+        else
+        {
+            upgradeBoatButton.SetBool("in", gm.closed);
+        }
+
+        if (cargo.speed >= 2)
+        {
+            upgradeBoatButtonSpeed.SetBool("in", false);
+        }
+        else
+        {
+            upgradeBoatButtonSpeed.SetBool("in", gm.closed);
+        }
         if (gm.money >= money && gm.crystal >= crystal && waktu[idx] <= 0)
         {
             //buy_button.interactable = true;
@@ -127,7 +174,7 @@ public class upgrades : MonoBehaviour
     public List<int> waktu;
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private Button buy_button;
-    [Header("0 = moneyText, 1 = textSPeedUp, 2 = crystalButton")]
+    [Header("0 = moneyText, 1 = textSpeedUp, 2 = crystalButton")]
     [SerializeField] private GameObject[] non_active;
     //[SerializeField] private Button crystalButton;
     public void pindah()
@@ -211,17 +258,36 @@ public class upgrades : MonoBehaviour
         }
     }
     [SerializeField] private int idx = 0;
+    bool upgradeSize = false;
+    bool upgradeSpeed = false;
     public void upgradeBoat(TextMeshProUGUI text)
     {
         if(!isUpgradingBoat && gm.money >= moneyBoat && gm.crystal >= crystalBoat)
         {
             isUpgradingBoat = true;
+            upgradeSize = true;
+            upgradeSpeed = false;
             gm.money -= moneyBoat;
             gm.crystal -= crystalBoat;
             waktu.Add(30);
             int index = waktu.Count-1;
             upgrading.Add(null);
             upgrading[index] = StartCoroutine(upgradeTimerBoat(waktu.Count-1, text));
+        }
+    }
+    public void upgradeBoatSpeed(TextMeshProUGUI text)
+    {
+        if (!isUpgradingBoat && gm.money >= moneyBoatSpeed && gm.crystal >= crystalBoatSpeed)
+        {
+            isUpgradingBoat = true;
+            upgradeSize = false;
+            upgradeSpeed = true;
+            gm.money -= moneyBoatSpeed;
+            gm.crystal -= crystalBoatSpeed;
+            waktu.Add(30);
+            int index = waktu.Count - 1;
+            upgrading.Add(null);
+            upgrading[index] = StartCoroutine(upgradeTimerBoat(waktu.Count - 1, text));
         }
     }
     public void buy()
@@ -318,10 +384,22 @@ public class upgrades : MonoBehaviour
         else
         {
             isUpgradingBoat = false;
-            moneyBoat += 5;
-            crystalBoat += 5;
-            cargo.speed += 0.1f;
-            text.text = "Boat Speed: " + cargo.speed;
+            if(upgradeSize)
+            {
+                moneyBoat += 5;
+                crystalBoat += 5;
+                cargo.maxBoats++;
+                text.text = "Increase max boats to " + cargo.maxBoats + 1;
+            }
+            else if(upgradeSpeed)
+            {
+                moneyBoatSpeed += 3;
+                crystalBoatSpeed += 3;
+                cargo.speed += 0.2f;
+                text.text = "Increase boat speed to " + cargo.speed + 0.2f;
+            }
+            upgradeSpeed = false;
+            upgradeSize = false;
         }
     }
     public IEnumerator upgradeTimerSlot(int idx, TextMeshProUGUI text)

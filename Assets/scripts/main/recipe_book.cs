@@ -71,7 +71,7 @@ public class recipe_book : MonoBehaviour
                         curr_recipe1 = recipes[index1];
                         curr_recipe2 = recipes[index2];*/
             food_name.text = curr_recipe1.food_name;
-            desc3.text = "Description: \n" + curr_recipe1.description + "\nOrigin: " + curr_recipe1.prov;
+            desc3.text = "Description: \n" + curr_recipe1.description + "\n\n\nOrigin: " + curr_recipe1.prov;
             food1.sprite = curr_recipe1.food;
             drink1.sprite = curr_recipe1.food;
 
@@ -147,10 +147,13 @@ public class recipe_book : MonoBehaviour
     bool click = false;
     public void clicked()
     {
-        gm.isReadingRecipe = true;
-        click = !click;
-        UI.SetBool("clicked", click);
-        GetComponent<Animator>().SetBool("clicked", click);
+        if(!GameObject.Find("penanda").GetComponent<Image>().enabled)
+        {
+            gm.isReadingRecipe = true;
+            click = !click;
+            UI.SetBool("clicked", click);
+            GetComponent<Animator>().SetBool("clicked", click);
+        }
     }
     public void backAnimUI()
     {

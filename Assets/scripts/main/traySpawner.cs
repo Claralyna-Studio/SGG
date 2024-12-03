@@ -107,7 +107,7 @@ public class traySpawner : MonoBehaviour
     {
         this.next = next;
     }
-    Image img;
+    [SerializeField] private Image img;
 
     public void doneUpgrade()
     {
@@ -150,7 +150,7 @@ public class traySpawner : MonoBehaviour
     }*/
     public void hover(Image img)
     {
-        if(!gm.lose && !upgraded)
+        if(!gm.lose && !upgraded && gm.money >= upgradeTray[idx])
         {
             this.img = img;
             img.color = Color.gray;
@@ -158,7 +158,7 @@ public class traySpawner : MonoBehaviour
     }
     public void unhover(Image img)
     {
-        if(!gm.lose && !upgraded)
+        if(!gm.lose && !upgraded && gm.money >= upgradeTray[idx])
         {  
             this.img = img;
             img.color = Color.white;
@@ -166,11 +166,17 @@ public class traySpawner : MonoBehaviour
     }
     public void hover1(Image img)
     {
-        img.color = Color.gray; 
+        if(!GameObject.Find("penanda").GetComponent<Image>().enabled)
+        {
+            img.color = Color.gray; 
+        }
     }
     public void unhover1(Image img)
     {
-        img.color = Color.white;
+        if(!GameObject.Find("penanda").GetComponent<Image>().enabled)
+        {
+            img.color = Color.white;
+        }
     }
     public void ship(Transform prov)
     {

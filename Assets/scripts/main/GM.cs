@@ -48,6 +48,13 @@ public class GM : MonoBehaviour
             mixer.SetFloat("bgm", PlayerPrefs.GetFloat("bgm"));
             mixer.SetFloat("sfx", PlayerPrefs.GetFloat("sfx"));
         }
+        else
+        {
+            bgm.value = PlayerPrefs.GetFloat("bgm");
+            sfx.value = PlayerPrefs.GetFloat("sfx");
+            mixer.SetFloat("bgm", PlayerPrefs.GetFloat("bgm"));
+            mixer.SetFloat("sfx", PlayerPrefs.GetFloat("sfx"));
+        }
         Time.timeScale = 1;
         spawner = FindObjectOfType<cargo_spawner>();
         traySpawner = FindObjectOfType<traySpawner>();
