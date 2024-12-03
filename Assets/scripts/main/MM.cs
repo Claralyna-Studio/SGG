@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 public class MM : MonoBehaviour
 {
+    [SerializeField] private GameObject exitSureUI;
     [SerializeField] private GameObject optionUI;
     [SerializeField] private AudioMixer mixer;
     [SerializeField] private Slider bgm;
@@ -25,6 +27,7 @@ public class MM : MonoBehaviour
         Time.timeScale = 1;
         Screen.SetResolution(1920, 1080, true);
         optionUI.SetActive(false);
+        exitSureUI.SetActive(false);
     }
 
     // Update is called once per frame
@@ -45,13 +48,31 @@ public class MM : MonoBehaviour
     }
     public void mulai()
     {
-
+        SceneManager.LoadScene(1);
     }
     bool option = false;
     public void options()
     {
         option = !option;
         optionUI.SetActive(option);
-
+    }
+    public void exit()
+    {
+        //Application.Quit();
+        if(!exitSureUI.activeSelf)
+        {
+            exitSureUI.SetActive(true);
+        }
+    }
+    public void exitSure(bool yesno)
+    {
+        if(yesno)
+        {
+            Application.Quit();
+        }
+        else
+        {
+            exitSureUI.SetActive(false);
+        }
     }
 }
