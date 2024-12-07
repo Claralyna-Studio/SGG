@@ -9,7 +9,7 @@ public class cargo_spawner : MonoBehaviour
     [SerializeField] private TextMeshProUGUI cargoText;
     [SerializeField] private GameObject cargo_prefab;
     public List<GameObject> clones;
-    public int maxBoats = 5;
+    public int maxBoats = 2;
     public Sprite food;
     traySpawner spawner;
     public List<float> masakTime;
@@ -56,13 +56,15 @@ public class cargo_spawner : MonoBehaviour
             clone.transform.GetChild(1).GetComponent<AIAgent>().target = target;
             clone.transform.GetChild(1).GetComponent<AIAgent>().canMove = true;
             clones.Add(clone);
-            gm.cargos.Add(clone.transform.GetChild(1).GetComponent<AIAgent>());
+            //gm.cargos.Add(clone.transform.GetChild(1).GetComponent<AIAgent>());
             idxLast++;
         }
     }
-    public void doneShip(GameObject cargo)
+    public void doneShip(AIAgent ai)
     {
+        //Debug.LogWarning(cargo.name);
         //clones.RemoveAt(clones.IndexOf(cargo));
-        clones.Remove(cargo);
+        clones.RemoveAll(x => x.GetComponent<AIAgent>() == ai);
+        //clones.Remove(cargo);
     }    
 }

@@ -9,6 +9,7 @@ public class recipe_book : MonoBehaviour
 {
     GM gm;
     upgrades upg;
+    traySpawner trayS;
     [SerializeField] private GameObject mark;
 
     [SerializeField] private int index1 = 0;
@@ -46,6 +47,7 @@ public class recipe_book : MonoBehaviour
     {
         upg = FindObjectOfType<upgrades>();
         gm = FindObjectOfType<GM>();
+        trayS = FindObjectOfType<traySpawner>();
         //UI = GameObject.Find("RECIPE_BOOK(UI)").GetComponent<Animator>();
     }
 
@@ -218,5 +220,10 @@ public class recipe_book : MonoBehaviour
     {
         GetComponent<Animator>().ResetTrigger("flip");
         GetComponent<Animator>().SetTrigger("flip2");
+    }
+    public void openRecipe(GameObject button)
+    {
+        button.GetComponent<Animator>().SetBool("out",true);
+        trayS.canProv_maxFood[trayS.canProv.IndexOf(button.name)]++;
     }
 }

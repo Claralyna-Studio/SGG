@@ -15,6 +15,8 @@ public class clickable_prov : MonoBehaviour
     [SerializeField] private Image penanda;
     [SerializeField] private GameObject bubbleProv;
     [SerializeField] private TextMeshProUGUI bubbleProvText;
+    [SerializeField] private Texture2D cursor;
+    [SerializeField] private bool manager = false;
     private void Awake()
     {
         penanda = GameObject.Find("penanda").GetComponent<Image>();
@@ -59,15 +61,35 @@ public class clickable_prov : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(bubbleProv && penanda.enabled)
+        if(gm.closed)
         {
-            bubbleProv.transform.GetChild(0).gameObject.SetActive(true);
-            bubbleProv.transform.position = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 0);
-            //bubbleProv.transform.position =Input.mousePosition;
+            idxHeart = 2;
         }
-        else if(bubbleProv && !penanda.enabled)
+        if(manager && penanda.enabled)
         {
+            Cursor.SetCursor(cursor, new Vector2(70,120), CursorMode.Auto);
+            bubbleProv.transform.GetChild(0).gameObject.SetActive(true);
+            //bubbleProv.transform.position = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 0);
+            bubbleProv.transform.position = Input.mousePosition;
+        }
+        else if(manager && !penanda.enabled)
+        {
+            Cursor.SetCursor(null,Vector2.zero,CursorMode.Auto);
             bubbleProv.transform.GetChild(0).gameObject.SetActive(false);
+        }
+        if(!upgradeUI.GetComponent<upgrades>().pulauUnlocked[upgradeUI.GetComponent<upgrades>().pulauUnlockedName.IndexOf(this.gameObject.tag)])
+        {
+            //GetComponent<SpriteRenderer>().color = new Color(0,0,0,0.6f);
+            //GetComponent<SpriteRenderer>().enabled = true;
+            GameObject.Find("MAP").transform.Find(this.gameObject.name).gameObject.GetComponent<Image>().color = new Color(0,0,0,0.6f);
+            GameObject.Find("MAP").transform.Find(this.gameObject.name).gameObject.GetComponent<Image>().enabled = true;
+        }
+        else if(gm.closed && upgradeUI.GetComponent<upgrades>().pulauUnlocked[upgradeUI.GetComponent<upgrades>().pulauUnlockedName.IndexOf(this.gameObject.tag)])
+        {
+            //GetComponent<SpriteRenderer>().color = new Color(1,0,0,0.6f);
+            //GetComponent<SpriteRenderer>().enabled = false;
+            GameObject.Find("MAP").transform.Find(this.gameObject.name).gameObject.GetComponent<Image>().color = new Color(0, 0, 0, 0.6f);
+            GameObject.Find("MAP").transform.Find(this.gameObject.name).gameObject.GetComponent<Image>().enabled = false;
         }
     }
     private void OnMouseOver()
@@ -84,6 +106,7 @@ public class clickable_prov : MonoBehaviour
             bubbleProvText.text = " ";
         }
     }
+    int idxHeart = 2;
     private void OnMouseDown()
     {
         if(!gm.lose)
@@ -98,7 +121,13 @@ public class clickable_prov : MonoBehaviour
                 }
                 else if(!gm.isCooking[gm.provs.IndexOf(this.gameObject.transform)] && tray_spawner.curr_tray.prov != transform && GameObject.Find("hearts").transform.childCount > 0)
                 {
-                    GameObject.Find("hearts").transform.GetChild(GameObject.Find("hearts").transform.childCount - 1).GetComponent<Animator>().SetBool("break",true);
+                    //GameObject.Find("hearts").transform.GetChild(GameObject.Find("hearts").transform.childCount - 1).GetComponent<Animator>().SetBool("break",true);
+                    if(idxHeart >= 0)
+                    {
+                        GameObject.Find("hearts").transform.GetChild(idxHeart).GetComponent<Animator>().SetBool("break",true);
+                        idxHeart--;
+                        gm.heart--;
+                    }
                 }
                 else
                 {
@@ -109,6 +138,7 @@ public class clickable_prov : MonoBehaviour
                 upgradeUI.GetComponent<upgrades>().pulauUnlocked[upgradeUI.GetComponent<upgrades>().pulauUnlockedName.IndexOf(this.gameObject.tag)]) //upgradeUI.GetComponent<upgrades>().pulauUnlocked[idx])
             {
                 //upgradeUI.GetComponent<upgrades>().clicked = true;
+                //upgradeUI.GetComponent<upgrades>().provText.text = this.gameObject.name;
                 upgradeUI.GetComponent<upgrades>().pos = transform;
                 upgradeUI.GetComponent<upgrades>().curr_prov = this;
                 upgradeUI.SetTrigger("pindah");

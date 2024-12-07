@@ -62,11 +62,9 @@ public class pathRenderer : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
     }
-    int i = 0;
     public void deleteTrail()
     {
         canTrail = false;
-        i = 0;
         StartCoroutine(deleteTrail2());
     }
     public IEnumerator deleteTrail2()
@@ -76,17 +74,17 @@ public class pathRenderer : MonoBehaviour
                 lineRenderer.positionCount = 0;*/
         if (lineRenderer.startWidth > 0)
         {
-            lineRenderer.startWidth -= 0.005f;
+            lineRenderer.startWidth -= 0.02f;
         }
         else if (lineRenderer.endWidth > 0) 
         {
-            lineRenderer.endWidth -= 0.005f;
+            lineRenderer.endWidth -= 0.02f;
         }
         else if(transform.parent.localScale != Vector3.zero)
         {
             transform.parent.localScale = Vector3.MoveTowards(transform.parent.localScale, Vector3.zero, Time.deltaTime * 5f);
         }
-        yield return new WaitForSeconds(0.005f);
+        yield return new WaitForSeconds(0.001f);
         if (lineRenderer.startWidth > 0 || lineRenderer.endWidth > 0 || transform.parent.localScale != Vector3.zero)
         {
             StartCoroutine (deleteTrail2());

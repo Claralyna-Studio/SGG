@@ -80,8 +80,9 @@ public class AIAgent : MonoBehaviour
             }
             else if(Vector3.Distance(path.destination,bali.transform.position) < 0.01f && path.reachedDestination)
             {
-/*                resting = true;
-                Invoke("doneRest",5f);*/
+                /*                resting = true;
+                                Invoke("doneRest",5f);*/
+                spawner.doneShip(this);
                 canMove = false;
                 //path.destination = target.position;
             }
@@ -96,7 +97,6 @@ public class AIAgent : MonoBehaviour
                 trailFuncCalled = false;
                 trail.deleteTrail();
                 Tray.doneCooking();
-                spawner.doneShip(this.gameObject);
                 //target.gameObject.GetComponent<PolygonCollider2D>().enabled = true;
                 foreach (PolygonCollider2D col in target.GetComponent<clickable_prov>().colliders_to_be_unactived)
                 {

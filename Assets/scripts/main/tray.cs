@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class tray : MonoBehaviour
 {
+    public float patience = 30f;
     public float cookTime;
     GameObject moneyPlus_particle;
     traySpawner spawner;

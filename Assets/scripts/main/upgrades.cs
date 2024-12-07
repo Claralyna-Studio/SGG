@@ -172,6 +172,7 @@ public class upgrades : MonoBehaviour
     public clickable_prov curr_prov;
     public bool clicked = false;
     public List<int> waktu;
+    public TextMeshProUGUI provText;
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private Button buy_button;
     [Header("0 = moneyText, 1 = textSpeedUp, 2 = crystalButton")]
@@ -235,7 +236,9 @@ public class upgrades : MonoBehaviour
             money = 100;
             crystal = 100;
         }
-        transform.position = pos.position;
+        //transform.position = pos.position;
+        provText.text = curr_prov.name;
+        transform.position = Camera.main.WorldToScreenPoint(pos.position);
         clicked = true;
         if (waktu[idx] > 0)
         {
@@ -269,10 +272,11 @@ public class upgrades : MonoBehaviour
             upgradeSpeed = false;
             gm.money -= moneyBoat;
             gm.crystal -= crystalBoat;
-            waktu.Add(30);
-            int index = waktu.Count-1;
-            upgrading.Add(null);
-            upgrading[index] = StartCoroutine(upgradeTimerBoat(waktu.Count-1, text));
+            //waktu.Add(30);
+            waktu[1] = 30;
+            //int index = waktu.Count-1;
+            //upgrading.Add(null);
+            upgrading[1] = StartCoroutine(upgradeTimerBoat(waktu.Count-1, text));
         }
     }
     public void upgradeBoatSpeed(TextMeshProUGUI text)
@@ -284,10 +288,10 @@ public class upgrades : MonoBehaviour
             upgradeSpeed = true;
             gm.money -= moneyBoatSpeed;
             gm.crystal -= crystalBoatSpeed;
-            waktu.Add(30);
-            int index = waktu.Count - 1;
-            upgrading.Add(null);
-            upgrading[index] = StartCoroutine(upgradeTimerBoat(waktu.Count - 1, text));
+            waktu[2] = 30;
+            //int index = waktu.Count - 1;
+            //upgrading.Add(null);
+            upgrading[2] = StartCoroutine(upgradeTimerBoat(waktu.Count - 1, text));
         }
     }
     public void buy()

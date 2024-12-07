@@ -29,8 +29,8 @@ public class traySpawner : MonoBehaviour
     [SerializeField] private orders[] order;
     [SerializeField] private orders curr_order;
 
-    [SerializeField] private List<string> canProv;
-    [SerializeField] private List<int> canProv_maxFood;
+    public List<string> canProv;
+    public List<int> canProv_maxFood;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,6 +43,20 @@ public class traySpawner : MonoBehaviour
     {
         trayCount = parent.transform.childCount;
     }
+    public void bukaProv(string prov)
+    {
+        if(!canProv.Contains(prov))
+        {
+            canProv.Add(prov);
+        }
+    }
+/*    public void bukaRecipe(int idx)
+    {
+        if(canProv_maxFood[idx] < 3)
+        {
+            canProv_maxFood[idx]++;
+        }
+    }*/
     public IEnumerator spawnOrder()
     {
         if (!gm.lose && gm.startDay && trayCount < trayMax)
@@ -56,7 +70,7 @@ public class traySpawner : MonoBehaviour
                         curr_order = order[a];*/
             int idx = canProv_maxFood[canProv.IndexOf(curr_order.province)]-1;
             //int b = UnityEngine.Random.Range(0, curr_order.food.Count);
-            Debug.Log(curr_order.province + "." + idx);
+            //Debug.Log(curr_order.province + "." + idx);
             int b = UnityEngine.Random.Range(0, idx);
             GameObject clone = Instantiate(tray_prefab, parent.transform);
             //clone.transform.localScale = Vector3.one;
@@ -92,15 +106,12 @@ public class traySpawner : MonoBehaviour
     {
         if (!upgraded && gm.money >= upgradeTray[idx] && idx <= 3)
         {
-            upg.waktu.Add(time);
+            //upg.waktu.Add(time);
+            upg.waktu[upg.waktu.Count-1] = time;
             idxUpgradeTime = upg.waktu.Count-1;
             upgraded = true;
             text = current.gameObject.transform.GetChild(1).gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-            upg.upgrading.Add(
-                StartCoroutine(
-                    upg.upgradeTimerSlot(idxUpgradeTime, text)
-                    )
-                );
+            upg.upgrading[idxUpgradeTime] = StartCoroutine(upg.upgradeTimerSlot(idxUpgradeTime, text));
         }
     }
     public void nextButton(Button next)

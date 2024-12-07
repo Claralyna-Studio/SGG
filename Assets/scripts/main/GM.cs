@@ -19,7 +19,7 @@ public class GM : MonoBehaviour
     [SerializeField] private AudioMixer mixer;
     [SerializeField] private Slider bgm;
     [SerializeField] private Slider sfx;
-    public List<AIAgent> cargos;
+    //public List<AIAgent> cargos;
     public List<Transform> provs;
     public List<bool> isCooking;
     public int level;
@@ -39,6 +39,7 @@ public class GM : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameObject.Find("LOADING").GetComponent<Animator>().Play("out");
         if (!PlayerPrefs.HasKey("bgm") || !PlayerPrefs.HasKey("sfx"))
         {
             PlayerPrefs.SetFloat("bgm", 1);
@@ -71,11 +72,13 @@ public class GM : MonoBehaviour
     char crystal2 = ' ';
     [SerializeField] private GameObject startButton;
     public bool lose = false;
+    public int heart = 3;
     // Update is called once per frame
     void Update()
     {
+
         //gameover
-        if(GameObject.Find("hearts").transform.childCount <= 0)
+        if(/*GameObject.Find("hearts").transform.childCount <= 0*/ heart <= 0)
         {
             lose = true;
             gameoverUI.SetBool("lose", true);
@@ -84,10 +87,10 @@ public class GM : MonoBehaviour
 
         if(PlayerPrefs.HasKey("bgm") && PlayerPrefs.HasKey("sfx"))
         {
-            PlayerPrefs.SetFloat("bgm",Mathf.Log10(bgm.value) * 20);
-            PlayerPrefs.SetFloat("sfx",Mathf.Log10(sfx.value) * 20);
-            mixer.SetFloat("bgm", PlayerPrefs.GetFloat("bgm"));
-            mixer.SetFloat("sfx", PlayerPrefs.GetFloat("sfx"));
+            PlayerPrefs.SetFloat("bgm", bgm.value);
+            PlayerPrefs.SetFloat("sfx", sfx.value);
+            mixer.SetFloat("bgm", Mathf.Log10(PlayerPrefs.GetFloat("bgm")) * 20);
+            mixer.SetFloat("sfx", Mathf.Log10(PlayerPrefs.GetFloat("sfx")) * 20);
         }
         else
         {
@@ -222,14 +225,18 @@ public class GM : MonoBehaviour
     {
         closed = true;
         //upgradesUI.SetActive(true);
-        upgradesUI.GetComponent<Animator>().SetBool("tutup", true);
+        heart = 3;
+        upgradesUI.GetComponent<Animator>().SetBool("in", true);
+        GameObject.Find("hearts").transform.GetChild(2).GetComponent<Animator>().SetBool("break", false);
+        GameObject.Find("hearts").transform.GetChild(1).GetComponent<Animator>().SetBool("break", false);
+        GameObject.Find("hearts").transform.GetChild(0).GetComponent<Animator>().SetBool("break", false);
     }
     public void start_day()
     {
         if(!lose)
         {
             closed = false;
-            upgradesUI.GetComponent<Animator>().SetBool("tutup", false);
+            upgradesUI.GetComponent<Animator>().SetBool("in", false);
             //upgradesUI.SetActive(false);
             day++;
             jam = 8;
@@ -286,7 +293,9 @@ public class GM : MonoBehaviour
     }
     public void backMenu()
     {
-        SceneManager.LoadScene(0);
+        GameObject.Find("LOADING").GetComponent<loading>().gameScene = "main_menu";
+        GameObject.Find("LOADING").GetComponent<Animator>().Play("in");
+        //SceneManager.LoadScene(0);
     }
     public void addMoney(int plus)
     {
