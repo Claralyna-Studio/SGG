@@ -81,15 +81,15 @@ public class clickable_prov : MonoBehaviour
         {
             //GetComponent<SpriteRenderer>().color = new Color(0,0,0,0.6f);
             //GetComponent<SpriteRenderer>().enabled = true;
-            GameObject.Find("MAP").transform.Find(this.gameObject.name).gameObject.GetComponent<Image>().color = new Color(0,0,0,0.6f);
+            GameObject.Find("MAP").transform.Find(this.gameObject.name).gameObject.GetComponent<Image>().color = Color.Lerp(GameObject.Find("MAP").transform.Find(this.gameObject.name).gameObject.GetComponent<Image>().color, new Color(0,0,0,0.6f), Time.deltaTime * 10f);
             GameObject.Find("MAP").transform.Find(this.gameObject.name).gameObject.GetComponent<Image>().enabled = true;
         }
         else if(gm.closed && upgradeUI.GetComponent<upgrades>().pulauUnlocked[upgradeUI.GetComponent<upgrades>().pulauUnlockedName.IndexOf(this.gameObject.tag)])
         {
             //GetComponent<SpriteRenderer>().color = new Color(1,0,0,0.6f);
             //GetComponent<SpriteRenderer>().enabled = false;
-            GameObject.Find("MAP").transform.Find(this.gameObject.name).gameObject.GetComponent<Image>().color = new Color(0, 0, 0, 0.6f);
-            GameObject.Find("MAP").transform.Find(this.gameObject.name).gameObject.GetComponent<Image>().enabled = false;
+            GameObject.Find("MAP").transform.Find(this.gameObject.name).gameObject.GetComponent<Image>().color = Color.Lerp(GameObject.Find("MAP").transform.Find(this.gameObject.name).gameObject.GetComponent<Image>().color, Color.clear,Time.deltaTime*10f);
+            //GameObject.Find("MAP").transform.Find(this.gameObject.name).gameObject.GetComponent<Image>().enabled = false;
         }
     }
     private void OnMouseOver()
@@ -119,7 +119,7 @@ public class clickable_prov : MonoBehaviour
                 {
                     tray_spawner.ship(transform);
                 }
-                else if(!gm.isCooking[gm.provs.IndexOf(this.gameObject.transform)] && tray_spawner.curr_tray.prov != transform && GameObject.Find("hearts").transform.childCount > 0)
+                else if(!gm.isCooking[gm.provs.IndexOf(this.gameObject.transform)] && tray_spawner.curr_tray.prov != transform)
                 {
                     //GameObject.Find("hearts").transform.GetChild(GameObject.Find("hearts").transform.childCount - 1).GetComponent<Animator>().SetBool("break",true);
                     if(idxHeart >= 0)
@@ -127,6 +127,10 @@ public class clickable_prov : MonoBehaviour
                         GameObject.Find("hearts").transform.GetChild(idxHeart).GetComponent<Animator>().SetBool("break",true);
                         idxHeart--;
                         gm.heart--;
+                        if(gm.heart <= 0)
+                        {
+                            gm.lose = true;
+                        }
                     }
                 }
                 else

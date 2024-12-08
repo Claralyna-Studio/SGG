@@ -19,4 +19,17 @@ public class destroy_anim : MonoBehaviour
     {
         Destroy(gameObject);
     }
+    public string prov;
+    //public string island;
+    public void openRecipe()
+    {
+        traySpawner trayS = FindObjectOfType<traySpawner>();
+
+        trayS.canProv_maxFood[trayS.canProv.IndexOf(prov)]++;
+    }
+/*    public void unlockIsland()
+    {
+        upgrades upg = FindObjectOfType<upgrades>();
+        upg.pulauUnlocked[upg.pulauUnlockedName.IndexOf(island)] = true;
+    }*/
 }

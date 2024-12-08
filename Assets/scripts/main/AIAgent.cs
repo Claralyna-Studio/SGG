@@ -33,7 +33,7 @@ public class AIAgent : MonoBehaviour
         //sp.enabled = false;
         //bali = GameObject.Find("sprites").transform.Find("Bali").gameObject;
         bali = GameObject.Find("CITIES").transform.Find("Denpasar").gameObject;
-        trail = transform.GetChild(0).GetComponent<pathRenderer>();
+        trail = transform.GetChild(0).GetChild(0).GetComponent<pathRenderer>();
         path = GetComponent<AIPath>();
         food.sprite = foods;
         /*if(foods.name != "bajigur" || foods.name != "esdawet")
@@ -120,7 +120,7 @@ public class AIAgent : MonoBehaviour
 /*    private void OnDestroy()
     {
         spawner.clones.Remove(this.gameObject);
-        spawner.doneShip(this.gameObject);
+        //spawner.doneShip(this.gameObject);
     }*/
     void doneRest()
     {

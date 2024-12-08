@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class pathRenderer : MonoBehaviour
 {
-    LineRenderer lineRenderer;
+    TrailRenderer lineRenderer;
     AIPath AIpath;
     private AIAgent cargo;
     public bool canTrail = false;
@@ -15,10 +15,11 @@ public class pathRenderer : MonoBehaviour
     {
         cargo = FindObjectOfType<AIAgent>();
         AIpath = FindObjectOfType<AIPath>();
-        lineRenderer = GetComponent<LineRenderer>();
+        //lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer = GetComponent<TrailRenderer>();
         //StartCoroutine(path());
     }
-    int a = 1;
+    //int a = 1;
     // Update is called once per frame
     void Update()
     {
@@ -31,23 +32,25 @@ public class pathRenderer : MonoBehaviour
                     }
                     //lineRenderer.Simplify(1);
                 }*/
-        if (!AIpath.reachedEndOfPath && canTrail)
+
+        //line renderer
+/*        if (!AIpath.reachedEndOfPath && canTrail)
         {
             lineRenderer.positionCount = a;
             lineRenderer.SetPosition(a - 1, cargo.transform.position);
             a++;
-        }
+        }*/
         AstarPath.active.Scan();
     }
     public void startTrail()
     {
         lineRenderer.startWidth = 0.05f;
         lineRenderer.endWidth = 0.05f;
-        a = 1;
+        //a = 1;
         canTrail = true;
         //StopAllCoroutines();
     }
-    IEnumerator path()
+/*    IEnumerator path()
     {
         if(!AIpath.reachedEndOfPath && canTrail)
         {
@@ -61,7 +64,7 @@ public class pathRenderer : MonoBehaviour
         {
             yield return new WaitForSeconds(0.5f);
         }
-    }
+    }*/
     public void deleteTrail()
     {
         canTrail = false;
@@ -74,11 +77,11 @@ public class pathRenderer : MonoBehaviour
                 lineRenderer.positionCount = 0;*/
         if (lineRenderer.startWidth > 0)
         {
-            lineRenderer.startWidth -= 0.02f;
+            lineRenderer.startWidth -= 0.01f;
         }
         else if (lineRenderer.endWidth > 0) 
         {
-            lineRenderer.endWidth -= 0.02f;
+            lineRenderer.endWidth -= 0.01f;
         }
         else if(transform.parent.localScale != Vector3.zero)
         {
@@ -91,8 +94,9 @@ public class pathRenderer : MonoBehaviour
         }
         else
         {
-            Destroy(transform.parent.gameObject.transform.parent.gameObject);
-            lineRenderer.positionCount = 0;
+            lineRenderer.time = 0.1f;
+            Destroy(transform.parent.gameObject.transform.parent.transform.parent.gameObject);
+            //lineRenderer.positionCount = 0;
         }
     }
 

@@ -24,10 +24,10 @@ public class pin_placing : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     {
         //col.transform.position = Camera.main.ScreenToWorldPoint(transform.position);
     }
-    bool isclicked = false;
+    //bool isclicked = false;
     public void OnBeginDrag(PointerEventData eventData)
     {
-        isclicked = true;
+        //isclicked = true;
         //GetComponent<Animator>().SetBool("dragging",true);
         anim.par.transform.GetChild(1).GetComponent<Animator>().SetBool("dragging",true);
     }
@@ -39,7 +39,7 @@ public class pin_placing : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        isclicked = false;
+        //isclicked = false;
         //GetComponent<Animator>().SetBool("dragging", false);
         anim.par.transform.GetChild(1).GetComponent<Animator>().SetBool("dragging", false);
     }

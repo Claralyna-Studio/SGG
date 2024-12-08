@@ -40,6 +40,10 @@ public class GM : MonoBehaviour
     void Start()
     {
         GameObject.Find("LOADING").GetComponent<Animator>().Play("out");
+        if(!PlayerPrefs.HasKey("day"))
+        {
+            day = PlayerPrefs.GetInt("day");
+        }
         if (!PlayerPrefs.HasKey("bgm") || !PlayerPrefs.HasKey("sfx"))
         {
             PlayerPrefs.SetFloat("bgm", 1);
@@ -70,7 +74,7 @@ public class GM : MonoBehaviour
     }
     char money2 = ' ';
     char crystal2 = ' ';
-    [SerializeField] private GameObject startButton;
+    //[SerializeField] private GameObject startButton;
     public bool lose = false;
     public int heart = 3;
     // Update is called once per frame
@@ -78,9 +82,8 @@ public class GM : MonoBehaviour
     {
 
         //gameover
-        if(/*GameObject.Find("hearts").transform.childCount <= 0*/ heart <= 0)
+        if(/*GameObject.Find("hearts").transform.childCount <= 0*/ lose)
         {
-            lose = true;
             gameoverUI.SetBool("lose", true);
             Time.timeScale = 0;
         }
@@ -100,7 +103,7 @@ public class GM : MonoBehaviour
 
         timeAnim.SetBool("startDay", startDay);
         //startButton.SetActive(!startDay);
-        startButton.GetComponent<Animator>().SetBool("start",!closed);
+        //startButton.GetComponent<Animator>().SetBool("start",!closed);
         //moneyText.text = money.ToString("C", CultureInfo.CreateSpecificCulture("id-id"));
         /*        if (money >= 1000 && money < 1000000)
                 {
@@ -289,7 +292,13 @@ public class GM : MonoBehaviour
     }
     public void restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if(day > 1)
+        {
+            PlayerPrefs.SetInt("day", day--);
+        }
+        GameObject.Find("LOADING").GetComponent<loading>().gameScene = "gameplay";
+        GameObject.Find("LOADING").GetComponent<Animator>().Play("in");
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void backMenu()
     {

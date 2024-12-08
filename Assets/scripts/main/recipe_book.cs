@@ -20,6 +20,8 @@ public class recipe_book : MonoBehaviour
         public string prov;
         public string food_name;
         public Sprite food;
+        public int unlockMoney;
+        public int unlockCrystal;
         [TextArea] public string description;
     }
     [SerializeField] private List<resep> recipes;
@@ -37,11 +39,15 @@ public class recipe_book : MonoBehaviour
     [SerializeField] private TextMeshProUGUI desc3;
 
     [SerializeField] private bool isUI = false;
-
+    [SerializeField] private destroy_anim lockR;
     //[SerializeField] private Button NEXT;
     [SerializeField] private Image nextS;
     //[SerializeField] private Button PREV;
     [SerializeField] private Image prevS;
+    [SerializeField] private GameObject lockRecipe;
+    [SerializeField] private TextMeshProUGUI lockText;
+    [SerializeField] private TextMeshProUGUI moneyText;
+    [SerializeField] private TextMeshProUGUI crystalText;
     // Start is called before the first frame update
     void Start()
     {
@@ -50,13 +56,13 @@ public class recipe_book : MonoBehaviour
         trayS = FindObjectOfType<traySpawner>();
         //UI = GameObject.Find("RECIPE_BOOK(UI)").GetComponent<Animator>();
     }
-
+    [SerializeField] private bool canUnlock = true;
     // Update is called once per frame
     void Update()
     {
         if (isUI)
         {
-            for (int i = 0; i < mark.transform.childCount; i++)
+/*            for (int i = 0; i < mark.transform.childCount; i++)
             {
                 if (upg.pulauUnlockedName.Contains(mark.transform.GetChild(i).name))
                 {
@@ -66,20 +72,71 @@ public class recipe_book : MonoBehaviour
                 {
                     mark.transform.GetChild(i).GetComponent<Button>().enabled = false;
                 }
-            }
+            }*/
             curr_recipe1 = recipes[index1];
+            Debug.Log((index1) % 3);
+            if (trayS.canProv.Contains(curr_recipe1.prov) && trayS.canProv_maxFood[trayS.canProv.IndexOf(curr_recipe1.prov)]-1 >= (index1) % 3)
+            {
+                Debug.Log("unlocked");
+                lockRecipe.SetActive(false);
+                lockRecipe.GetComponent<Animator>().SetBool("out", true);
+                moneyText.text = curr_recipe1.unlockMoney.ToString("##,#");
+                crystalText.text = curr_recipe1.unlockCrystal.ToString("##,#");
+                food_name.text = curr_recipe1.food_name;
+                desc3.text = "Description: \n" + curr_recipe1.description + "\n\n\nOrigin: " + curr_recipe1.prov;
+                food1.sprite = curr_recipe1.food;
+                drink1.sprite = curr_recipe1.food;
+            }
+            else if(!trayS.canProv.Contains(curr_recipe1.prov))
+            {
+                Debug.Log("island locked");
+                canUnlock = false;
+                lockRecipe.GetComponent<Animator>().SetBool("out", false);
+                moneyText.text = curr_recipe1.unlockMoney.ToString("##,#");
+                crystalText.text = curr_recipe1.unlockCrystal.ToString("##,#");
+                lockRecipe.SetActive(true);
+                lockText.text = "Must unlock the island first";
+                food_name.text = curr_recipe1.food_name;
+                desc3.text = "Description:\n?????\n\n\n\nOrigin:\n???";
+                food1.sprite = curr_recipe1.food;
+                drink1.sprite = curr_recipe1.food;
+            }
+            else if(trayS.canProv_maxFood[trayS.canProv.IndexOf(curr_recipe1.prov)] - 1 < (index1) % 3 && trayS.canProv_maxFood[trayS.canProv.IndexOf(curr_recipe1.prov)] - 1 >= (index1-1) % 3)
+            {
+                Debug.Log("recipe locked");
+                canUnlock = true;
+                //lockRecipe.GetComponent<Animator>().SetBool("out", false);
+                moneyText.text = curr_recipe1.unlockMoney.ToString("##,#");
+                crystalText.text = curr_recipe1.unlockCrystal.ToString("##,#");
+                lockRecipe.SetActive(true);
+                lockText.text = " ";
+                food_name.text = curr_recipe1.food_name;
+                desc3.text = "Description:\n?????\n\n\n\nOrigin:\n???";
+                food1.sprite = curr_recipe1.food;
+                drink1.sprite = curr_recipe1.food;
+            }
+            else if (trayS.canProv_maxFood[trayS.canProv.IndexOf(curr_recipe1.prov)] - 1 < (index1) % 3 && trayS.canProv_maxFood[trayS.canProv.IndexOf(curr_recipe1.prov)] - 1 < (index1 - 1) % 3)
+            {
+                Debug.Log("recipe locked, need prev unlocked");
+                canUnlock = false;
+                lockRecipe.GetComponent<Animator>().SetBool("out", false);
+                moneyText.text = curr_recipe1.unlockMoney.ToString("##,#");
+                crystalText.text = curr_recipe1.unlockCrystal.ToString("##,#");
+                lockRecipe.SetActive(true);
+                lockText.text = "Must unlock the previous recipe first";
+                food_name.text = curr_recipe1.food_name;
+                desc3.text = "Description:\n?????\n\n\n\nOrigin:\n???";
+                food1.sprite = curr_recipe1.food;
+                drink1.sprite = curr_recipe1.food;
+            }
             /*            desc1.text = "Description: " + curr_recipe1.description;
                         desc2.text = "Description: " + curr_recipe2.description;
                         curr_recipe1 = recipes[index1];
                         curr_recipe2 = recipes[index2];*/
-            food_name.text = curr_recipe1.food_name;
-            desc3.text = "Description: \n" + curr_recipe1.description + "\n\n\nOrigin: " + curr_recipe1.prov;
-            food1.sprite = curr_recipe1.food;
-            drink1.sprite = curr_recipe1.food;
 
-/*            food2.sprite = curr_recipe2.food;
-            drink2.sprite = curr_recipe2.food;*/
-            if(curr_recipe1.prov == "Bali" || curr_recipe1.prov == "Nusa Tenggara Timur" || curr_recipe1.prov == "Nusa Tenggara Barat")
+            /*            food2.sprite = curr_recipe2.food;
+                        drink2.sprite = curr_recipe2.food;*/
+            if (curr_recipe1.prov == "Bali" || curr_recipe1.prov == "Nusa Tenggara Timur" || curr_recipe1.prov == "Nusa Tenggara Barat")
             {
                 mark.transform.Find("Sunda Kecil").SetAsLastSibling();
             }
@@ -190,6 +247,7 @@ public class recipe_book : MonoBehaviour
         {
             index1++;
             //index2++;
+            //Debug.Log((index1) % 3);
         }
         else if(pindahMark && index1 < recipes.Count - 1)
         {
@@ -221,9 +279,28 @@ public class recipe_book : MonoBehaviour
         GetComponent<Animator>().ResetTrigger("flip");
         GetComponent<Animator>().SetTrigger("flip2");
     }
-    public void openRecipe(GameObject button)
+    public void openRecipe()
     {
-        button.GetComponent<Animator>().SetBool("out",true);
-        trayS.canProv_maxFood[trayS.canProv.IndexOf(button.name)]++;
+        if(canUnlock && gm.money >=  curr_recipe1.unlockMoney && gm.crystal >= curr_recipe1.unlockCrystal)
+        {
+        //Debug.Log("AAA");
+            gm.addMoney(-curr_recipe1.unlockMoney);
+            gm.addCrystal(-curr_recipe1.unlockCrystal);
+            lockRecipe.GetComponent<Animator>().SetBool("out", true);
+            lockR.prov = curr_recipe1.prov;
+        }
+        else
+        {
+            lockRecipe.GetComponent<Animator>().SetTrigger("wrong");
+        }
+        //button.GetComponent<Animator>().SetBool("out",true);
+        //trayS.canProv_maxFood[trayS.canProv.IndexOf(button.name)]++;
     }
+/*    public void openRecipeNext(GameObject button)
+    {
+        //button.GetComponent<Animator>().SetBool("canBuy", true);
+        button.GetComponent<Button>().interactable = true;
+        button.transform.GetChild(0).gameObject.SetActive(false);
+        button.transform.GetChild(1).gameObject.SetActive(true);
+    }*/
 }
