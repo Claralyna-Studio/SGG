@@ -36,7 +36,6 @@ public class traySpawner : MonoBehaviour, IDataPersistence
     // Start is called before the first frame update
     void Start()
     {
-
         upgraded = false;
         upg = FindObjectOfType<upgrades>();
         gm = FindObjectOfType<GM>();
@@ -102,6 +101,10 @@ public class traySpawner : MonoBehaviour, IDataPersistence
         if(!canProv.Contains(prov))
         {
             canProv.Add(prov);
+        }
+        foreach(GameObject sprite in GameObject.FindGameObjectsWithTag(prov))
+        {
+            Debug.Log(sprite.name);
         }
     }
     /*    public void bukaRecipe(int idx)
@@ -261,6 +264,13 @@ public class traySpawner : MonoBehaviour, IDataPersistence
     public void LoadData(GameData data)
     {
         trayMax = data.trayMax;
+/*        for (int i = 0; i < GameObject.Find("sprites").transform.childCount; i++)
+        {
+            if(upg.pulauUnlockedName.Contains(GameObject.Find("sprites").transform.GetChild(i).tag))
+            {
+                Debug.Log(GameObject.Find("sprites").transform.GetChild(i).name);
+            }
+        }*/
         if (data.canProv.Count == canProv.Count)
         {
             canProv = data.canProv;

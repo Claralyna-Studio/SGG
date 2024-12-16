@@ -16,6 +16,8 @@ public class GameData
     //upgrades
     //public DateTime pausedDate;
     public SerializableDateTime pausedDate;
+    public SerializableList<string> pulauUnlockedName;
+    public SerializableList<bool> pulauUnlocked;
     public SerializableList<float> foodPrep_seconds;
     public SerializableList<int> berapaKaliUpgrade;
     public SerializableList<int> crystalSpeedUp;
@@ -70,6 +72,9 @@ public class GameData
         //pausedDate.PausedDate = DateTime.Now;
 
         waktu = new SerializableList<int>();
+
+        pulauUnlockedName = new SerializableList<string>();
+        pulauUnlocked = new SerializableList<bool>();
         foodPrep_seconds = new SerializableList<float>();
         berapaKaliUpgrade = new SerializableList<int>();
         crystalSpeedUp = new SerializableList<int>();

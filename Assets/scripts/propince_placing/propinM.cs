@@ -108,6 +108,7 @@ public class propinM : MonoBehaviour
     public void locked(Button lokk)
     {
         lokk.interactable = false;
+        GameObject.Find("sfx_locked").GetComponent<AudioSource>().Play();
         foreach(pin_collider pin in pins)
         {
             if (pin.province.ToLower() == pin.prov.ToLower())

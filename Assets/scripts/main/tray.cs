@@ -170,16 +170,21 @@ public class tray : MonoBehaviour
         done = true;
         isCooking = false;
     }
+    bool collected = false;
     public void moneyBag()
     {
-        gm.playSfx(GameObject.Find("sfx_orderMoney").GetComponent<AudioSource>());
-        GameObject par = Instantiate(moneyPlus_particle,transform.parent.gameObject.transform.parent);
-        par.transform.position = transform.GetChild(0).position;
-        par.transform.localScale = transform.localScale * 0.2f;
-        par.transform.GetChild(0).gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "+"+coins.ToString("##,#");
-        par.SetActive(true);
-        gm.addMoney(coins);
-        anim.SetTrigger("out");
+        if (!collected)
+        {
+            collected = true;
+            gm.playSfx(GameObject.Find("sfx_orderMoney").GetComponent<AudioSource>());
+            GameObject par = Instantiate(moneyPlus_particle,transform.parent.gameObject.transform.parent);
+            par.transform.position = transform.GetChild(0).position;
+            par.transform.localScale = transform.localScale * 0.2f;
+            par.transform.GetChild(0).gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "+"+coins.ToString("##,#");
+            par.SetActive(true);
+            gm.addMoney(coins);
+            anim.SetTrigger("out");
+        }
     }
     public void destroying()
     {

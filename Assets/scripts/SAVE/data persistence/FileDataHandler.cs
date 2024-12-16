@@ -77,7 +77,7 @@ public class FileDataHandler
                 loadedData = JsonConvert.DeserializeObject<GameData>(dateToLoad);
 
                 //pausedDate = loadedData.pausedDate;
-                Debug.LogError(loadedData.pausedDate.PausedDate.ToString());
+                //Debug.LogError(loadedData.pausedDate.PausedDate.ToString());
             }
             catch (Exception e)
             {

@@ -30,6 +30,10 @@ public class upgrades : MonoBehaviour, IDataPersistence
     [SerializeField] private long crystalBoatSpeed;
     [SerializeField] private long money = 0;
     [SerializeField] private long crystal = 0;
+    [SerializeField] private List<int> moneyUnlock;
+    [SerializeField] private List<int> crystalUnlock;
+
+    [SerializeField] private Animator unlockIslandButtons;
 
     [SerializeField] private Animator upgradeBoatButton;
     [SerializeField] private TextMeshProUGUI upgradeBoatText;
@@ -211,7 +215,7 @@ public class upgrades : MonoBehaviour, IDataPersistence
             }
         }
         //pindah();
-        Debug.LogError("Start: " + DateTime.Now.ToString() + " dan " + pausedDate.ToString());
+        //Debug.LogError("Start: " + DateTime.Now.ToString() + " dan " + pausedDate.ToString());
     }
     static DateTime pausedDate;
     void OnApplicationFocus(bool hasFocus)
@@ -349,9 +353,66 @@ public class upgrades : MonoBehaviour, IDataPersistence
         //cara 2
         pausedDate = DateTime.Now;
     }
+    public void unlockPulau(GameObject pulau)
+    {
+        int idx = 0;
+        if(pulau.name == "Jawa")
+        {
+            idx = 0;
+        }
+        else if (pulau.name == "Kalimantan")
+        {
+            idx = 1;
+        }
+        else if (pulau.name == "Sulawesi")
+        {
+            idx = 2;
+        }
+        else if (pulau.name == "Papua")
+        {
+            idx = 3;
+        }
+        else if (pulau.name == "Sumatra")
+        {
+            idx = 4;
+        }
+        if (pulauUnlockedName.Contains(pulau.name) && GM.money >= moneyUnlock[idx] && GM.crystal >= crystalUnlock[idx])
+        {
+            pulauUnlocked[pulauUnlockedName.IndexOf(pulau.name)] = true;
+            for (int i = 0; i < GameObject.Find("sprites").transform.childCount; i++)
+            {
+                if (pulauUnlocked[pulauUnlockedName.IndexOf(GameObject.Find("sprites").transform.GetChild(i).tag)])
+                {
+                    //Debug.Log(GameObject.Find("sprites").transform.GetChild(i).name);
+                    if(!tray_spawner.canProv.Contains(GameObject.Find("sprites").transform.GetChild(i).name))
+                    {
+                        tray_spawner.canProv.Add(GameObject.Find("sprites").transform.GetChild(i).name);
+                        tray_spawner.canProv_maxFood.Add(1);
+                    }
+                }
+            }
+            gm.addMoney(-moneyUnlock[idx]);
+            gm.addCrystal(-crystalUnlock[idx]);
+        }
+        pulau.SetActive(false);
+    }
     // Update is called once per frame
     void Update()
     {
+        //deactivate unlock button
+        for(int i=0;i<GameObject.Find("buttonsUnlock").transform.childCount;i++)
+        {
+            if(pulauUnlocked[pulauUnlockedName.IndexOf(GameObject.Find("buttonsUnlock").transform.GetChild(i).GetChild(2).gameObject.name)])
+            {
+                //Debug.Log(GameObject.Find("buttonsUnlock").transform.GetChild(i).GetChild(2).gameObject.name);
+                GameObject.Find("buttonsUnlock").transform.GetChild(i).GetChild(2).gameObject.SetActive(false);
+            }
+            else
+            {
+                GameObject.Find("buttonsUnlock").transform.GetChild(i).GetChild(2).gameObject.SetActive(true);
+            }
+        }
+
         if (cargo.masakTime[idx] < 3)
         {
             buy_button.gameObject.SetActive(false);
@@ -375,11 +436,25 @@ public class upgrades : MonoBehaviour, IDataPersistence
             }
             buy_button.gameObject.SetActive(true);
         }
-
-        moneyText.text = money.ToString("##,#");
-        crystalText.text = crystal.ToString("##,#");
+        if (money > 0)
+        {
+            moneyText.text = money.ToString("##,#");
+        }
+        else
+        {
+            moneyText.text = money.ToString();
+        }
+        if (crystal > 0)
+        {
+            crystalText.text = crystal.ToString("##,#");
+        }
+        else
+        {
+            crystalText.text = crystal.ToString();
+        }
         non_active[3].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = crystalSpeedUp[idx].ToString();
         upgradeBoatButton.GetComponent<Animator>().SetBool("in",gm.closed);
+        unlockIslandButtons.SetBool("in",gm.closed);
 
         upgradeBoatSpeedTextMoney.text = moneyBoatSpeed.ToString("#,##");
         upgradeBoatSpeedTextCrystal.text = crystalBoatSpeed.ToString("#,##");
@@ -505,57 +580,289 @@ public class upgrades : MonoBehaviour, IDataPersistence
         if (curr_prov.gameObject.name == "Bali")
         {
             idx = 0;
-            money = 100;
-            crystal = 100;
+            /*            if (berapaKaliUpgrade[idx] == 0)
+            {
+                money = 50000;
+                crystal = 0;
+            }
+            else if (berapaKaliUpgrade[idx] == 1)
+            {
+                money = 100000;
+                crystal = 0;
+            }
+            else if (berapaKaliUpgrade[idx] == 2)
+            {
+                money = 150000;
+                crystal = 1;
+            }
+            else if (berapaKaliUpgrade[idx] == 3)
+            {
+                money = 200000;
+                crystal = 1;
+            }
+            else
+            {
+                money = 250000;
+                crystal = 2;
+            }*/
         }
         else if(curr_prov.gameObject.name == "Nusa Tenggara Timur")
         {
             idx = 1;
-            money = 100;
-            crystal = 100;
+            /*            if (berapaKaliUpgrade[idx] == 0)
+            {
+                money = 50000;
+                crystal = 0;
+            }
+            else if (berapaKaliUpgrade[idx] == 1)
+            {
+                money = 100000;
+                crystal = 0;
+            }
+            else if (berapaKaliUpgrade[idx] == 2)
+            {
+                money = 150000;
+                crystal = 1;
+            }
+            else if (berapaKaliUpgrade[idx] == 3)
+            {
+                money = 200000;
+                crystal = 1;
+            }
+            else
+            {
+                money = 250000;
+                crystal = 2;
+            }*/
         }
         else if (curr_prov.gameObject.name == "Nusa Tenggara Barat")
         {
             idx = 2;
-            money = 100;
-            crystal = 100;
+            /*            if (berapaKaliUpgrade[idx] == 0)
+                        {
+                            money = 50000;
+                            crystal = 0;
+                        }
+                        else if (berapaKaliUpgrade[idx] == 1)
+                        {
+                            money = 100000;
+                            crystal = 0;
+                        }
+                        else if (berapaKaliUpgrade[idx] == 2)
+                        {
+                            money = 150000;
+                            crystal = 1;
+                        }
+                        else if (berapaKaliUpgrade[idx] == 3)
+                        {
+                            money = 200000;
+                            crystal = 1;
+                        }
+                        else
+                        {
+                            money = 250000;
+                            crystal = 2;
+                        }*/
         }
 
         else if(curr_prov.gameObject.name == "Banten")
         {
             idx = 3;
-            money = 100;
-            crystal = 100;
+            /*            if (berapaKaliUpgrade[idx] == 0)
+                        {
+                            money = 50000;
+                            crystal = 0;
+                        }
+                        else if (berapaKaliUpgrade[idx] == 1)
+                        {
+                            money = 100000;
+                            crystal = 0;
+                        }
+                        else if (berapaKaliUpgrade[idx] == 2)
+                        {
+                            money = 150000;
+                            crystal = 1;
+                        }
+                        else if (berapaKaliUpgrade[idx] == 3)
+                        {
+                            money = 200000;
+                            crystal = 1;
+                        }
+                        else
+                        {
+                            money = 250000;
+                            crystal = 2;
+                        }*/
         }
         else if (curr_prov.gameObject.name == "DKI Jakarta")
         {
             idx = 4;
-            money = 100;
-            crystal = 100;
+            /*            if (berapaKaliUpgrade[idx] == 0)
+                        {
+                            money = 50000;
+                            crystal = 0;
+                        }
+                        else if (berapaKaliUpgrade[idx] == 1)
+                        {
+                            money = 100000;
+                            crystal = 0;
+                        }
+                        else if (berapaKaliUpgrade[idx] == 2)
+                        {
+                            money = 150000;
+                            crystal = 1;
+                        }
+                        else if (berapaKaliUpgrade[idx] == 3)
+                        {
+                            money = 200000;
+                            crystal = 1;
+                        }
+                        else
+                        {
+                            money = 250000;
+                            crystal = 2;
+                        }*/
         }
         else if (curr_prov.gameObject.name == "Jawa Barat")
         {
             idx = 5;
-            money = 100;
-            crystal = 100;
+            /*            if (berapaKaliUpgrade[idx] == 0)
+                        {
+                            money = 50000;
+                            crystal = 0;
+                        }
+                        else if (berapaKaliUpgrade[idx] == 1)
+                        {
+                            money = 100000;
+                            crystal = 0;
+                        }
+                        else if (berapaKaliUpgrade[idx] == 2)
+                        {
+                            money = 150000;
+                            crystal = 1;
+                        }
+                        else if (berapaKaliUpgrade[idx] == 3)
+                        {
+                            money = 200000;
+                            crystal = 1;
+                        }
+                        else
+                        {
+                            money = 250000;
+                            crystal = 2;
+                        }*/
         }
         else if (curr_prov.gameObject.name == "Jawa Tengah")
         {
             idx = 6;
-            money = 100;
-            crystal = 100;
+            /*            if (berapaKaliUpgrade[idx] == 0)
+                        {
+                            money = 50000;
+                            crystal = 0;
+                        }
+                        else if (berapaKaliUpgrade[idx] == 1)
+                        {
+                            money = 100000;
+                            crystal = 0;
+                        }
+                        else if (berapaKaliUpgrade[idx] == 2)
+                        {
+                            money = 150000;
+                            crystal = 1;
+                        }
+                        else if (berapaKaliUpgrade[idx] == 3)
+                        {
+                            money = 200000;
+                            crystal = 1;
+                        }
+                        else
+                        {
+                            money = 250000;
+                            crystal = 2;
+                        }*/
         }
         else if (curr_prov.gameObject.name == "D.I. Yogyakarta")
         {
             idx = 7;
-            money = 100;
-            crystal = 100;
+            /*            if (berapaKaliUpgrade[idx] == 0)
+                        {
+                            money = 50000;
+                            crystal = 0;
+                        }
+                        else if (berapaKaliUpgrade[idx] == 1)
+                        {
+                            money = 100000;
+                            crystal = 0;
+                        }
+                        else if (berapaKaliUpgrade[idx] == 2)
+                        {
+                            money = 150000;
+                            crystal = 1;
+                        }
+                        else if (berapaKaliUpgrade[idx] == 3)
+                        {
+                            money = 200000;
+                            crystal = 1;
+                        }
+                        else
+                        {
+                            money = 250000;
+                            crystal = 2;
+                        }*/
         }
         else if (curr_prov.gameObject.name == "Jawa Timur")
         {
             idx = 8;
-            money = 100;
-            crystal = 100;
+/*            if (berapaKaliUpgrade[idx] == 0)
+            {
+                money = 50000;
+                crystal = 0;
+            }
+            else if (berapaKaliUpgrade[idx] == 1)
+            {
+                money = 100000;
+                crystal = 0;
+            }
+            else if (berapaKaliUpgrade[idx] == 2)
+            {
+                money = 150000;
+                crystal = 1;
+            }
+            else if (berapaKaliUpgrade[idx] == 3)
+            {
+                money = 200000;
+                crystal = 1;
+            }
+            else
+            {
+                money = 250000;
+                crystal = 2;
+            }*/
+        }
+        if (berapaKaliUpgrade[idx] == 0)
+        {
+            money = 50000;
+            crystal = 0;
+        }
+        else if (berapaKaliUpgrade[idx] == 1)
+        {
+            money = 100000;
+            crystal = 0;
+        }
+        else if (berapaKaliUpgrade[idx] == 2)
+        {
+            money = 150000;
+            crystal = 1;
+        }
+        else if (berapaKaliUpgrade[idx] == 3)
+        {
+            money = 200000;
+            crystal = 1;
+        }
+        else
+        {
+            money = 250000;
+            crystal = 2;
         }
         //transform.position = pos.position;
         provText.text = curr_prov.name;
@@ -805,7 +1112,7 @@ public class upgrades : MonoBehaviour, IDataPersistence
 
         pausedDate = data.pausedDate.PausedDate;
         //Debug.LogError("Load:" + DateTime.Now.ToString() + " dan " + pausedDate.ToString());
-        Debug.LogWarning(pausedDate);
+        //Debug.LogWarning(pausedDate);
 
         if (waktu == null)
         {
@@ -817,7 +1124,15 @@ public class upgrades : MonoBehaviour, IDataPersistence
             waktu.Add(0);
             waktu.Add(0);
         }
-        if(data.foodPrep_seconds.Count == foodPrep_seconds.Count)
+        if (data.pulauUnlockedName.Count == pulauUnlockedName.Count)
+        {
+            pulauUnlockedName = data.pulauUnlockedName;
+        }
+        if (data.pulauUnlocked.Count == pulauUnlocked.Count)
+        {
+            pulauUnlocked = data.pulauUnlocked;
+        }
+        if (data.foodPrep_seconds.Count == foodPrep_seconds.Count)
         {
             foodPrep_seconds = data.foodPrep_seconds;
         }
@@ -859,7 +1174,20 @@ public class upgrades : MonoBehaviour, IDataPersistence
 
         //data.pausedDate.PausedDate = pausedDate;
         data.pausedDate.PausedDate = DateTime.Now;
-
+        if(data.pulauUnlocked.Count != pulauUnlocked.Count)
+        {
+            for (int i = 0; i < pulauUnlocked.Count; i++)
+            {
+                data.pulauUnlocked.Add(pulauUnlocked[i]);
+            }
+        }
+        if (data.pulauUnlockedName.Count != pulauUnlockedName.Count)
+        {
+            for (int i = 0; i < pulauUnlockedName.Count; i++)
+            {
+                data.pulauUnlockedName.Add(pulauUnlockedName[i]);
+            }
+        }
         if (data.foodPrep_seconds.Count != foodPrep_seconds.Count)
         {
             //data.foodPrep_seconds.Capacity = foodPrep_seconds.Count;
@@ -907,6 +1235,11 @@ public class upgrades : MonoBehaviour, IDataPersistence
 
                 data.waktu.Add(waktu[i]);
             }
+        }
+        for(int i=0;i<pulauUnlockedName.Count;i++)
+        {
+            data.pulauUnlockedName[i] = pulauUnlockedName[i];
+            data.pulauUnlocked[i] = pulauUnlocked[i];
         }
         for (int i=0;i<9;i++)
         {
