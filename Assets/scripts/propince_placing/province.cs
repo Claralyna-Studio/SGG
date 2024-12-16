@@ -7,20 +7,20 @@ public class province : MonoBehaviour
 {
     propinM gm;
     [SerializeField] private Image prov;
-    Color curr_color;
+    [SerializeField] private Color curr_color;
     // Start is called before the first frame update
     void Start()
     {
         gm = FindObjectOfType<propinM>();
         prov = GameObject.Find("MAP").transform.Find(this.gameObject.name).GetComponent<Image>();
-        curr_color = Color.white;
+        curr_color = new Color(1, 1, 1, 0.3f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = prov.gameObject.transform.position;
-        transform.localScale = prov.gameObject.transform.lossyScale * 100f;
+        //transform.position = prov.gameObject.transform.position;
+        //transform.localScale = prov.gameObject.transform.lossyScale * 100f;
         prov.color = Color.Lerp(prov.color, curr_color, Time.deltaTime * 10f);
     }
     pin_collider curr = null;
@@ -28,6 +28,7 @@ public class province : MonoBehaviour
     {
         if(collision.gameObject.tag == "pin" && collision.TryGetComponent<pin_collider>(out pin_collider coll) && !coll.select && coll.prov == "" && !curr)
         {
+            //Debug.Log("WOI");
             /*            if (collision.TryGetComponent<pin_collider>(out pin_collider coll) && !coll.select && !coll.prov)
                         {
                             coll.prov = this.gameObject;
@@ -36,7 +37,7 @@ public class province : MonoBehaviour
             curr = coll;   
             coll.prov = this.gameObject.name;
             coll.select = true;
-            curr_color = coll.color;
+            curr_color = new Color(coll.color.r, coll.color.g, coll.color.b,0.7f);
         }
 
     }
@@ -58,7 +59,7 @@ public class province : MonoBehaviour
                 coll.prov = "";
             }
             coll.select = false;
-            curr_color = Color.white;
+            curr_color = new Color(1, 1, 1, 0.3f);
         }
     }
 }

@@ -27,20 +27,33 @@ public class pin_placing : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     //bool isclicked = false;
     public void OnBeginDrag(PointerEventData eventData)
     {
-        //isclicked = true;
-        //GetComponent<Animator>().SetBool("dragging",true);
-        anim.par.transform.GetChild(1).GetComponent<Animator>().SetBool("dragging",true);
+        if(!gm.fail)
+        {
+            //isclicked = true;
+            //GetComponent<Animator>().SetBool("dragging",true);
+            anim.par.transform.GetChild(1).GetComponent<Animator>().SetBool("dragging",true);
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        transform.position = Input.mousePosition;
+        if(!gm.fail)
+        {
+            transform.position = Input.mousePosition;
+        }
+        else
+        {
+            anim.par.transform.GetChild(1).GetComponent<Animator>().SetBool("dragging", false);
+        }
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        //isclicked = false;
-        //GetComponent<Animator>().SetBool("dragging", false);
-        anim.par.transform.GetChild(1).GetComponent<Animator>().SetBool("dragging", false);
+        if(!gm.fail)
+        {
+            //isclicked = false;
+            //GetComponent<Animator>().SetBool("dragging", false);
+            anim.par.transform.GetChild(1).GetComponent<Animator>().SetBool("dragging", false);
+        }
     }
 }

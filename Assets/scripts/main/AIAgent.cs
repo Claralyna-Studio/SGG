@@ -35,19 +35,21 @@ public class AIAgent : MonoBehaviour
         bali = GameObject.Find("CITIES").transform.Find("Denpasar").gameObject;
         trail = transform.GetChild(0).GetChild(0).GetComponent<pathRenderer>();
         path = GetComponent<AIPath>();
-        food.sprite = foods;
-        /*if(foods.name != "bajigur" || foods.name != "esdawet")
+        //food.sprite = foods;
+        if (foods.name != "bajigur" && foods.name != "esdawet")
         {
-            drink.enabled = false;
-            food.enabled = true;
+            drink.gameObject.SetActive(false);
+            food.gameObject.SetActive(true);
             food.sprite = foods;
         }
         else
         {
-            food.enabled = false;
-            drink.enabled = true;
+            food.gameObject.SetActive(false);
+            drink.gameObject.SetActive(true);
             drink.sprite = foods;
-        }*/
+        }
+        target.GetComponent<SpriteRenderer>().color = new Color(1, 0.92f, 0.016f, 0.5f);
+        target.GetComponent<SpriteRenderer>().enabled = true;
     }
 
     bool coroutineCalled = false;
@@ -128,7 +130,8 @@ public class AIAgent : MonoBehaviour
     }
     IEnumerator balik()
     {
-        target.GetComponent<SpriteRenderer>().enabled = true;
+        //target.GetComponent<SpriteRenderer>().enabled = true;
+        target.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 0.5f);
         yield return new WaitForSeconds(masakTime);
         int idx = gm.provs.IndexOf(target);
         gm.isCooking[idx] = false;

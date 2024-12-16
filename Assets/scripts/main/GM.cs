@@ -8,8 +8,11 @@ using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GM : MonoBehaviour
+public class GM : MonoBehaviour, IDataPersistence
 {
+    [SerializeField] private List<int> waktu;
+    [SerializeField] private GameObject minigameUI;
+    int chanceMiniGames = 30;
     public bool isReadingRecipe = false;
     [SerializeField] private GameObject upgradesUI;
     [SerializeField] private Animator gameoverUI;
@@ -23,27 +26,45 @@ public class GM : MonoBehaviour
     public List<Transform> provs;
     public List<bool> isCooking;
     public int level;
-    public int day = 0;
+    public static long day = 1;
     public bool startDay = true;
     [SerializeField] private TextMeshProUGUI levelText;
     [SerializeField] private TextMeshProUGUI dayText;
     [SerializeField] private TextMeshProUGUI timeText;
     [SerializeField] private TextMeshProUGUI moneyText;
     [SerializeField] private TextMeshProUGUI crystalText;
-    public long money = 0;
-    public long curr_money = 0;
-    public long curr_crystal = 0;
-    public long crystal = 0;
+    public static long money = 0;
+    //public long curr_money = 0;
+    //public long curr_crystal = 0;
+    public static long crystal = 0;
     public bool canShip = false;
     [SerializeField] private Animator timeAnim;
     // Start is called before the first frame update
     void Start()
     {
+        if(day<=0)
+        {
+            dayText.text = "0";
+        }
+        else
+        {
+            dayText.text = "Day: " + day.ToString("##,#");
+        }
+        //money = 1000000;
+        //crystal = 1000000;
         GameObject.Find("LOADING").GetComponent<Animator>().Play("out");
-        if(!PlayerPrefs.HasKey("day"))
+/*        if(PlayerPrefs.HasKey("day"))
         {
             day = PlayerPrefs.GetInt("day");
+        }*/
+/*        if(PlayerPrefs.HasKey("money"))
+        {
+            money = PlayerPrefs.GetInt("money");
         }
+        if(PlayerPrefs.HasKey("crystal"))
+        {
+            crystal = PlayerPrefs.GetInt("crystal");
+        }*/
         if (!PlayerPrefs.HasKey("bgm") || !PlayerPrefs.HasKey("sfx"))
         {
             PlayerPrefs.SetFloat("bgm", 1);
@@ -64,7 +85,7 @@ public class GM : MonoBehaviour
         spawner = FindObjectOfType<cargo_spawner>();
         traySpawner = FindObjectOfType<traySpawner>();
         pauseUI.SetActive(false);
-        Screen.SetResolution(1920, 1080, true);
+        //Screen.SetResolution(1920, 1080, true);
         for(int i = 0; i < GameObject.Find("sprites").transform.childCount; i++)
         {
             isCooking.Add(false);
@@ -80,10 +101,13 @@ public class GM : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        waktu = upgrades.waktu;
+/*        PlayerPrefs.SetInt("money", money);
+        PlayerPrefs.SetInt("crystal", crystal);*/
         //gameover
-        if(/*GameObject.Find("hearts").transform.childCount <= 0*/ lose)
+        if (/*GameObject.Find("hearts").transform.childCount <= 0*/ lose)
         {
+            Cursor.SetCursor(null,Vector2.zero,CursorMode.Auto);
             gameoverUI.SetBool("lose", true);
             Time.timeScale = 0;
         }
@@ -133,7 +157,7 @@ public class GM : MonoBehaviour
         if (money >= 1000000)
         {
             money2 = 'M';
-            moneyText.text = ((float)money / 1000000f).ToString("#.00") + money2;
+            moneyText.text = ((float)money / 100000f).ToString("#.00") + money2;
             //moneyText.text = (curr_money / 1000000).ToString("##,#") + money2;
         }
         else if(money > 0)
@@ -155,7 +179,7 @@ public class GM : MonoBehaviour
         if(crystal >= 1000000)
         {
             crystal2 = 'M';
-            crystalText.text = ((float)crystal/1000000f).ToString("#,00") + crystal2;
+            crystalText.text = ((float)crystal/1000000f).ToString("#.00") + crystal2;
             //crystalText.text = (curr_crystal/1000000).ToString("##,#") + crystal2;
         }
         else if(crystal > 0)
@@ -216,7 +240,7 @@ public class GM : MonoBehaviour
                     jam++;
                 }
             }
-            else if(jam == 18)
+            if(jam == 18 && menit == 0)
             {
                 startDay = false;
             }
@@ -226,10 +250,28 @@ public class GM : MonoBehaviour
     public bool closed = true;
     public void close_day()
     {
+        day++;
+        if(day % 7 == 0)
+        {
+            addCrystal(10);
+        }
+        dayText.text = "Day: " + day.ToString("##,#");
+        if(Random.Range(1,100) <= chanceMiniGames)
+        {
+            minigameUI.GetComponent<Animator>().Play("in");
+        }
+        if(chanceMiniGames < 50)
+        {
+            chanceMiniGames += 2;
+        }
+        //PlayerPrefs.SetInt("day", day);
         closed = true;
         //upgradesUI.SetActive(true);
         heart = 3;
-        upgradesUI.GetComponent<Animator>().SetBool("in", true);
+        if(upgradesUI.GetComponent<upgrades>().curr_prov)
+        {
+            upgradesUI.GetComponent<Animator>().SetBool("in", true);
+        }
         GameObject.Find("hearts").transform.GetChild(2).GetComponent<Animator>().SetBool("break", false);
         GameObject.Find("hearts").transform.GetChild(1).GetComponent<Animator>().SetBool("break", false);
         GameObject.Find("hearts").transform.GetChild(0).GetComponent<Animator>().SetBool("break", false);
@@ -238,17 +280,17 @@ public class GM : MonoBehaviour
     {
         if(!lose)
         {
+            playSfx(GameObject.Find("sfx_startDay").GetComponent<AudioSource>());
             closed = false;
             upgradesUI.GetComponent<Animator>().SetBool("in", false);
             //upgradesUI.SetActive(false);
-            day++;
+            //day++;
             jam = 8;
             menit = 0;
             startDay = true;
             spawner.tutup = false;
             StartCoroutine(timing());
             StartCoroutine(traySpawner.spawnOrder());
-            dayText.text = "Day: " + day.ToString("##,#");
         }
     }
     public void spawning(Transform prov, Sprite food, tray order)
@@ -292,9 +334,10 @@ public class GM : MonoBehaviour
     }
     public void restart()
     {
-        if(day > 1)
+        if(day >= 1)
         {
-            PlayerPrefs.SetInt("day", day--);
+            //PlayerPrefs.SetInt("day", day--);
+            day--;
         }
         GameObject.Find("LOADING").GetComponent<loading>().gameScene = "gameplay";
         GameObject.Find("LOADING").GetComponent<Animator>().Play("in");
@@ -306,12 +349,43 @@ public class GM : MonoBehaviour
         GameObject.Find("LOADING").GetComponent<Animator>().Play("in");
         //SceneManager.LoadScene(0);
     }
-    public void addMoney(int plus)
+    public void minigame()
+    {
+        if(Random.Range(1,100) <= 50)
+        {
+            GameObject.Find("LOADING").GetComponent<loading>().gameScene = "Indo_guesser";
+        }
+        else
+        {
+            //GameObject.Find("LOADING").GetComponent<loading>().gameScene = "propince";
+            GameObject.Find("LOADING").GetComponent<loading>().gameScene = "Indo_guesser";
+        }
+        GameObject.Find("LOADING").GetComponent<Animator>().Play("in");
+    }
+    public void addMoney(long plus)
     {
         money += plus;
     }
-    public void addCrystal(int plus)
+    public void addCrystal(long plus)
     {
         crystal += plus;
+    }
+    public void playSfx(AudioSource clip)
+    {
+        clip.Play();
+    }
+
+    public void LoadData(GameData data)
+    {
+        money = data.money;
+        crystal = data.crystal;
+        day = data.day;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.money = money;
+        data.crystal = crystal;
+        data.day = day;
     }
 }

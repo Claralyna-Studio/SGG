@@ -13,15 +13,29 @@ public class MM : MonoBehaviour
     [SerializeField] private AudioMixer mixer;
     [SerializeField] private Slider bgm;
     [SerializeField] private Slider sfx;
+    [SerializeField] private GameObject newGameSure;
+    [SerializeField] private GameObject startButton;
     static bool intro = true;
+    public static bool tutor = true;
     // Start is called before the first frame update
     void Start()
     {
-        if(!intro)
+        if (!DataPersistenceManager.instance.HasGameData())
+        {
+            startButton.SetActive(false);
+            tutor = true;
+        }
+        else
+        {
+            startButton.SetActive(true);
+            tutor = false;
+        }
+        if (!intro)
         {
             mainCanvas.Play("in");
         }
         GameObject.Find("LOADING").GetComponent<Animator>().Play("out");
+        newGameSure.SetActive(false);
         if (!PlayerPrefs.HasKey("bgm") || !PlayerPrefs.HasKey("sfx"))
         {
             PlayerPrefs.SetFloat("bgm", 1);
@@ -39,7 +53,7 @@ public class MM : MonoBehaviour
             mixer.SetFloat("sfx", PlayerPrefs.GetFloat("sfx"));
         }
         Time.timeScale = 1;
-        Screen.SetResolution(1920, 1080, true);
+        //Screen.SetResolution(1920, 1080, true);
         optionUI.SetActive(false);
         exitSureUI.SetActive(false);
     }
@@ -66,6 +80,29 @@ public class MM : MonoBehaviour
             mixer.SetFloat("sfx", Mathf.Log10(sfx.value) * 20);
         }
     }
+    public void resetData()
+    {
+        if (!DataPersistenceManager.instance.HasGameData())
+        {
+            newGame(true);
+        }
+        else
+        {
+            newGameSure.SetActive(true);
+        }
+    }
+    public void newGame(bool yesNo)
+    {
+        if(yesNo)
+        {
+            DataPersistenceManager.instance.NewGame();
+            mulai();
+        }
+        else
+        {
+            newGameSure.SetActive(false);
+        }
+    }
     public void mulai()
     {
         GameObject.Find("LOADING").GetComponent<loading>().gameScene = "gameplay";
@@ -81,7 +118,7 @@ public class MM : MonoBehaviour
     public void exit()
     {
         //Application.Quit();
-        if(!exitSureUI.activeSelf)
+        if (!exitSureUI.activeSelf)
         {
             exitSureUI.SetActive(true);
         }
@@ -96,5 +133,9 @@ public class MM : MonoBehaviour
         {
             exitSureUI.SetActive(false);
         }
+    }
+    public void playSfx(AudioSource clip)
+    {
+        clip.Play();
     }
 }

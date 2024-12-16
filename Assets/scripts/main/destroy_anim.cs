@@ -27,6 +27,14 @@ public class destroy_anim : MonoBehaviour
 
         trayS.canProv_maxFood[trayS.canProv.IndexOf(prov)]++;
     }
+    public void heartBreaking()
+    {
+        //clickable_prov.isbreaking = true;
+    }
+    public void heartDoneBreaking()
+    {
+        //clickable_prov.isbreaking = false;
+    }
 /*    public void unlockIsland()
     {
         upgrades upg = FindObjectOfType<upgrades>();

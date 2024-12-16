@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class cargo_spawner : MonoBehaviour
+public class cargo_spawner : MonoBehaviour, IDataPersistence
 {
     GM gm;
     [SerializeField] private TextMeshProUGUI cargoText;
@@ -27,7 +27,7 @@ public class cargo_spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        cargoText.text = clones.Count.ToString() + "/" + maxBoats.ToString();
+        cargoText.text = (maxBoats - clones.Count).ToString() + "/" + maxBoats.ToString();
         if(!gm.startDay && clones.Count <= 0 && !tutup && spawner.trayCount <= 0)
         {
             tutup = true;
@@ -66,5 +66,17 @@ public class cargo_spawner : MonoBehaviour
         //clones.RemoveAt(clones.IndexOf(cargo));
         clones.RemoveAll(x => x.GetComponent<AIAgent>() == ai);
         //clones.Remove(cargo);
-    }    
+    }
+
+    public void LoadData(GameData data)
+    {
+        speed = data.boatSpeed;
+        maxBoats = data.maxBoats;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.boatSpeed = speed;
+        data.maxBoats = maxBoats;
+    }
 }

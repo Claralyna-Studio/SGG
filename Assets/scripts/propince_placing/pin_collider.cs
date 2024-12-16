@@ -27,5 +27,8 @@ public class pin_collider : MonoBehaviour
     void Update()
     {
         sprite.color = color;
+        ParticleSystem pa = transform.parent.GetComponent<ParticleSystem>();
+        ParticleSystem.MainModule ma = pa.main;
+        ma.startColor = color;
     }
 }

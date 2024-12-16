@@ -77,11 +77,11 @@ public class pathRenderer : MonoBehaviour
                 lineRenderer.positionCount = 0;*/
         if (lineRenderer.startWidth > 0)
         {
-            lineRenderer.startWidth -= 0.01f;
+            lineRenderer.startWidth -= 0.05f;
         }
         else if (lineRenderer.endWidth > 0) 
         {
-            lineRenderer.endWidth -= 0.01f;
+            lineRenderer.endWidth -= 0.05f;
         }
         else if(transform.parent.localScale != Vector3.zero)
         {
@@ -94,7 +94,7 @@ public class pathRenderer : MonoBehaviour
         }
         else
         {
-            lineRenderer.time = 0.1f;
+            lineRenderer.time = 0.01f;
             Destroy(transform.parent.gameObject.transform.parent.transform.parent.gameObject);
             //lineRenderer.positionCount = 0;
         }

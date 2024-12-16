@@ -56,6 +56,12 @@ public class clickable_prov : MonoBehaviour
         upgradeUI = FindObjectOfType<upgrades>().GetComponent<Animator>();
         tray_spawner = FindObjectOfType<traySpawner>();
         gm = FindObjectOfType<GM>();
+        if(gameObject.name == "Bali")
+        {
+            upgradeUI.GetComponent<upgrades>().pos = transform;
+            upgradeUI.GetComponent<upgrades>().curr_prov = this;
+            upgradeUI.SetTrigger("pindah");
+        }
     }
 
     // Update is called once per frame
@@ -63,16 +69,17 @@ public class clickable_prov : MonoBehaviour
     {
         if(gm.closed)
         {
-            idxHeart = 2;
+            idxHeart = 3;
+            isbreaking = false;
         }
-        if(manager && penanda.enabled)
+        if(manager && penanda.enabled && !gm.lose)
         {
             Cursor.SetCursor(cursor, new Vector2(70,120), CursorMode.Auto);
             bubbleProv.transform.GetChild(0).gameObject.SetActive(true);
             //bubbleProv.transform.position = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 0);
             bubbleProv.transform.position = Input.mousePosition;
         }
-        else if(manager && !penanda.enabled)
+        else if(manager && !penanda.enabled && !gm.lose)
         {
             Cursor.SetCursor(null,Vector2.zero,CursorMode.Auto);
             bubbleProv.transform.GetChild(0).gameObject.SetActive(false);
@@ -96,41 +103,61 @@ public class clickable_prov : MonoBehaviour
     {
         if(!gm.lose && penanda.enabled)
         {
-            bubbleProvText.text = this.gameObject.name;
+            bubbleProv.GetComponent<Animator>().SetBool("hovering", true);
+            if(!gm.isCooking[gm.provs.IndexOf(this.gameObject.transform)])
+            {
+                bubbleProvText.text = this.gameObject.name;
+            }
+            else
+            {
+                //bubbleProvText.text = this.gameObject.name + "\nstill preparing food...";
+                bubbleProvText.text = "Still processing food...";
+            }
         }
     }
     private void OnMouseExit()
     {
         if (!gm.lose && penanda.enabled)
         {
+            bubbleProv.GetComponent<Animator>().SetBool("hovering", false);
             bubbleProvText.text = " ";
         }
     }
-    int idxHeart = 2;
+    static int idxHeart = 3;
+    static bool isbreaking = false;
     private void OnMouseDown()
     {
         if(!gm.lose)
         {
             bubbleProvText.text = " ";
+            //bubbleProv.SetActive(false);
             //Debug.Log("clicked " + this.gameObject.name);
             if(gm.canShip && !gm.closed && !gm.isReadingRecipe)
             {
                 if (!gm.isCooking[gm.provs.IndexOf(this.gameObject.transform)] && tray_spawner.curr_tray.prov == transform)
                 {
+                    bubbleProv.GetComponent<Animator>().SetBool("hovering", false);
+                    CancelInvoke("doneBreaking");
+                    isbreaking = false;
+                    doneBreaking();
                     tray_spawner.ship(transform);
                 }
                 else if(!gm.isCooking[gm.provs.IndexOf(this.gameObject.transform)] && tray_spawner.curr_tray.prov != transform)
                 {
                     //GameObject.Find("hearts").transform.GetChild(GameObject.Find("hearts").transform.childCount - 1).GetComponent<Animator>().SetBool("break",true);
-                    if(idxHeart >= 0)
+                    if(idxHeart >= 0 && !isbreaking)
                     {
-                        GameObject.Find("hearts").transform.GetChild(idxHeart).GetComponent<Animator>().SetBool("break",true);
+                        isbreaking = true;
                         idxHeart--;
+                        GameObject.Find("hearts").transform.GetChild(idxHeart).GetComponent<Animator>().SetBool("break",true);
+                        //GameObject.Find("hearts").transform.GetChild(idxHeart).gameObject.SetActive(false);
+                        //Debug.LogWarning(idxHeart + " dan " + GameObject.Find("hearts").transform.GetChild(idxHeart).GetComponent<Animator>().GetBool("break"));
                         gm.heart--;
                         if(gm.heart <= 0)
                         {
                             gm.lose = true;
                         }
+                        Invoke("doneBreaking", 1f);
                     }
                 }
                 else
@@ -148,5 +175,9 @@ public class clickable_prov : MonoBehaviour
                 upgradeUI.SetTrigger("pindah");
             }
         }
+    }
+    void doneBreaking()
+    {
+        isbreaking = false;
     }
 }

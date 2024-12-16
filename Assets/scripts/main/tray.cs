@@ -7,7 +7,11 @@ using UnityEngine.UI;
 
 public class tray : MonoBehaviour
 {
-    public float patience = 30f;
+    [SerializeField] private Sprite normal;
+    [SerializeField] private Sprite sad;
+    [SerializeField] private Sprite angry;
+    public float patience = 3f;
+    [SerializeField] private float reducePricePercentage = 0.05f;
     public float cookTime;
     GameObject moneyPlus_particle;
     traySpawner spawner;
@@ -21,24 +25,33 @@ public class tray : MonoBehaviour
     //TextMeshProUGUI text_notepad;
     [SerializeField] private GameObject penanda;
     [SerializeField] private Image[] img;
-    public int coins = 0;
+    public long coins = 0;
     Animator anim;
     [SerializeField] private Animator anim2;
     [SerializeField] private notepad note;
     public bool isCooking = false;
     public bool restriction = false;
-    public List<GameObject> restrictions;
-    [SerializeField] private List<GameObject> curr_restrictions;
+    public List<GameObject> curr_restrictions;
+    //[SerializeField] private List<GameObject> curr_restrictions;
     public bool done = false;
     //public static bool isClicked;
     // Start is called before the first frame update
     void Start()
     {
+        if (!restriction)
+        {
+            transform.GetChild(0).GetChild(1).Find("restrict").gameObject.SetActive(false);
+        }
+        else
+        {
+            transform.GetChild(0).GetChild(1).Find("restrict").gameObject.SetActive(true);
+        }
+        StartCoroutine(patienceTimer());
         spawner2 = FindObjectOfType<cargo_spawner>();
         moneyPlus_particle = GameObject.Find("UI").transform.GetChild(0).gameObject;
         prov = GameObject.Find("sprites").transform.Find(provName);
         food_notepad = GameObject.Find("FOOD_NOTEPAD").GetComponent<Image>();
-        food_notepad2 = GameObject.Find("FOOD_NOTEPAD2").GetComponent<Image>();
+        food_notepad2 = GameObject.Find("DRINK_NOTEPAD").GetComponent<Image>();
         //text_notepad = GameObject.Find("TEXT_NOTEPAD").GetComponent<TextMeshProUGUI>();
         //tray.isClicked = false;
         anim = GetComponent<Animator>();
@@ -46,6 +59,7 @@ public class tray : MonoBehaviour
         note = FindObjectOfType<notepad>();
         penanda = GameObject.Find("penanda");
         gm = FindObjectOfType<GM>();
+        gm.playSfx(GameObject.Find("sfx_orderUp").GetComponent<AudioSource>());
         spawner = FindObjectOfType<traySpawner>();
         if(food.name != "bajigur" && food.name != "esdawet")
         {
@@ -80,7 +94,7 @@ public class tray : MonoBehaviour
         {
             //clicked2 = true;
             spawner.curr_tray = this;
-            if(!restriction)
+            if (!restriction)
             {
                 gm.canShip = true;
                 anim.SetBool("clicked", true);
@@ -88,15 +102,19 @@ public class tray : MonoBehaviour
             }
             else if (restriction && note.order != this)
             {
-                anim.SetBool("clicked",true);
+                anim.SetBool("clicked", true);
                 //tray.isClicked = true;
             }
         }
-        else if(clicked2 && penanda.GetComponent<Image>().enabled && spawner2.clones.Count < spawner2.maxBoats && !isCooking && !gm.lose)
+        else if (clicked2 && penanda.GetComponent<Image>().enabled && spawner2.clones.Count < spawner2.maxBoats && !isCooking && !gm.lose)
         {
-            
+
             //clicked2 = false;
             exitNotePad();
+        }
+        else if (spawner2.clones.Count >= spawner2.maxBoats)
+        {
+            GameObject.Find("TextBoat").GetComponent<Animator>().Play("warning");
         }
     }
     public void hasClicked()
@@ -109,6 +127,7 @@ public class tray : MonoBehaviour
     }
     public void ship()
     {
+        //StopAllCoroutines();
         penanda.GetComponent<Image>().enabled = false;
         gm.canShip = false;
         anim.SetBool("clicked", false);
@@ -147,11 +166,13 @@ public class tray : MonoBehaviour
     }
     public void doneCooking()
     {
+        StopAllCoroutines();
         done = true;
         isCooking = false;
     }
     public void moneyBag()
     {
+        gm.playSfx(GameObject.Find("sfx_orderMoney").GetComponent<AudioSource>());
         GameObject par = Instantiate(moneyPlus_particle,transform.parent.gameObject.transform.parent);
         par.transform.position = transform.GetChild(0).position;
         par.transform.localScale = transform.localScale * 0.2f;
@@ -173,6 +194,34 @@ public class tray : MonoBehaviour
         else
         {
             curr_restrictions.Remove(restrict);
+        }
+    }
+    IEnumerator patienceTimer()
+    {
+        yield return new WaitForSeconds(20f);
+        patience--;
+        long temp = 0;
+        switch(patience)
+        {            
+            case 1:
+                temp += (long)(coins * reducePricePercentage);
+                coins -= temp;
+                transform.GetChild(0).GetChild(5).GetComponent<Image>().sprite = sad;
+                StartCoroutine(patienceTimer());
+                break;
+
+            case 2:
+                temp = (long)(coins * reducePricePercentage);
+                coins -= temp;
+                transform.GetChild(0).GetChild(5).GetComponent<Image>().sprite = normal;
+                StartCoroutine(patienceTimer());
+                break;
+
+            default:
+                temp += (long)(coins * reducePricePercentage);
+                coins -= temp;
+                transform.GetChild(0).GetChild(5).GetComponent<Image>().sprite = angry;
+                break;
         }
     }
 }

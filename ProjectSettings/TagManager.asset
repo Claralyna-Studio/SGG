@@ -12,6 +12,7 @@ TagManager:
   - Kalimantan
   - Jawa
   - Sulawesi
+  - Cities
   layers:
   - Default
   - TransparentFX

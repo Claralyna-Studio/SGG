@@ -28,6 +28,18 @@ public class loading : MonoBehaviour
     }
     public void changeScene()
     {
+        /*        if(SceneManager.GetActiveScene().name == "main_menu" || gameScene == "main_menu")
+                {
+                    SceneManager.LoadScene(gameScene);
+                }
+                else if(gameScene != "gameplay")
+                {
+                    SceneManager.LoadScene(gameScene,LoadSceneMode.Additive);
+                }
+                else if(gameScene == "gameplay")
+                {
+                    SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().name);
+                }*/
         SceneManager.LoadScene(gameScene);
     }
 }

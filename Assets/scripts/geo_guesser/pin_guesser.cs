@@ -16,8 +16,8 @@ public class pin_guesser : MonoBehaviour
     LineRenderer line;
     private void Awake()
     {
-        line = GameObject.FindObjectOfType<LineRenderer>();
-        line.enabled = false;
+        line = FindObjectOfType<LineRenderer>();
+        //line.enabled = false;
         pin = GameObject.Find("PIN");
         //pin.GetComponent<Animator>().Play("drag"); 
         //pin.GetComponent<Animator>().SetBool("dragging",true);
@@ -49,23 +49,24 @@ public class pin_guesser : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = button.gameObject.transform.position;
-        transform.localScale = button.gameObject.transform.lossyScale * 100f;
+        //transform.position = button.gameObject.transform.position;
+        //transform.localScale = button.gameObject.transform.lossyScale * 100f;
 /*        if (Input.GetMouseButtonDown(0))
         {
             mousePos = Input.mousePosition;
         }*/
-        if(!isClicked)
+        if(!isClicked && !gm.fail)
         {
             pin.transform.position = Input.mousePosition;
         }
         if(selected)
         {
             //curr_colr = Color.green;
+            curr_colr = new Color(0, 1, 0, 0.5f);
         }
         else
         {
-            curr_colr = Color.red;
+            curr_colr = new Color(1, 1, 1, 0.5f);
         }
         img.color = curr_colr;
         //but_clor.normalColor = curr_colr;
@@ -74,7 +75,7 @@ public class pin_guesser : MonoBehaviour
     static bool isClicked = false;
     private void OnMouseDown()
     {
-        if (!isClicked)
+        if (!isClicked && !gm.fail)
         {
             //pin.GetComponent<Animator>().SetBool("dragging", false);
             mousePos = Input.mousePosition;

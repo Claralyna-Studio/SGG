@@ -9,11 +9,12 @@ public class sprite_to_UI_pos : MonoBehaviour
     RectTransform rectTransform;
     [SerializeField] private float kurangX;
     [SerializeField] private float kurangY;
+    [SerializeField] private bool provInv = true;
     // Start is called before the first frame update
     void Awake()
     {
         pos = GameObject.Find("MAP").transform.Find(this.gameObject.name).gameObject;  
-        if(pos.gameObject.GetComponent<Image>().enabled)
+        if(pos.gameObject.GetComponent<Image>().enabled && provInv)
         {
             pos.gameObject.GetComponent<Image>().enabled = false;
         }
@@ -23,7 +24,6 @@ public class sprite_to_UI_pos : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         transform.position = pos.transform.position;
         //transform.localScale = rectTransform.lossyScale * 50f;
         //Debug.Log(rectTransform.rect.size);
