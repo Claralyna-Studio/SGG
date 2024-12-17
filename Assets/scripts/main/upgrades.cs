@@ -1056,6 +1056,7 @@ public class upgrades : MonoBehaviour, IDataPersistence
         foreach (Button button in slotButtons)
         {
             button.interactable = false;
+            button.GetComponent<Image>().raycastTarget = false;
         }
         int idx = 3;
         //Debug.LogWarning("countdown");
@@ -1084,6 +1085,11 @@ public class upgrades : MonoBehaviour, IDataPersistence
         }
         else
         {
+            foreach (Button button in slotButtons)
+            {
+                button.interactable = true;
+                button.GetComponent<Image>().raycastTarget = true;
+            }
             //Debug.LogWarning("B");
             tray_spawner.doneUpgrade();
         }

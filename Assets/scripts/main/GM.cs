@@ -256,13 +256,16 @@ public class GM : MonoBehaviour, IDataPersistence
             addCrystal(10);
         }
         dayText.text = "Day: " + day.ToString("##,#");
-        if(Random.Range(1,100) <= chanceMiniGames)
+        if(day > 2)
         {
-            minigameUI.GetComponent<Animator>().Play("in");
-        }
-        if(chanceMiniGames < 50)
-        {
-            chanceMiniGames += 2;
+            if(Random.Range(1,100) <= chanceMiniGames)
+            {
+                minigameUI.GetComponent<Animator>().Play("in");
+            }
+            if(chanceMiniGames < 50)
+            {
+                chanceMiniGames += 2;
+            }
         }
         //PlayerPrefs.SetInt("day", day);
         closed = true;
@@ -318,7 +321,7 @@ public class GM : MonoBehaviour, IDataPersistence
             }
         }
     }
-    bool paused = false;
+    public bool paused = false;
     public void pause()
     {
         paused = !paused;

@@ -4283,7 +4283,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -587544182134614360, guid: 7e4617465048f874084e1d7d7c5570ee, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -29698,6 +29698,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   img: {fileID: 1401038493}
+  fastUI: {fileID: 0}
 --- !u!114 &1401038492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31910,6 +31911,9 @@ MonoBehaviour:
   crystalBoatSpeed: 100
   money: 0
   crystal: 0
+  moneyUnlock: 
+  crystalUnlock: 
+  unlockIslandButtons: {fileID: 0}
   upgradeBoatButton: {fileID: 801169975}
   upgradeBoatText: {fileID: 475490746}
   upgradeBoatTextMoney: {fileID: 0}
@@ -31920,9 +31924,12 @@ MonoBehaviour:
   upgradeBoatSpeedTextMoney: {fileID: 0}
   upgradeBoatSpeedTextCrystal: {fileID: 0}
   upgradeBoatSpeedSprt: {fileID: 820206037}
+  TimeTest: 0
   pos: {fileID: 0}
   curr_prov: {fileID: 0}
   clicked: 0
+  tempText: []
+  tempTextSlot: []
   provText: {fileID: 0}
   timerText: {fileID: 2043226914}
   buy_button: {fileID: 2116199446}
@@ -31932,6 +31939,9 @@ MonoBehaviour:
   - {fileID: 1100025426}
   - {fileID: 1659338011}
   idx: 0
+  slotButtons: []
+  canvas: {fileID: 0}
+  coll: {fileID: 0}
 --- !u!225 &1520886724
 CanvasGroup:
   m_ObjectHideFlags: 0

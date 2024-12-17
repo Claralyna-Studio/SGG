@@ -229,4 +229,8 @@ public class tray : MonoBehaviour
                 break;
         }
     }
+    public void playSfx(string audioSource)
+    {
+        GameObject.Find(audioSource).GetComponent<AudioSource>().Play();
+    }
 }

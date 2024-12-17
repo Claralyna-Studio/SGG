@@ -20,11 +20,26 @@ public class loading : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
     }
-
+    bool volumeDown = false;
     // Update is called once per frame
     void Update()
     {
-        
+        if (!volumeDown && GameObject.Find("bgm").GetComponent<AudioSource>().volume < 1)
+        {
+            GameObject.Find("bgm").GetComponent<AudioSource>().volume+=0.002f;
+        }
+        else if(volumeDown && GameObject.Find("bgm").GetComponent<AudioSource>().volume > 0)
+        {
+            GameObject.Find("bgm").GetComponent<AudioSource>().volume-=0.002f;
+        }
+    }
+    public void volume_down()
+    {
+        volumeDown = true;
+    }
+    public void volume_up()
+    {
+        volumeDown = false;
     }
     public void changeScene()
     {
