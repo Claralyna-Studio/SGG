@@ -994,7 +994,7 @@ public class upgrades : MonoBehaviour, IDataPersistence
         }
         isUpgrading = true;
         coll.gameObject.SetActive(false);
-        yield return new WaitForSecondsRealtime(1);
+        yield return new WaitForSeconds(1);
         waktu[idx]--;
         int menit = Mathf.FloorToInt(waktu[idx] / 60);
         int detik = Mathf.FloorToInt(waktu[idx] % 60);
@@ -1021,7 +1021,7 @@ public class upgrades : MonoBehaviour, IDataPersistence
         int menit = Mathf.FloorToInt(waktu[idx] / 60);
         int detik = Mathf.FloorToInt(waktu[idx] % 60);
         text.text = string.Format("{0:00}:{1:00}", menit, detik);
-        yield return new WaitForSecondsRealtime(1);
+        yield return new WaitForSeconds(1);
         waktu[idx]--;
         menit = Mathf.FloorToInt(waktu[idx] / 60);
         detik = Mathf.FloorToInt(waktu[idx] % 60);
@@ -1070,7 +1070,7 @@ public class upgrades : MonoBehaviour, IDataPersistence
         //tempText[idx].text = string.Format("{0:00}:{1:00}", menit, detik);
         tempTextSlot[traySpawner.trayMax - 2].text = string.Format("{0:00}:{1:00}", menit, detik);
 
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSeconds(1f);
 
         waktu[idx]--;
         menit = Mathf.FloorToInt(waktu[idx] / 60);
