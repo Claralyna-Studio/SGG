@@ -23,6 +23,7 @@ public class AIAgent : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        AstarPath.active.Scan();
         spawner = FindObjectOfType<cargo_spawner>();
         bubble = transform.parent.Find("bubble").GetComponent<SpriteRenderer>();
         Tray.isCooking = true;

@@ -131,13 +131,25 @@ public class traySpawner : MonoBehaviour, IDataPersistence
             int idx = canProv_maxFood[canProv.IndexOf(curr_order.province)]-1;
             //int b = UnityEngine.Random.Range(0, curr_order.food.Count);
             //Debug.Log(curr_order.province + "." + idx);
-            int b = UnityEngine.Random.Range(0, idx);
+            int b = 0;
+            do
+            {
+                b = UnityEngine.Random.Range(-3, 3);
+            } while (b > idx || b < -idx);
 
             GameObject clone = Instantiate(tray_prefab, parent.transform);
             //clone.transform.localScale = Vector3.one;
-            clone.gameObject.GetComponent<tray>().coins = curr_order.prices[b];
+            if(b >= 0)
+            {
+                clone.gameObject.GetComponent<tray>().coins = curr_order.prices[b];
+                clone.gameObject.GetComponent<tray>().food = curr_order.food[b];
+            }
+            else
+            { 
+                clone.gameObject.GetComponent<tray>().coins = curr_order.prices[-b];
+                clone.gameObject.GetComponent<tray>().food = curr_order.food[-b];
+            }
             clone.gameObject.GetComponent<tray>().provName = curr_order.province;
-            clone.gameObject.GetComponent<tray>().food = curr_order.food[b];
             clone.transform.SetParent(parent.transform, false);
         }
         if(!gm.lose && gm.startDay)

@@ -55,7 +55,7 @@ public class pin_guesser : MonoBehaviour
         {
             mousePos = Input.mousePosition;
         }*/
-        if(!isClicked && !gm.fail)
+        if(!isClicked && !gm.fail && !gm.paused)
         {
             pin.transform.position = Input.mousePosition;
         }

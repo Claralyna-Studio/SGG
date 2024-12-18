@@ -40,7 +40,7 @@ public class pathRenderer : MonoBehaviour
             lineRenderer.SetPosition(a - 1, cargo.transform.position);
             a++;
         }*/
-        AstarPath.active.Scan();
+        //AstarPath.active.Scan();
     }
     public void startTrail()
     {

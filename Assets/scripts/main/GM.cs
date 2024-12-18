@@ -360,8 +360,7 @@ public class GM : MonoBehaviour, IDataPersistence
         }
         else
         {
-            //GameObject.Find("LOADING").GetComponent<loading>().gameScene = "propince";
-            GameObject.Find("LOADING").GetComponent<loading>().gameScene = "Indo_guesser";
+            GameObject.Find("LOADING").GetComponent<loading>().gameScene = "propince";
         }
         GameObject.Find("LOADING").GetComponent<Animator>().Play("in");
     }

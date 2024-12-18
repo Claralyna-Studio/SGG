@@ -75,7 +75,7 @@ public class propinM : MonoBehaviour
             textMoney.text = ((float)GM.money / 1000000f).ToString("#.00") + money2;
             //crystalText.text = (curr_crystal/1000000).ToString("##,#") + crystal2;
         }
-        else if (GM.crystal > 0)
+        else if (GM.money > 0)
         {
             //crystalText.text = crystal.ToString();
             textMoney.text = GM.money.ToString("##,#");
@@ -158,7 +158,7 @@ public class propinM : MonoBehaviour
     {
         clip.Play();
     }
-    bool paused = false;
+    public bool paused = false;
     [SerializeField] private GameObject pauseUI;
     public void pause()
     {
