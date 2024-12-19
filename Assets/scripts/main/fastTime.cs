@@ -37,6 +37,19 @@ public class fastTime : MonoBehaviour
             up();
         }
     }
+    bool isFast = false;
+    public void Switch()
+    {
+        isFast = !isFast;
+        if (isFast)
+        {
+            down();
+        }
+        else
+        {
+            up();
+        }
+    }
     public void up()
     {
         if(!gm.paused)
