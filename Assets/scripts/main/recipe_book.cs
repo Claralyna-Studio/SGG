@@ -62,6 +62,29 @@ public class recipe_book : MonoBehaviour
     {
         if (isUI)
         {
+<<<<<<< Updated upstream
+=======
+            for (int i = 0; i < mark.transform.childCount; i++)
+            {
+                if(upg.pulauUnlocked[upg.pulauUnlockedName.IndexOf(mark.transform.GetChild(i).gameObject.name)])
+                {
+                    mark.transform.GetChild(i).GetComponent<Button>().interactable = true;
+                    if(mark.transform.GetChild(i).GetChild(2))
+                    {
+                        mark.transform.GetChild(i).GetChild(2).gameObject.SetActive(false);
+                    }
+                }
+                else
+                {
+                    mark.transform.GetChild(i).GetComponent<Button>().interactable = false;
+                    if (mark.transform.GetChild(i).GetChild(2))
+                    {
+                        mark.transform.GetChild(i).GetChild(2).gameObject.SetActive(true);
+                    }
+                    //
+                }
+            }
+>>>>>>> Stashed changes
 /*            for (int i = 0; i < mark.transform.childCount; i++)
             {
                 if (upg.pulauUnlockedName.Contains(mark.transform.GetChild(i).name))
