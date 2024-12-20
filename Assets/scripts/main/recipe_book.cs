@@ -380,12 +380,14 @@ public class recipe_book : MonoBehaviour, IDataPersistence
     }
     public void flip()
     {
+        GameObject.Find("sfx_recipePages1").GetComponent<AudioSource>().Play();
         GetComponent<Animator>().ResetTrigger("flip2");
         GetComponent<Animator>().SetTrigger("flip");
         
     }
     public void flip2()
     {
+        GameObject.Find("sfx_recipePages2").GetComponent<AudioSource>().Play();
         GetComponent<Animator>().ResetTrigger("flip");
         GetComponent<Animator>().SetTrigger("flip2");
     }
