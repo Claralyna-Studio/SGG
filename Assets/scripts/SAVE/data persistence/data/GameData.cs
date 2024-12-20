@@ -37,6 +37,8 @@ public class GameData
     public int maxBoats;
     public float boatSpeed;
 
+    //recipe book
+    public SerializableList<int> all_index;
 /*    [Serializable]
     public struct orders
     {
@@ -72,6 +74,8 @@ public class GameData
         //pausedDate.PausedDate = DateTime.Now;
 
         waktu = new SerializableList<int>();
+        
+        all_index = new SerializableList<int>();
 
         pulauUnlockedName = new SerializableList<string>();
         pulauUnlocked = new SerializableList<bool>();

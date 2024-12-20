@@ -1206,6 +1206,16 @@ public class upgrades : MonoBehaviour, IDataPersistence
                 data.pulauUnlockedName.Add(pulauUnlockedName[i]);
             }
         }
+        if(data.pulauUnlockedName.Count == pulauUnlockedName.Count && data.pulauUnlocked.Count == pulauUnlocked.Count)
+        {
+            for(int i=0;i<pulauUnlockedName.Count;i++)
+            {
+                data.pulauUnlockedName[i] = pulauUnlockedName[i];
+                data.pulauUnlocked[i] = pulauUnlocked[i];
+            }
+        }
+
+
         if (data.foodPrep_seconds.Count != foodPrep_seconds.Count)
         {
             //data.foodPrep_seconds.Capacity = foodPrep_seconds.Count;
@@ -1242,6 +1252,21 @@ public class upgrades : MonoBehaviour, IDataPersistence
                 data.crystalSpeedUp.Add(crystalSpeedUp[i]);
             }
         }
+        if (data.foodPrep_seconds.Count == foodPrep_seconds.Count &&
+            data.berapaKaliUpgrade.Count == berapaKaliUpgrade.Count &&
+            data.crystalSpeedUp.Count == crystalSpeedUp.Count)
+        {
+            for (int i=0;i<9;i++)
+            {
+                /*data.foodPrep_seconds.Add(foodPrep_seconds[i]);
+                data.berapaKaliUpgrade.Add(berapaKaliUpgrade[i]);
+                data.crystalSpeedUp.Add(crystalSpeedUp[i]);*/
+
+                data.foodPrep_seconds[i] = foodPrep_seconds[i];
+                data.berapaKaliUpgrade[i] = berapaKaliUpgrade[i];
+                data.crystalSpeedUp[i] = crystalSpeedUp[i];
+            }
+        }
         if (data.waktu.Count != waktu.Count)
         {
             //data.waktu.Capacity = waktu.Count;
@@ -1254,39 +1279,27 @@ public class upgrades : MonoBehaviour, IDataPersistence
                 data.waktu.Add(waktu[i]);
             }
         }
-        for(int i=0;i<pulauUnlockedName.Count;i++)
+        else
         {
-            data.pulauUnlockedName[i] = pulauUnlockedName[i];
-            data.pulauUnlocked[i] = pulauUnlocked[i];
-        }
-        for (int i=0;i<9;i++)
-        {
-            /*data.foodPrep_seconds.Add(foodPrep_seconds[i]);
-            data.berapaKaliUpgrade.Add(berapaKaliUpgrade[i]);
-            data.crystalSpeedUp.Add(crystalSpeedUp[i]);*/
-
-            data.foodPrep_seconds[i] = foodPrep_seconds[i];
-            data.berapaKaliUpgrade[i] = berapaKaliUpgrade[i];
-            data.crystalSpeedUp[i] = crystalSpeedUp[i];
+            for (int i = 0; i < waktu.Count; i++)
+            {
+                /*            if (data.waktu.ContainsKey(i.ToString()))
+                            {
+                                data.waktu.Remove(i.ToString());
+                            }
+                            data.waktu.Add(i.ToString(), waktu[i]);*/
+                /*            if (data.waktu[i]==null)
+                            {
+                                data.waktu[i] = waktu[i];
+                            }*/
+                //data.waktu.Add(waktu[i]);
+                data.waktu[i] = waktu[i];
+                //Debug.LogError($"\n{data.waktu[i].ToString()}");
+            }
         }
         //data.berapaKaliUpgrade = berapaKaliUpgrade;
         //data.tempText = tempText;
         //data.waktu = waktu;
-        for (int i = 0; i < waktu.Count; i++)
-        {
-            /*            if (data.waktu.ContainsKey(i.ToString()))
-                        {
-                            data.waktu.Remove(i.ToString());
-                        }
-                        data.waktu.Add(i.ToString(), waktu[i]);*/
-            /*            if (data.waktu[i]==null)
-                        {
-                            data.waktu[i] = waktu[i];
-                        }*/
-            //data.waktu.Add(waktu[i]);
-            data.waktu[i] = waktu[i];
-            //Debug.LogError($"\n{data.waktu[i].ToString()}");
-        }
         //data.upgrading = upgrading;
         //data.waktuStamp = waktuStamp;
     }

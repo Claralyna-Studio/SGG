@@ -170,9 +170,9 @@ public class traySpawner : MonoBehaviour, IDataPersistence
         if (!upgraded && GM.money >= upgradeTray[idx] && idx <= 3)
         {
             current = curr.gameObject;
-            curr.interactable = false;
+            //curr.interactable = false;
             //current.gameObject.transform.GetChild(1).gameObject.SetActive(false);
-            gm.addMoney(-upgradeTray[idx]);
+            
         }
     }
     [SerializeField] private TextMeshProUGUI text;
@@ -184,6 +184,8 @@ public class traySpawner : MonoBehaviour, IDataPersistence
             //upg.waktu.Add(time);
             //upgrades.waktu[upgrades.waktu.Count-1] = time;
             //idxUpgradeTime = upgrades.waktu.Count-1;
+            current.GetComponent<Button>().interactable = false;
+            gm.addMoney(-upgradeTray[idx]);
             upgrades.waktu[3] = time;
             upgraded = true;
             text = current.gameObject.transform.GetChild(1).gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
