@@ -536,7 +536,7 @@ public class upgrades : MonoBehaviour, IDataPersistence
         //if(clicked) GetComponent<Animator>().SetBool("in", gm.closed);
         if(!gm.startDay && gm.closed)
         {
-            if(traySpawner.trayMax < 5)
+            if(traySpawner.trayMax < 5 && GM.day > 1)
             {
                 for(int i = traySpawner.trayMax; i < meja_upgrade.Count;i++)
                 {
@@ -555,7 +555,7 @@ public class upgrades : MonoBehaviour, IDataPersistence
         }
         else
         {
-            if (traySpawner.trayMax < 5)
+            if (traySpawner.trayMax < 5 && GM.day > 1)
             {
                 for (int i = traySpawner.trayMax; i < meja_upgrade.Count; i++)
                 {

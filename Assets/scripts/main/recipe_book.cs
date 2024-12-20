@@ -69,12 +69,18 @@ public class recipe_book : MonoBehaviour
                 if(upg.pulauUnlocked[upg.pulauUnlockedName.IndexOf(mark.transform.GetChild(i).gameObject.name)])
                 {
                     mark.transform.GetChild(i).GetComponent<Button>().interactable = true;
-                    mark.transform.GetChild(i).GetChild(2).gameObject.SetActive(false);
+                    if(mark.transform.GetChild(i).GetChild(2))
+                    {
+                        mark.transform.GetChild(i).GetChild(2).gameObject.SetActive(false);
+                    }
                 }
                 else
                 {
                     mark.transform.GetChild(i).GetComponent<Button>().interactable = false;
-                    mark.transform.GetChild(i).GetChild(2).gameObject.SetActive(true);
+                    if (mark.transform.GetChild(i).GetChild(2))
+                    {
+                        mark.transform.GetChild(i).GetChild(2).gameObject.SetActive(true);
+                    }
                 }
             }
 /*            for (int i = 0; i < mark.transform.childCount; i++)
