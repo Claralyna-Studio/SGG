@@ -39,27 +39,6 @@ public class traySpawner : MonoBehaviour, IDataPersistence
         upgraded = false;
         upg = FindObjectOfType<upgrades>();
         gm = FindObjectOfType<GM>();
-        if(GM.day > 1)
-        {
-            for(int i= 0;i < GameObject.Find("meja (1)").transform.childCount;i++)
-            {
-                if(i < trayMax && i > 1)
-                {
-                    GameObject.Find("meja (1)").transform.GetChild(i).GetComponent<Animator>().SetBool("in", true);
-                    GameObject.Find("meja (1)").transform.GetChild(i).transform.GetChild(0).gameObject.SetActive(true);
-                    GameObject.Find("meja (1)").transform.GetChild(i).transform.GetChild(1).gameObject.SetActive(false);
-                }
-                else if(i >= trayMax)
-                {
-                    //Debug.Log(i);
-                    GameObject.Find("meja (1)").transform.GetChild(i).GetComponent<Animator>().SetBool("in",true);
-                    //current = GameObject.Find("meja (1)").transform.GetChild(i).GetComponent<Button>();
-                    GameObject.Find("meja (1)").transform.GetChild(i).transform.GetChild(0).gameObject.SetActive(true);
-                    GameObject.Find("meja (1)").transform.GetChild(i).transform.GetChild(1).gameObject.SetActive(true);
-                    break;
-                }
-            }
-        }
         switch(trayMax)
         {
             case 2:
@@ -88,6 +67,36 @@ public class traySpawner : MonoBehaviour, IDataPersistence
     // Update is called once per frame
     void Update()
     {
+        if(GM.day > 1)
+        {
+            for(int i= 0;i < GameObject.Find("meja (1)").transform.childCount-1;i++)
+            {
+                //upgraded
+                if(i < trayMax && i > 1)
+                {
+                    GameObject.Find("meja (1)").transform.GetChild(i).GetComponent<Button>().interactable = false;
+                    GameObject.Find("meja (1)").transform.GetChild(i).GetComponent<Animator>().SetBool("in", true);
+                    GameObject.Find("meja (1)").transform.GetChild(i).transform.GetChild(0).gameObject.SetActive(true);
+                    GameObject.Find("meja (1)").transform.GetChild(i).transform.GetChild(1).gameObject.SetActive(false);
+                }
+                //current upgrade
+                else if(i >= trayMax)
+                {
+                    //Debug.Log(i);
+                    GameObject.Find("meja (1)").transform.GetChild(i).GetComponent<Button>().interactable = true;
+                    GameObject.Find("meja (1)").transform.GetChild(i).GetComponent<Animator>().SetBool("in",true);
+                    //current = GameObject.Find("meja (1)").transform.GetChild(i).GetComponent<Button>();
+                    GameObject.Find("meja (1)").transform.GetChild(i).transform.GetChild(0).gameObject.SetActive(true);
+                    GameObject.Find("meja (1)").transform.GetChild(i).transform.GetChild(1).gameObject.SetActive(true);
+                    break;
+                }
+            }
+        }
+        if(upgraded && current)
+        {
+            current.transform.GetChild(1).GetComponent<Image>().color = Color.gray;
+        }
+
         trayCount = parent.transform.childCount;
         if(!gm.lose && !gm.startDay)
         {
@@ -99,7 +108,7 @@ public class traySpawner : MonoBehaviour, IDataPersistence
             //Debug.LogWarning("A");
         }
     }
-    public void bukaProv(string prov)
+/*    public void bukaProv(string prov)
     {
         if(!canProv.Contains(prov))
         {
@@ -109,7 +118,7 @@ public class traySpawner : MonoBehaviour, IDataPersistence
         {
             Debug.Log(sprite.name);
         }
-    }
+    }*/
     /*    public void bukaRecipe(int idx)
         {
             if(canProv_maxFood[idx] < 3)

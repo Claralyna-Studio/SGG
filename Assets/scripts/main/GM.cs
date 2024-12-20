@@ -337,11 +337,11 @@ public class GM : MonoBehaviour, IDataPersistence
     }
     public void restart()
     {
-        if(day >= 1)
+/*        if(day >= 1)
         {
             //PlayerPrefs.SetInt("day", day--);
             day--;
-        }
+        }*/
         GameObject.Find("LOADING").GetComponent<loading>().gameScene = "gameplay";
         GameObject.Find("LOADING").GetComponent<Animator>().Play("in");
         //SceneManager.LoadScene(SceneManager.GetActiveScene().name);

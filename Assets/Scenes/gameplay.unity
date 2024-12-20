@@ -5499,7 +5499,6 @@ MonoBehaviour:
   - {fileID: 1988968553}
   - {fileID: 1142753358}
   - {fileID: 723009551}
-  - {fileID: 748294858}
   canvas: {fileID: 2047567980}
   coll: {fileID: 1575241856}
 --- !u!225 &285109878
@@ -14949,7 +14948,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1988968554}
   m_OnClick:
     m_PersistentCalls:
@@ -24872,7 +24871,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1988968554}
   m_OnClick:
     m_PersistentCalls:
@@ -29350,7 +29349,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 117444671
+    rgba: 4278194239
   m_fontColor: {r: 0.24528301, g: 0.061263345, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -34729,7 +34728,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mark: {fileID: 534160326}
   index1: 0
-  all_index: 000000000300000006000000010000000200000004000000050000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f000000100000001100000012000000130000001400000015000000160000001700000018000000190000001a000000
+  all_index: 000000000300000006000000010000000200000004000000050000000700000008000000090000000c0000000f0000001200000015000000180000000a0000000b0000000d0000000e000000100000001100000013000000140000001600000017000000190000001a000000
   recipes:
   - prov: Bali
     food_name: Sate Lilit
@@ -41924,7 +41923,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 117444671
+    rgba: 4278194239
   m_fontColor: {r: 0.24528301, g: 0.061263345, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -45589,7 +45588,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1988968554}
   m_OnClick:
     m_PersistentCalls:

@@ -124,6 +124,8 @@ public class recipe_book : MonoBehaviour, IDataPersistence
                 drink1.sprite = curr_recipe1.food;
                 drink1.gameObject.SetActive(true);
             }
+
+            //must unlock island first
             else if(!trayS.canProv.Contains(curr_recipe1.prov))
             {
                 locked = true;
@@ -265,23 +267,29 @@ public class recipe_book : MonoBehaviour, IDataPersistence
                 food1.enabled = false;
                 drink1.enabled = true;
             }
-/*            if(curr_recipe2.food.name != "bajigur" && curr_recipe2.food.name != "esdawet")
+            /*            if(curr_recipe2.food.name != "bajigur" && curr_recipe2.food.name != "esdawet")
+                        {
+                            food2.enabled = true;
+                            drink2.enabled = false;
+                        }
+                        else
+                        {
+                            food2.enabled = false;
+                            drink2.enabled = true;
+                        }*/
+
+            resep temp = new resep();
+            if (index1 < recipes.Count-1)
             {
-                food2.enabled = true;
-                drink2.enabled = false;
+                temp = recipes[all_index[index1+1]];
             }
-            else
-            {
-                food2.enabled = false;
-                drink2.enabled = true;
-            }*/
-            if(index1 >= recipes.Count-1)
+            if(index1 >= recipes.Count-1 || !trayS.canProv.Contains(temp.prov))
             {
                 //nextS.color = Color.gray;
                 nextS.transform.parent.GetComponent<Button>().enabled = false;
                 nextS.enabled = false;
             }
-            else
+            else if(index1 < recipes.Count-1)
             {
                 //nextS.color = Color.white;
                 nextS.transform.parent.GetComponent<Button>().enabled = true;
