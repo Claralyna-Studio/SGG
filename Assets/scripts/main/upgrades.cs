@@ -34,7 +34,7 @@ public class upgrades : MonoBehaviour, IDataPersistence
     [SerializeField] private List<int> crystalUnlock;
 
     [SerializeField] private Animator unlockIslandButtons;
-
+    [SerializeField] private Animator startDay;
     [SerializeField] private Animator upgradeBoatButton;
     [SerializeField] private TextMeshProUGUI upgradeBoatText;
     [SerializeField] private TextMeshProUGUI upgradeBoatTextMoney;
@@ -204,6 +204,7 @@ public class upgrades : MonoBehaviour, IDataPersistence
 
                     case 3:
                         //tray slot
+                        //isUpgradingSlot = true;
                         //StopCoroutine(upgrading[3]);
                         upgrading[3] = StartCoroutine(upgradeTimerSlot());
                         break;
@@ -399,6 +400,7 @@ public class upgrades : MonoBehaviour, IDataPersistence
     // Update is called once per frame
     void Update()
     {
+        startDay.SetBool("in", gm.closed);
         //deactivate unlock button
         for(int i=0;i<GameObject.Find("buttonsUnlock").transform.childCount;i++)
         {
@@ -453,9 +455,18 @@ public class upgrades : MonoBehaviour, IDataPersistence
             crystalText.text = crystal.ToString();
         }
         non_active[3].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = crystalSpeedUp[idx].ToString();
-        upgradeBoatButton.GetComponent<Animator>().SetBool("in",gm.closed);
-        unlockIslandButtons.SetBool("in",gm.closed);
-
+        if(GM.day>1)
+        {
+            upgradeBoatButton.GetComponent<Animator>().SetBool("in",gm.closed);
+            unlockIslandButtons.SetBool("in",gm.closed);
+            GetComponent<Animator>().SetBool("in", gm.closed);
+        }
+        else
+        {
+            GetComponent<Animator>().SetBool("in", false);
+            upgradeBoatButton.GetComponent<Animator>().SetBool("in",false);
+            unlockIslandButtons.SetBool("in",false);
+        }
         upgradeBoatSpeedTextMoney.text = moneyBoatSpeed.ToString("#,##");
         upgradeBoatSpeedTextCrystal.text = crystalBoatSpeed.ToString("#,##");
         upgradeBoatTextMoney.text = moneyBoat.ToString("#,##");
@@ -493,7 +504,7 @@ public class upgrades : MonoBehaviour, IDataPersistence
 
         }
 
-        if (cargo.maxBoats >= 10)
+        if (cargo.maxBoats >= 10 || GM.day <= 1)
         {
             upgradeBoatButton.SetBool("in", false);
         }
@@ -502,7 +513,7 @@ public class upgrades : MonoBehaviour, IDataPersistence
             upgradeBoatButton.SetBool("in", gm.closed);
         }
 
-        if (cargo.speed >= 2)
+        if (cargo.speed >= 2 || GM.day <= 1)
         {
             upgradeBoatButtonSpeed.SetBool("in", false);
         }
@@ -523,10 +534,9 @@ public class upgrades : MonoBehaviour, IDataPersistence
         }
 
         //if(clicked) GetComponent<Animator>().SetBool("in", gm.closed);
-        GetComponent<Animator>().SetBool("in", gm.closed);
         if(!gm.startDay && gm.closed)
         {
-            if(traySpawner.trayMax < 6)
+            if(traySpawner.trayMax < 5)
             {
                 for(int i = traySpawner.trayMax; i < meja_upgrade.Count;i++)
                 {
@@ -545,7 +555,7 @@ public class upgrades : MonoBehaviour, IDataPersistence
         }
         else
         {
-            if (traySpawner.trayMax < 6)
+            if (traySpawner.trayMax < 5)
             {
                 for (int i = traySpawner.trayMax; i < meja_upgrade.Count; i++)
                 {
@@ -1053,11 +1063,12 @@ public class upgrades : MonoBehaviour, IDataPersistence
     [SerializeField] private Button[] slotButtons;
     public IEnumerator upgradeTimerSlot()
     {
-        foreach (Button button in slotButtons)
+        tray_spawner.upgraded = true;
+/*        foreach (Button button in slotButtons)
         {
             button.interactable = false;
             button.GetComponent<Image>().raycastTarget = false;
-        }
+        }*/
         int idx = 3;
         //Debug.LogWarning("countdown");
         /* foreach(TextMeshProUGUI text in tempTextSlot)
@@ -1085,11 +1096,12 @@ public class upgrades : MonoBehaviour, IDataPersistence
         }
         else
         {
-            foreach (Button button in slotButtons)
+            tray_spawner.upgraded = false;
+/*            foreach (Button button in slotButtons)
             {
                 button.interactable = true;
                 button.GetComponent<Image>().raycastTarget = true;
-            }
+            }*/
             //Debug.LogWarning("B");
             tray_spawner.doneUpgrade();
         }

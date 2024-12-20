@@ -46,7 +46,10 @@ public class tray : MonoBehaviour
         {
             transform.GetChild(0).GetChild(1).Find("restrict").gameObject.SetActive(true);
         }
-        StartCoroutine(patienceTimer());
+        if(GM.day > 1)
+        {
+            StartCoroutine(patienceTimer());
+        }
         spawner2 = FindObjectOfType<cargo_spawner>();
         moneyPlus_particle = GameObject.Find("UI").transform.GetChild(0).gameObject;
         prov = GameObject.Find("sprites").transform.Find(provName);

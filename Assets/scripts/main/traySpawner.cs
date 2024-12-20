@@ -39,22 +39,25 @@ public class traySpawner : MonoBehaviour, IDataPersistence
         upgraded = false;
         upg = FindObjectOfType<upgrades>();
         gm = FindObjectOfType<GM>();
-        for(int i= 0;i < GameObject.Find("meja (1)").transform.childCount;i++)
+        if(GM.day > 1)
         {
-            if(i < trayMax && i > 1)
+            for(int i= 0;i < GameObject.Find("meja (1)").transform.childCount;i++)
             {
-                GameObject.Find("meja (1)").transform.GetChild(i).GetComponent<Animator>().SetBool("in", true);
-                GameObject.Find("meja (1)").transform.GetChild(i).transform.GetChild(0).gameObject.SetActive(true);
-                GameObject.Find("meja (1)").transform.GetChild(i).transform.GetChild(1).gameObject.SetActive(false);
-            }
-            else if(i >= trayMax)
-            {
-                //Debug.Log(i);
-                GameObject.Find("meja (1)").transform.GetChild(i).GetComponent<Animator>().SetBool("in",true);
-                //current = GameObject.Find("meja (1)").transform.GetChild(i).GetComponent<Button>();
-                GameObject.Find("meja (1)").transform.GetChild(i).transform.GetChild(0).gameObject.SetActive(true);
-                GameObject.Find("meja (1)").transform.GetChild(i).transform.GetChild(1).gameObject.SetActive(true);
-                break;
+                if(i < trayMax && i > 1)
+                {
+                    GameObject.Find("meja (1)").transform.GetChild(i).GetComponent<Animator>().SetBool("in", true);
+                    GameObject.Find("meja (1)").transform.GetChild(i).transform.GetChild(0).gameObject.SetActive(true);
+                    GameObject.Find("meja (1)").transform.GetChild(i).transform.GetChild(1).gameObject.SetActive(false);
+                }
+                else if(i >= trayMax)
+                {
+                    //Debug.Log(i);
+                    GameObject.Find("meja (1)").transform.GetChild(i).GetComponent<Animator>().SetBool("in",true);
+                    //current = GameObject.Find("meja (1)").transform.GetChild(i).GetComponent<Button>();
+                    GameObject.Find("meja (1)").transform.GetChild(i).transform.GetChild(0).gameObject.SetActive(true);
+                    GameObject.Find("meja (1)").transform.GetChild(i).transform.GetChild(1).gameObject.SetActive(true);
+                    break;
+                }
             }
         }
         switch(trayMax)
@@ -75,10 +78,10 @@ public class traySpawner : MonoBehaviour, IDataPersistence
                 current = GameObject.Find("meja (1)").transform.GetChild(5).gameObject;
                 next = GameObject.Find("meja (1)").transform.GetChild(5).gameObject;
                 break;
-            case 6:
+/*            case 6:
                 current = GameObject.Find("meja (1)").transform.GetChild(5).gameObject;
                 next = GameObject.Find("meja (1)").transform.GetChild(5).gameObject;
-                break;
+                break;*/
         }
     }
 
@@ -159,7 +162,7 @@ public class traySpawner : MonoBehaviour, IDataPersistence
     }
     [SerializeField] private int[] upgradeTray = {50000, 100000, 200000, 500000};
     static int idx = 0;
-    bool upgraded = false;
+    public bool upgraded = false;
     [SerializeField] private GameObject current;
     [SerializeField] private GameObject next;
     public void upgradeWaktu(Button curr)

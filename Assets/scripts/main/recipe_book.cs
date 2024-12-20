@@ -13,6 +13,7 @@ public class recipe_book : MonoBehaviour
     [SerializeField] private GameObject mark;
 
     [SerializeField] private int index1 = 0;
+    [SerializeField] private List<int> all_index;
     //[SerializeField] private int index2 = 0;
     [Serializable]
     struct resep
@@ -56,12 +57,26 @@ public class recipe_book : MonoBehaviour
         trayS = FindObjectOfType<traySpawner>();
         //UI = GameObject.Find("RECIPE_BOOK(UI)").GetComponent<Animator>();
     }
+    bool locked = false;
     [SerializeField] private bool canUnlock = true;
     // Update is called once per frame
     void Update()
     {
         if (isUI)
         {
+            for (int i = 0; i < mark.transform.childCount; i++)
+            {
+                if(upg.pulauUnlocked[upg.pulauUnlockedName.IndexOf(mark.transform.GetChild(i).gameObject.name)])
+                {
+                    mark.transform.GetChild(i).GetComponent<Button>().interactable = true;
+                    mark.transform.GetChild(i).GetChild(2).gameObject.SetActive(false);
+                }
+                else
+                {
+                    mark.transform.GetChild(i).GetComponent<Button>().interactable = false;
+                    mark.transform.GetChild(i).GetChild(2).gameObject.SetActive(true);
+                }
+            }
 /*            for (int i = 0; i < mark.transform.childCount; i++)
             {
                 if (upg.pulauUnlockedName.Contains(mark.transform.GetChild(i).name))
@@ -105,6 +120,7 @@ public class recipe_book : MonoBehaviour
             }
             else if(!trayS.canProv.Contains(curr_recipe1.prov))
             {
+                locked = true;
                 //Debug.Log("island locked");
                 canUnlock = false;
                 lockRecipe.GetComponent<Animator>().SetBool("out", false);
@@ -135,6 +151,7 @@ public class recipe_book : MonoBehaviour
                 drink1.sprite = curr_recipe1.food;
                 drink1.gameObject.SetActive(false);
             }
+
             else if(trayS.canProv_maxFood[trayS.canProv.IndexOf(curr_recipe1.prov)] - 1 < (index1) % 3 &&
                 trayS.canProv_maxFood[trayS.canProv.IndexOf(curr_recipe1.prov)] - 1 >= (index1-1) % 3 ||
                 (index1) % 3 == 0)
