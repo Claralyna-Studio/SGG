@@ -103,8 +103,8 @@ public class GameData
 
         trayMax = 2;
         day = 1;
-        money = 0;
-        crystal = 0;
+        money = 50000;
+        crystal = 5;
         maxBoats = 2;
         boatSpeed = 0.3f;
     }
