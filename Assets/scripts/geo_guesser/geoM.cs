@@ -114,8 +114,6 @@ public class geoM : MonoBehaviour
 
         if (counting && akur < akurasi)
         {
-            akur = Mathf.MoveTowards(akur, akurasi, Time.deltaTime*100f);
-            akur = Mathf.Round(akur * 100f) / 100f;
             textAkurasi.text = akur.ToString() + "%";
             bubble.color = Color.Lerp(bubble.color, correct, Time.deltaTime*2);
         }
@@ -131,15 +129,25 @@ public class geoM : MonoBehaviour
         if(Vector2.Distance(pin, city.transform.position) <= toleransi_jarak)
         {
             akurasi = 100.00f;
-            GM.crystal++;
+            //GM.crystal++;
         }
         else
         {
             akurasi = (100f - (Vector2.Distance(pin, city.transform.position) * 20f));
         }
         akurasi = Mathf.Round(akurasi * 100f) / 100f;
+        akur = Mathf.MoveTowards(akur, akurasi, Time.deltaTime*100f);
+        akur = Mathf.Round(akur * 100f) / 100f;
+        if(akur >= 80.00f)
+        {
+            GM.crystal += 2;
+        }
+        else if(akur >= 60.00f && akur < 80.00f)
+        {
+            GM.crystal += 1;
+        }
         counting = true;
-        Invoke("balikGame", 3f);
+        Invoke("balikGame", 5f);
         //textAkurasi.text = akurasi.ToString() + "%";
     }
     void balikGame()

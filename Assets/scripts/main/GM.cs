@@ -258,14 +258,22 @@ public class GM : MonoBehaviour, IDataPersistence
         dayText.text = "Day: " + day.ToString("##,#");
         if(day > 2)
         {
+            if(day == 3 || day % 7 == 0)
+            {
+                chanceMiniGames = 100;
+            }
+            else
+            {
+                chanceMiniGames = 50;
+            }
             if(Random.Range(1,100) <= chanceMiniGames)
             {
                 minigameUI.GetComponent<Animator>().Play("in");
             }
-            if(chanceMiniGames < 50)
+/*            if(chanceMiniGames < 50)
             {
                 chanceMiniGames += 2;
-            }
+            }*/
         }
         //PlayerPrefs.SetInt("day", day);
         closed = true;

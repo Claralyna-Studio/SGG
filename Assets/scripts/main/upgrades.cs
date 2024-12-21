@@ -425,7 +425,7 @@ public class upgrades : MonoBehaviour, IDataPersistence
             if (waktu[0] <= 0)
             {
                 float currFoodPrep = foodPrep_seconds[idx];
-                timerText.text = "Faster Food Preperations: \n" + currFoodPrep.ToString() + " seconds -> " + (currFoodPrep -= 1).ToString() + " seconds";
+                timerText.text = "Faster Food Preperations: \n" + currFoodPrep.ToString() + " seconds -> " + (currFoodPrep -= 2).ToString() + " seconds";
 /*                if (foodPrep_seconds[idx] > 1)
                 {
                     timerText.text = "Faster Food Preperations: \n" + currFoodPrep.ToString() + " seconds -> " + (currFoodPrep -= 1).ToString() + " seconds";
@@ -1053,10 +1053,10 @@ public class upgrades : MonoBehaviour, IDataPersistence
             non_active[3].SetActive(false);
             isUpgrading = false;
             cargo.masakTime[this.idx]--;
-            foodPrep_seconds[this.idx] -= 1;
+            foodPrep_seconds[this.idx] -= 2;
             berapaKaliUpgrade[this.idx]++;
             float currFoodPrep = foodPrep_seconds[this.idx];
-            timerText.text = "Faster Food Preperations: \n" + currFoodPrep.ToString() + " seconds -> " + (currFoodPrep -= 1).ToString() + " seconds";
+            timerText.text = "Faster Food Preperations: \n" + currFoodPrep.ToString() + " seconds -> " + (currFoodPrep -= 2).ToString() + " seconds";
             coll.SetActive(true);
         }
     }

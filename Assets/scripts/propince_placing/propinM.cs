@@ -137,6 +137,7 @@ public class propinM : MonoBehaviour
         }
     }
     bool allCorrect = true;
+    int correct = 0;
     public void locked(Button lokk)
     {
         lokk.interactable = false;
@@ -146,6 +147,7 @@ public class propinM : MonoBehaviour
             if (pin.province.ToLower() == pin.prov.ToLower())
             {
                 //allCorrect = true;
+                correct++;
                 Debug.Log("Betul");
                 pin.checkText.text = "Correct!";
                 pin.check.color = Color.green;
@@ -160,12 +162,16 @@ public class propinM : MonoBehaviour
             }
             pin.check.GetComponent<Animator>().SetTrigger("check");
         }
-        if(allCorrect)
+        if (/*allCorrect*/ correct >= 5)
         {
             //PlayerPrefs.SetInt("crystal", PlayerPrefs.GetInt("crystal")+1);
+            GM.crystal += 2;
+        }
+        else if (correct == 3 || correct == 4)
+        {
             GM.crystal += 1;
         }
-        Invoke("balikGame", 3f);
+        Invoke("balikGame", 5f);    
     }
     void balikGame()
     {

@@ -64,7 +64,7 @@ public class fastTime : MonoBehaviour
         if(!gm.paused && !gm.closed && !gm.lose)
         {
             fastUI.SetActive(true);
-            Time.timeScale = speed;
+            Time.timeScale = 2.5f;
             img.color = Color.gray;
         }
     }
