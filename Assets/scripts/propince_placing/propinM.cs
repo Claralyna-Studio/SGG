@@ -37,7 +37,39 @@ public class propinM : MonoBehaviour
             int idx = Random.Range(0, all_provinces.Count);
             curr_province.Add(all_provinces[idx]);
             all_provinces.RemoveAt(idx);
-            texts_province[i].text = curr_province[i];
+            //texts_province[i].text = curr_province[i];
+            if (curr_province[i] == "DKI Jakarta")
+            {
+                texts_province[i].text = "Jakarta";
+            }
+            else if (curr_province[i] == "Nusa Tenggara Barat")
+            {
+                texts_province[i].text = "West Nusa Tenggara";
+            }
+            else if (curr_province[i] == "Nusa Tenggara Timur")
+            {
+                texts_province[i].text = "East Nusa Tenggara";
+            }
+            else if (curr_province[i] == "Jawa Barat")
+            {
+                texts_province[i].text = "West Java";
+            }
+            else if (curr_province[i] == "Jawa Tengah")
+            {
+                texts_province[i].text = "Central Java";
+            }
+            else if (curr_province[i] == "D.I. Yogyakarta")
+            {
+                texts_province[i].text = "Yogyakarta";
+            }
+            else if (curr_province[i] == "Jawa Timur")
+            {
+                texts_province[i].text = "East Java";
+            }
+            else
+            {
+                texts_province[i].text = curr_province[i];
+            }
             texts_province[i].color = colors[idx];
 
             pins[i].color = colors[idx];

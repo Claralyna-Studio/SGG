@@ -118,7 +118,41 @@ public class recipe_book : MonoBehaviour, IDataPersistence
                     crystalText.text = curr_recipe1.unlockCrystal.ToString();
                 }
                 food_name.text = curr_recipe1.food_name;
-                desc3.text = "Description: \n" + curr_recipe1.description + "\n\n\nOrigin: " + curr_recipe1.prov;
+                string tempProv = "";
+                if (curr_recipe1.prov == "DKI Jakarta")
+                {
+                    tempProv = "Jakarta";
+                }
+                else if (curr_recipe1.prov == "Nusa Tenggara Barat")
+                {
+                    tempProv = "West Nusa Tenggara";
+                }
+                else if (curr_recipe1.prov == "Nusa Tenggara Timur")
+                {
+                    tempProv = "East Nusa Tenggara";
+                }
+                else if (curr_recipe1.prov == "Jawa Barat")
+                {
+                    tempProv = "West Java";
+                }
+                else if (curr_recipe1.prov == "Jawa Tengah")
+                {
+                    tempProv = "Central Java";
+                }
+                else if (curr_recipe1.prov == "D.I. Yogyakarta")
+                {
+                    tempProv = "Yogyakarta";
+                }
+                else if (curr_recipe1.prov == "Jawa Timur")
+                {
+                    tempProv = "East Java";
+                }
+                else
+                {
+                    tempProv = curr_recipe1.prov;
+                }
+                //desc3.text = "Description: \n" + curr_recipe1.description + "\n\n\nOrigin: " + curr_recipe1.prov;
+                desc3.text = "Description: \n" + curr_recipe1.description + "\n\n\nOrigin: " + tempProv;
                 food1.sprite = curr_recipe1.food;
                 food1.gameObject.SetActive(true);
                 drink1.sprite = curr_recipe1.food;

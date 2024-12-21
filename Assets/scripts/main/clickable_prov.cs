@@ -106,7 +106,38 @@ public class clickable_prov : MonoBehaviour
             bubbleProv.GetComponent<Animator>().SetBool("hovering", true);
             if(!gm.isCooking[gm.provs.IndexOf(this.gameObject.transform)])
             {
-                bubbleProvText.text = this.gameObject.name;
+                if(this.gameObject.name == "DKI Jakarta")
+                {
+                    bubbleProvText.text = "Jakarta";
+                }
+                else if (this.gameObject.name == "Nusa Tenggara Barat")
+                {
+                    bubbleProvText.text = "West Nusa Tenggara";
+                }
+                else if (this.gameObject.name == "Nusa Tenggara Timur")
+                {
+                    bubbleProvText.text = "East Nusa Tenggara";
+                }
+                else if (this.gameObject.name == "Jawa Barat")
+                {
+                    bubbleProvText.text = "West Java";
+                }
+                else if (this.gameObject.name == "Jawa Tengah")
+                {
+                    bubbleProvText.text = "Central Java";
+                }
+                else if (this.gameObject.name == "D.I. Yogyakarta")
+                {
+                    bubbleProvText.text = "Yogyakarta";
+                }
+                else if (this.gameObject.name == "Jawa Timur")
+                {
+                    bubbleProvText.text = "East Java";
+                }
+                else
+                {
+                    bubbleProvText.text = this.gameObject.name;
+                }
             }
             else
             {

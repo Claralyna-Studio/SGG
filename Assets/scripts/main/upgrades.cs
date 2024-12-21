@@ -875,7 +875,41 @@ public class upgrades : MonoBehaviour, IDataPersistence
             crystal = 2;
         }
         //transform.position = pos.position;
-        provText.text = curr_prov.name;
+
+        //foodprep title
+        if (curr_prov.name == "DKI Jakarta")
+        {
+            provText.text = "Jakarta";
+        }
+        else if (curr_prov.name == "Nusa Tenggara Barat")
+        {
+            provText.text = "West Nusa Tenggara";
+        }
+        else if (curr_prov.name == "Nusa Tenggara Timur")
+        {
+            provText.text = "East Nusa Tenggara";
+        }
+        else if (curr_prov.name == "Jawa Barat")
+        {
+            provText.text = "West Java";
+        }
+        else if (curr_prov.name == "Jawa Tengah")
+        {
+            provText.text = "Central Java";
+        }
+        else if (curr_prov.name == "D.I. Yogyakarta")
+        {
+            provText.text = "Yogyakarta";
+        }
+        else if (curr_prov.name == "Jawa Timur")
+        {
+            provText.text = "East Java";
+        }
+        else
+        {
+            provText.text = curr_prov.name;
+        }
+
         transform.position = Camera.main.WorldToScreenPoint(pos.position);
         clicked = true;
         if (waktu[0] > 0)

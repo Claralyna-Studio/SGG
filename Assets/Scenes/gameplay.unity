@@ -21183,7 +21183,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Unlock Jawa?
+  m_text: Unlock Java?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3a2e2963713de2547a143566b730b8ef, type: 2}
   m_sharedMaterial: {fileID: -1853938148241398070, guid: 3a2e2963713de2547a143566b730b8ef, type: 2}
@@ -34859,21 +34859,21 @@ MonoBehaviour:
   all_index: 000000000300000006000000010000000200000004000000050000000700000008000000090000000c0000000f0000001200000015000000180000000a0000000b0000000d0000000e000000100000001100000013000000140000001600000017000000190000001a000000
   recipes:
   - prov: Bali
-    food_name: Sate Lilit
+    food_name: Lilit Satay
     food: {fileID: 21300000, guid: 942fac82ff2475b429d6b4e01c363648, type: 3}
     unlockMoney: 0
     unlockCrystal: 0
     description: Grillled satay made with minced meat, grated coconut, lime leaves,
       and spices.
   - prov: Bali
-    food_name: Ayam Betutu
+    food_name: Chicken Betutu
     food: {fileID: 21300000, guid: 4a50c78aec6120147b315a924168bf45, type: 3}
     unlockMoney: 50000
     unlockCrystal: 0
     description: Chicken or duck, that is the question. Wrapped with banana leaves
       and mized with mixture of spices, these poultry dish is tender and flavourful.
   - prov: Bali
-    food_name: Babi Guling
+    food_name: Suckling Pig
     food: {fileID: 21300000, guid: 94217949636ec0745b75dcdc1137cb55, type: 3}
     unlockMoney: 100000
     unlockCrystal: 3
@@ -34893,7 +34893,7 @@ MonoBehaviour:
     unlockCrystal: 5
     description: 'A traditional fish dish cooked in sour and spicy broth. '
   - prov: Nusa Tenggara Barat
-    food_name: Ayam Taliwang
+    food_name: Chicken Taliwang
     food: {fileID: 21300000, guid: 7e49332f26a009b44a81c507a6cdcc84, type: 3}
     unlockMoney: 200000
     unlockCrystal: 5
@@ -34907,56 +34907,56 @@ MonoBehaviour:
     description: Chopped tenderloin mixed with spices and sweet soy sauce, leaving
       light savoury flavor.
   - prov: Nusa Tenggara Timur
-    food_name: Jagung Bose
+    food_name: Bose Corn
     food: {fileID: 21300000, guid: 89b3e384674739b45b1b6acc31e76179, type: 3}
     unlockMoney: 100000
     unlockCrystal: 2
     description: Hearty, savory dish made of corn and other vegetables like beans,
       pumpkin, and sometimes meat.
   - prov: Nusa Tenggara Timur
-    food_name: Daging Se'i
+    food_name: Se'i
     food: {fileID: 21300000, guid: 013daa616ae79f64282e73327eb40351, type: 3}
     unlockMoney: 150000
     unlockCrystal: 5
     description: Smoked marinated pork or beef with a distinct flavor, served with
       rice and spicy sambal.
   - prov: Banten
-    food_name: Ketan Bintul
+    food_name: Sticky Rice Bintul
     food: {fileID: 21300000, guid: 97e4f804e4ca1b7468b7f269962b04ca, type: 3}
     unlockMoney: 100000
     unlockCrystal: 0
     description: Soft and chery traditional Indonesian snack made from glutinous
       sticky rice seasoned with grated coconut and other spices.
   - prov: Banten
-    food_name: Ketan Bintul
+    food_name: Sticky Rice Bintul
     food: {fileID: 21300000, guid: 97e4f804e4ca1b7468b7f269962b04ca, type: 3}
     unlockMoney: 999999
     unlockCrystal: 999999
     description: Soft and chery traditional Indonesian snack made from glutinous
       sticky rice seasoned with grated coconut and other spices.
   - prov: Banten
-    food_name: Ketan Bintul
+    food_name: Sticky Rice Bintul
     food: {fileID: 21300000, guid: 97e4f804e4ca1b7468b7f269962b04ca, type: 3}
     unlockMoney: 999999
     unlockCrystal: 999999
     description: Soft and chery traditional Indonesian snack made from glutinous
       sticky rice seasoned with grated coconut and other spices.
   - prov: DKI Jakarta
-    food_name: Bir Pletok
+    food_name: Pletok Beer
     food: {fileID: -1086090775, guid: cac14afc25e5409458992d9d0b0f9948, type: 3}
     unlockMoney: 50000
     unlockCrystal: 0
     description: Non-alchoholic drink served hot or cold, using a mic of spices like
       ginger and cinnamon.
   - prov: DKI Jakarta
-    food_name: Bir Pletok
+    food_name: Pletok Beer
     food: {fileID: -1086090775, guid: cac14afc25e5409458992d9d0b0f9948, type: 3}
     unlockMoney: 9999999
     unlockCrystal: 9999999
     description: Non-alchoholic drink served hot or cold, using a mic of spices like
       ginger and cinnamon.
   - prov: DKI Jakarta
-    food_name: Bir Pletok
+    food_name: Pletok Beer
     food: {fileID: -1086090775, guid: cac14afc25e5409458992d9d0b0f9948, type: 3}
     unlockMoney: 9999999
     unlockCrystal: 9999999
