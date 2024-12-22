@@ -295,18 +295,21 @@ public class GM : MonoBehaviour, IDataPersistence
             if(TM.isTutoring && TM.canClick)
             {
                 TM tm = FindObjectOfType<TM>();
-                tm.next();
-                playSfx(GameObject.Find("sfx_startDay").GetComponent<AudioSource>());
-                closed = false;
-                upgradesUI.GetComponent<Animator>().SetBool("in", false);
-                //upgradesUI.SetActive(false);
-                //day++;
-                jam = 8;
-                menit = 0;
-                startDay = true;
-                spawner.tutup = false;
-                StartCoroutine(timing());
-                StartCoroutine(traySpawner.spawnOrder());
+                if(tm.idx == 5)
+                {
+                    tm.next();
+                    playSfx(GameObject.Find("sfx_startDay").GetComponent<AudioSource>());
+                    closed = false;
+                    upgradesUI.GetComponent<Animator>().SetBool("in", false);
+                    //upgradesUI.SetActive(false);
+                    //day++;
+                    jam = 8;
+                    menit = 0;
+                    startDay = true;
+                    spawner.tutup = false;
+                    StartCoroutine(timing());
+                    StartCoroutine(traySpawner.spawnOrder());
+                }
             }
             else if(!TM.isTutoring)
             {

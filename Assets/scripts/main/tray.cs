@@ -36,6 +36,7 @@ public class tray : MonoBehaviour
     public List<GameObject> curr_restrictions;
     //[SerializeField] private List<GameObject> curr_restrictions;
     public bool done = false;
+    TM tm;
     //public static bool isClicked;
     // Start is called before the first frame update
     void Start()
@@ -84,6 +85,16 @@ public class tray : MonoBehaviour
             //food_notepad.enabled = false;
             //food_notepad2.enabled = true;
         }
+        tm = FindObjectOfType<TM>();
+        if(TM.isTutoring && TM.canClick && tm)
+        {
+            if(tm.idx == 6 || tm.idx == 12)
+            {
+                int temp = tm.idx;
+                tm.next();
+                tm.curr_button[temp+1] = this.transform;
+            }
+        }
     }
 
     // Update is called once per frame
@@ -95,6 +106,10 @@ public class tray : MonoBehaviour
     [SerializeField] private bool clicked2 = false;
     public void clicked()
     {
+        if (TM.isTutoring && tm && tm.idx == 7)
+        {
+            tm.next();
+        }
         if (!clicked2 && !penanda.GetComponent<Image>().enabled && spawner2.clones.Count < spawner2.maxBoats && !isCooking && !gm.lose)
         {
             //clicked2 = true;

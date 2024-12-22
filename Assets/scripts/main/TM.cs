@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class TM : MonoBehaviour
 {
+    [SerializeField] Canvas canvasBlkg;
     [SerializeField] private GameObject bg;
     [SerializeField] private Animator tutor;
     [SerializeField] private Animator tutorOrang;
@@ -14,10 +15,10 @@ public class TM : MonoBehaviour
     [SerializeField] [TextArea] private string[] tutorial;
     //[SerializeField] private Transform highlight;
     //[SerializeField] private List<Button> buttons;
-    [SerializeField] private List<Transform> curr_button;
+    public List<Transform> curr_button;
     public static bool isTutoring = true;
     [SerializeField] private bool toUI = false;
-    [SerializeField] private int idx = 0;
+    public int idx = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +26,11 @@ public class TM : MonoBehaviour
         text.maxVisibleCharacters = 0;
         if(MM.tutor)
         {
+            isTutoring = true;
             //showTutor();
+            anchorMaxAwal = bg.GetComponent<RectTransform>().anchorMax;
+            anchorMinAwal = bg.GetComponent<RectTransform>().anchorMin;
+            pivotAwal = bg.GetComponent<RectTransform>().pivot;
             StartCoroutine(typing());
 /*            foreach (Button button in buttons)
             {
@@ -34,6 +39,7 @@ public class TM : MonoBehaviour
         }
         else
         {
+            isTutoring = false;
             this.gameObject.SetActive(false);
         }
         //StartCoroutine(typing());
@@ -61,23 +67,81 @@ public class TM : MonoBehaviour
     }
     [SerializeField] private Vector3 curPos;
     [SerializeField] private Vector3 buttonPos;
+    Vector2 anchorMaxAwal;
+    Vector2 anchorMinAwal;
+    Vector2 pivotAwal;
     // Update is called once per frame
     void Update()
     {
-        curPos = bg.transform.position;
-        buttonPos = curr_button[idx].position;
+        curPos = bg.GetComponent<RectTransform>().position;
+        buttonPos = curr_button[idx].GetComponent<RectTransform>().position;
+
+        //chatgt
+        RectTransform targetRect = curr_button[idx].GetComponent<RectTransform>();
+        RectTransform bgRect = bg.GetComponent<RectTransform>();
+        //toUI = targetRect.GetComponentInParent<Canvas>() == bgRect.GetComponentInParent<Canvas>();
         if (toUI)
         {
             //bg.transform.position = Vector2.Lerp(bg.transform.position,Camera.main.WorldToScreenPoint(highlight.position), Time.deltaTime*10f);
-            bg.transform.position = Vector2.Lerp(bg.transform.position,Camera.main.WorldToScreenPoint(curr_button[idx].position), Time.deltaTime*10f);
+            //bg.transform.position = Vector2.Lerp(bg.transform.position,Camera.main.WorldToScreenPoint(curr_button[idx].position), Time.deltaTime*10f);
+            //bg.GetComponent<RectTransform>().position = Vector2.Lerp(bg.GetComponent<RectTransform>().position, curr_button[idx].GetComponent<RectTransform>().position,Time.deltaTime*10f);
+
+            //chatgpt lg :')
+/*            Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(bgRect.GetComponentInParent<Canvas>().worldCamera, targetRect.position);
+
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                targetRect.parent as RectTransform,
+                screenPoint,
+                null,
+                out Vector2 localPoint
+            );
+            bgRect.localPosition = targetRect.localPosition;
+
+            bgRect.anchorMin = targetRect.anchorMin;
+            bgRect.anchorMax = targetRect.anchorMax;
+            bgRect.pivot = targetRect.pivot;*/
+            bg.transform.position = buttonPos;
         }
         else
         {
+
             //bg.transform.position = Vector2.Lerp(bg.transform.position,highlight.position,Time.deltaTime*10f);
-            bg.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(bg.GetComponent<RectTransform>().anchoredPosition, curr_button[idx].gameObject.GetComponent<RectTransform>().anchoredPosition,Time.deltaTime*10f);
+
+            /*            bg.GetComponent<RectTransform>().pivot = curr_button[idx].GetComponent<RectTransform>().pivot;
+                        bg.GetComponent<RectTransform>().anchorMax = curr_button[idx].GetComponent<RectTransform>().anchorMax;
+                        bg.GetComponent<RectTransform>().anchorMin = curr_button[idx].GetComponent<RectTransform>().anchorMin;
+                        bg.GetComponent<RectTransform>().position = Vector2.Lerp(bg.GetComponent<RectTransform>().position, curr_button[idx].GetComponent<RectTransform>().position,Time.deltaTime*10f);
+                        */
+            //bg.GetComponent<RectTransform>().rect = curr_button[idx].GetComponent<RectTransform>().rect;
             //bg.transform.position = curr_button[idx].position;
+
+            //chatgpt help
+            /*            RectTransformUtility.ScreenPointToLocalPointInRectangle(transform as RectTransform, 
+                            RectTransformUtility.WorldToScreenPoint(canvasBlkg.worldCamera, curr_button[idx].position),
+                            null,
+                            out Vector2 localPoint);
+                        bg.transform.localPosition = localPoint;
+                        bg.GetComponent<RectTransform>().anchorMin = curr_button[idx].GetComponent<RectTransform>().anchorMin;
+                        bg.GetComponent<RectTransform>().anchorMax = curr_button[idx].GetComponent<RectTransform>().anchorMax;
+                        bg.GetComponent<RectTransform>().pivot = curr_button[idx].GetComponent<RectTransform>().pivot;*/
+
+            Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(canvasBlkg.worldCamera, targetRect.position);
+
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                transform as RectTransform,
+                screenPoint,
+                null,
+                out Vector2 localPoint
+            );
+
+            bgRect.localPosition = localPoint;
+
+            bgRect.anchorMin = targetRect.anchorMin;
+            bgRect.anchorMax = targetRect.anchorMax;
+            bgRect.pivot = targetRect.pivot;
+
         }
-        if(Input.GetMouseButtonDown(0) && idx < 3 && canClick)
+        if (Input.GetMouseButtonDown(0) && idx < 3 && canClick)
         {
             next();
         }
@@ -134,8 +198,16 @@ public class TM : MonoBehaviour
             }
         }*/
     }
+    int count = 5;
     IEnumerator typing()
     {
+        count--;
+        if(count <= 0)
+        {
+            GameObject.Find("sfx_dialog").GetComponent<AudioSource>().Stop();
+            GameObject.Find("sfx_dialog").GetComponent<AudioSource>().Play();
+            count = 5;
+        }
         canClick = false;
         tutorOrang.SetBool("talking",true);
         text.text = tutorial[idx];
@@ -156,7 +228,7 @@ public class TM : MonoBehaviour
         tutorOrang.SetBool("talking", false);
         canClick = false;
         text.maxVisibleCharacters--;
-        float temp = typingSpeed * 0.5f;
+        float temp = typingSpeed * 0.2f;
         yield return new WaitForSeconds(temp);
         if (text.maxVisibleCharacters > 0)
         {

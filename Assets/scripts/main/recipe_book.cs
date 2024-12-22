@@ -354,7 +354,10 @@ public class recipe_book : MonoBehaviour, IDataPersistence
         if(TM.isTutoring && TM.canClick)
         {
             TM tm = FindObjectOfType<TM>();
-            tm.next();
+            if(tm.idx == 3)
+            {
+                tm.next();
+            }
             if (!GameObject.Find("penanda").GetComponent<Image>().enabled)
             {
                 gm.isReadingRecipe = true;
@@ -376,9 +379,23 @@ public class recipe_book : MonoBehaviour, IDataPersistence
     }
     public void backAnimUI()
     {
-        gm.isReadingRecipe = false;
-        UI.SetBool("clicked", false);
-        GetComponent<Animator>().SetBool("clicked", false);
+        if (TM.isTutoring && TM.canClick)
+        {
+            TM tm = FindObjectOfType<TM>();
+            if (tm.idx >= 5)
+            {
+                //tm.next();
+                gm.isReadingRecipe = false;
+                UI.SetBool("clicked", false);
+                GetComponent<Animator>().SetBool("clicked", false);
+            }
+        }
+        else if (!TM.isTutoring)
+        {
+            gm.isReadingRecipe = false;
+            UI.SetBool("clicked", false);
+            GetComponent<Animator>().SetBool("clicked", false);
+        }
     }
     bool pindahMark = false;
     int tempIndex;
@@ -417,7 +434,10 @@ public class recipe_book : MonoBehaviour, IDataPersistence
                 index1 = tempIndex;
             }
             TM tm = FindObjectOfType<TM>();
-            tm.next();
+            if(tm.idx == 4)
+            {
+                tm.next();
+            }
         }
         else if(!TM.isTutoring)
         {
