@@ -295,7 +295,7 @@ public class GM : MonoBehaviour, IDataPersistence
             if(TM.isTutoring && TM.canClick)
             {
                 TM tm = FindObjectOfType<TM>();
-                if(tm.idx == 5)
+                if(tm.idx == 5 || tm.idx == 12)
                 {
                     tm.next();
                     playSfx(GameObject.Find("sfx_startDay").GetComponent<AudioSource>());

@@ -8957,8 +8957,8 @@ CanvasGroup:
   m_GameObject: {fileID: 462748200}
   m_Enabled: 1
   m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!1 &465962301
 GameObject:
@@ -19395,7 +19395,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -8249379416217944934, guid: 7e4617465048f874084e1d7d7c5570ee, type: 2}
   m_audioClip: {fileID: 8300000, guid: acb537136e7e0e2489d0fb306d36dbfd, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.3
   m_Pitch: 1.5
   Loop: 0
   Mute: 0
@@ -27165,9 +27165,11 @@ MonoBehaviour:
   - You can flip the pages on the bottom corner of the book.
   - When you're ready, ring the bell to start the day!
   - Now we wait for order...
-  - Oh, our first order! Click on it to deliver it.
-  - Make sure you deliver it to the right location.
-  - Gather enough money for upgrades and expand the restaurant.
+  - Oh, our first order! Click on it to deliver it. And click it again to go back.
+  - Make sure you deliver it to the right location. If you choose the wrong location,
+    you will lose 1 heart.
+  - 'You can also speed up time by holding down the speed button besides the timer. '
+  - Great job! Now gather enough money for upgrades and expand the restaurant.
   - Try to upgrade the cooking duration in Bali.
   - Grea! Now start the day when you're ready.
   - Now we wait for order...
@@ -27185,6 +27187,7 @@ MonoBehaviour:
   - {fileID: 84132928}
   - {fileID: 84132928}
   - {fileID: 84132928}
+  - {fileID: 1425360230}
   - {fileID: 84132928}
   - {fileID: 84132928}
   - {fileID: 84132928}

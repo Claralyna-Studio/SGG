@@ -63,9 +63,26 @@ public class fastTime : MonoBehaviour
     {
         if(!gm.paused && !gm.closed && !gm.lose)
         {
-            fastUI.SetActive(true);
-            Time.timeScale = 2.5f;
-            img.color = Color.gray;
+            if(TM.isTutoring && TM.canClick)
+            {
+                TM tm = FindObjectOfType<TM>();
+                if(tm && tm.idx == 9)
+                {
+                    tm.next();
+                }
+                else if(tm && tm.idx > 9)
+                {
+                    fastUI.SetActive(true);
+                    Time.timeScale = 2.5f;
+                    img.color = Color.gray;
+                }
+            }
+            else if(!TM.isTutoring)
+            {
+                fastUI.SetActive(true);
+                Time.timeScale = 2.5f;
+                img.color = Color.gray;
+            }
         }
     }
 }

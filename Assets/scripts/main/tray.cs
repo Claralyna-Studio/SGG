@@ -106,35 +106,69 @@ public class tray : MonoBehaviour
     [SerializeField] private bool clicked2 = false;
     public void clicked()
     {
-        if (TM.isTutoring && tm && tm.idx == 7)
+        if (TM.isTutoring && tm)
         {
-            tm.next();
-        }
-        if (!clicked2 && !penanda.GetComponent<Image>().enabled && spawner2.clones.Count < spawner2.maxBoats && !isCooking && !gm.lose)
-        {
-            //clicked2 = true;
-            spawner.curr_tray = this;
-            if (!restriction)
+            if(tm.idx == 7)
             {
-                gm.canShip = true;
-                anim.SetBool("clicked", true);
-                penanda.GetComponent<Image>().enabled = true;
+                tm.next();
             }
-            else if (restriction/* && note.order != this*/)
+            if (!clicked2 && !penanda.GetComponent<Image>().enabled && spawner2.clones.Count < spawner2.maxBoats && !isCooking && !gm.lose)
             {
-                anim.SetBool("clicked", true);
-                //tray.isClicked = true;
+                //clicked2 = true;
+                spawner.curr_tray = this;
+                if (!restriction)
+                {
+                    gm.canShip = true;
+                    anim.SetBool("clicked", true);
+                    penanda.GetComponent<Image>().enabled = true;
+                }
+                else if (restriction/* && note.order != this*/)
+                {
+                    anim.SetBool("clicked", true);
+                    callNotePad();
+                    //tray.isClicked = true;
+                }
             }
-        }
-        else if (clicked2 && penanda.GetComponent<Image>().enabled && spawner2.clones.Count < spawner2.maxBoats && !isCooking && !gm.lose)
-        {
+            else if (clicked2 && penanda.GetComponent<Image>().enabled && spawner2.clones.Count < spawner2.maxBoats && !isCooking && !gm.lose)
+            {
 
-            //clicked2 = false;
-            exitNotePad();
+                //clicked2 = false;
+                exitNotePad();
+            }
+            else if (spawner2.clones.Count >= spawner2.maxBoats)
+            {
+                GameObject.Find("TextBoat").GetComponent<Animator>().Play("warning");
+            }
         }
-        else if (spawner2.clones.Count >= spawner2.maxBoats)
+        else if (!TM.isTutoring)
         {
-            GameObject.Find("TextBoat").GetComponent<Animator>().Play("warning");
+            if (!clicked2 && !penanda.GetComponent<Image>().enabled && spawner2.clones.Count < spawner2.maxBoats && !isCooking && !gm.lose)
+            {
+                //clicked2 = true;
+                spawner.curr_tray = this;
+                if (!restriction)
+                {
+                    gm.canShip = true;
+                    anim.SetBool("clicked", true);
+                    penanda.GetComponent<Image>().enabled = true;
+                }
+                else if (restriction/* && note.order != this*/)
+                {
+                    anim.SetBool("clicked", true);
+                    callNotePad();
+                    //tray.isClicked = true;
+                }
+            }
+            else if (clicked2 && penanda.GetComponent<Image>().enabled && spawner2.clones.Count < spawner2.maxBoats && !isCooking && !gm.lose)
+            {
+
+                //clicked2 = false;
+                exitNotePad();
+            }
+            else if (spawner2.clones.Count >= spawner2.maxBoats)
+            {
+                GameObject.Find("TextBoat").GetComponent<Animator>().Play("warning");
+            }
         }
     }
     public void addRes(GameObject res)

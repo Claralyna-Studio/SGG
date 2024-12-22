@@ -40,7 +40,8 @@ public class TM : MonoBehaviour
         else
         {
             isTutoring = false;
-            this.gameObject.SetActive(false);
+            GetComponent<Animator>().Play("stayOut");
+            //this.gameObject.SetActive(false);
         }
         //StartCoroutine(typing());
     }
@@ -100,7 +101,7 @@ public class TM : MonoBehaviour
             bgRect.anchorMin = targetRect.anchorMin;
             bgRect.anchorMax = targetRect.anchorMax;
             bgRect.pivot = targetRect.pivot;*/
-            bg.transform.position = buttonPos;
+            bg.transform.position = Vector2.Lerp(bg.transform.position,buttonPos,Time.deltaTime*20f);
         }
         else
         {
@@ -134,11 +135,11 @@ public class TM : MonoBehaviour
                 out Vector2 localPoint
             );
 
-            bgRect.localPosition = localPoint;
 
             bgRect.anchorMin = targetRect.anchorMin;
             bgRect.anchorMax = targetRect.anchorMax;
             bgRect.pivot = targetRect.pivot;
+            bgRect.localPosition = Vector3.Lerp(bgRect.localPosition,localPoint,Time.deltaTime*20f);
 
         }
         if (Input.GetMouseButtonDown(0) && idx < 3 && canClick)

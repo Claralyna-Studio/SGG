@@ -163,47 +163,69 @@ public class clickable_prov : MonoBehaviour
             bubbleProvText.text = " ";
             //bubbleProv.SetActive(false);
             //Debug.Log("clicked " + this.gameObject.name);
-            if(gm.canShip && !gm.closed && !gm.isReadingRecipe)
+            if(TM.isTutoring && TM.canClick)
             {
-                if (!gm.isCooking[gm.provs.IndexOf(this.gameObject.transform)] && tray_spawner.curr_tray.prov == transform)
+                TM tm = FindObjectOfType<TM>();
+                if (gm.canShip && !gm.closed && !gm.isReadingRecipe)
                 {
-                    bubbleProv.GetComponent<Animator>().SetBool("hovering", false);
-                    CancelInvoke("doneBreaking");
-                    isbreaking = false;
-                    doneBreaking();
-                    tray_spawner.ship(transform);
-                }
-                else if(!gm.isCooking[gm.provs.IndexOf(this.gameObject.transform)] && tray_spawner.curr_tray.prov != transform)
-                {
-                    //GameObject.Find("hearts").transform.GetChild(GameObject.Find("hearts").transform.childCount - 1).GetComponent<Animator>().SetBool("break",true);
-                    if(idxHeart >= 0 && !isbreaking)
+                    if (!gm.isCooking[gm.provs.IndexOf(this.gameObject.transform)] && tray_spawner.curr_tray.prov == transform)
                     {
-                        isbreaking = true;
-                        idxHeart--;
-                        GameObject.Find("hearts").transform.GetChild(idxHeart).GetComponent<Animator>().SetBool("break",true);
-                        //GameObject.Find("hearts").transform.GetChild(idxHeart).gameObject.SetActive(false);
-                        //Debug.LogWarning(idxHeart + " dan " + GameObject.Find("hearts").transform.GetChild(idxHeart).GetComponent<Animator>().GetBool("break"));
-                        gm.heart--;
-                        if(gm.heart <= 0)
+                        if(tm.idx == 8)
                         {
-                            gm.lose = true;
+                            tm.next();
                         }
-                        Invoke("doneBreaking", 1f);
+                        bubbleProv.GetComponent<Animator>().SetBool("hovering", false);
+                        CancelInvoke("doneBreaking");
+                        isbreaking = false;
+                        doneBreaking();
+                        tray_spawner.ship(transform);
                     }
                 }
-                else
-                {
-                    //the food is still cooking
-                }
             }
-            else if(gm.closed && !gm.isReadingRecipe && !upgradeUI.GetComponent<upgrades>().isUpgrading && 
-                upgradeUI.GetComponent<upgrades>().pulauUnlocked[upgradeUI.GetComponent<upgrades>().pulauUnlockedName.IndexOf(this.gameObject.tag)]) //upgradeUI.GetComponent<upgrades>().pulauUnlocked[idx])
+            else if(!TM.isTutoring)
             {
-                //upgradeUI.GetComponent<upgrades>().clicked = true;
-                //upgradeUI.GetComponent<upgrades>().provText.text = this.gameObject.name;
-                upgradeUI.GetComponent<upgrades>().pos = transform;
-                upgradeUI.GetComponent<upgrades>().curr_prov = this;
-                upgradeUI.SetTrigger("pindah");
+                if(gm.canShip && !gm.closed && !gm.isReadingRecipe)
+                {
+                    if (!gm.isCooking[gm.provs.IndexOf(this.gameObject.transform)] && tray_spawner.curr_tray.prov == transform)
+                    {
+                        bubbleProv.GetComponent<Animator>().SetBool("hovering", false);
+                        CancelInvoke("doneBreaking");
+                        isbreaking = false;
+                        doneBreaking();
+                        tray_spawner.ship(transform);
+                    }
+                    else if(!gm.isCooking[gm.provs.IndexOf(this.gameObject.transform)] && tray_spawner.curr_tray.prov != transform)
+                    {
+                        //GameObject.Find("hearts").transform.GetChild(GameObject.Find("hearts").transform.childCount - 1).GetComponent<Animator>().SetBool("break",true);
+                        if(idxHeart >= 0 && !isbreaking)
+                        {
+                            isbreaking = true;
+                            idxHeart--;
+                            GameObject.Find("hearts").transform.GetChild(idxHeart).GetComponent<Animator>().SetBool("break",true);
+                            //GameObject.Find("hearts").transform.GetChild(idxHeart).gameObject.SetActive(false);
+                            //Debug.LogWarning(idxHeart + " dan " + GameObject.Find("hearts").transform.GetChild(idxHeart).GetComponent<Animator>().GetBool("break"));
+                            gm.heart--;
+                            if(gm.heart <= 0)
+                            {
+                                gm.lose = true;
+                            }
+                            Invoke("doneBreaking", 1f);
+                        }
+                    }
+                    else
+                    {
+                        //the food is still cooking
+                    }
+                }
+                else if(gm.closed && !gm.isReadingRecipe && !upgradeUI.GetComponent<upgrades>().isUpgrading && 
+                    upgradeUI.GetComponent<upgrades>().pulauUnlocked[upgradeUI.GetComponent<upgrades>().pulauUnlockedName.IndexOf(this.gameObject.tag)]) //upgradeUI.GetComponent<upgrades>().pulauUnlocked[idx])
+                {
+                    //upgradeUI.GetComponent<upgrades>().clicked = true;
+                    //upgradeUI.GetComponent<upgrades>().provText.text = this.gameObject.name;
+                    upgradeUI.GetComponent<upgrades>().pos = transform;
+                    upgradeUI.GetComponent<upgrades>().curr_prov = this;
+                    upgradeUI.SetTrigger("pindah");
+                }
             }
         }
     }
