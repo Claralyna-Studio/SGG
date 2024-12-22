@@ -35601,12 +35601,11 @@ MonoBehaviour:
     description: Non-alchoholic drink served hot or cold, using a mic of spices like
       ginger and cinnamon.
   - prov: DKI Jakarta
-    food_name: Pletok Beer
-    food: {fileID: -1086090775, guid: cac14afc25e5409458992d9d0b0f9948, type: 3}
-    unlockMoney: 9999999
-    unlockCrystal: 9999999
-    description: Non-alchoholic drink served hot or cold, using a mic of spices like
-      ginger and cinnamon.
+    food_name: Egg Crust
+    food: {fileID: 21300000, guid: 31bb7f72d7735f34f9d716aaa86334a7, type: 3}
+    unlockMoney: 200000
+    unlockCrystal: 2
+    description: This is not just an omelete. It's an extrodinary omelatte!
   - prov: DKI Jakarta
     food_name: Pletok Beer
     food: {fileID: -1086090775, guid: cac14afc25e5409458992d9d0b0f9948, type: 3}
@@ -48577,10 +48576,12 @@ MonoBehaviour:
     restrictions_diseases: []
   - foodName:
     - Pletok Beer
+    - Egg Crust
     province: DKI Jakarta
     food:
     - {fileID: -1086090775, guid: cac14afc25e5409458992d9d0b0f9948, type: 3}
-    prices: 5046000000000000
+    - {fileID: 21300000, guid: 31bb7f72d7735f34f9d716aaa86334a7, type: 3}
+    prices: 5046000000000000a861000000000000
     cookTime: []
     restrictions_diseases: []
   - foodName:
