@@ -50,8 +50,8 @@ public class GM : MonoBehaviour, IDataPersistence
         {
             dayText.text = "Day: " + day.ToString("##,#");
         }
-        //money = 1000000;
-        //crystal = 1000000;
+        money += 1000000;
+        crystal += 1000000;
         GameObject.Find("LOADING").GetComponent<Animator>().Play("out");
 /*        if(PlayerPrefs.HasKey("day"))
         {
@@ -268,6 +268,7 @@ public class GM : MonoBehaviour, IDataPersistence
             }
             if(Random.Range(1,100) <= chanceMiniGames)
             {
+                GameObject.Find("sfx_minigame").GetComponent<AudioSource>().Play();
                 minigameUI.GetComponent<Animator>().Play("in");
             }
 /*            if(chanceMiniGames < 50)
@@ -291,17 +292,36 @@ public class GM : MonoBehaviour, IDataPersistence
     {
         if(!lose)
         {
-            playSfx(GameObject.Find("sfx_startDay").GetComponent<AudioSource>());
-            closed = false;
-            upgradesUI.GetComponent<Animator>().SetBool("in", false);
-            //upgradesUI.SetActive(false);
-            //day++;
-            jam = 8;
-            menit = 0;
-            startDay = true;
-            spawner.tutup = false;
-            StartCoroutine(timing());
-            StartCoroutine(traySpawner.spawnOrder());
+            if(TM.isTutoring && TM.canClick)
+            {
+                TM tm = FindObjectOfType<TM>();
+                tm.next();
+                playSfx(GameObject.Find("sfx_startDay").GetComponent<AudioSource>());
+                closed = false;
+                upgradesUI.GetComponent<Animator>().SetBool("in", false);
+                //upgradesUI.SetActive(false);
+                //day++;
+                jam = 8;
+                menit = 0;
+                startDay = true;
+                spawner.tutup = false;
+                StartCoroutine(timing());
+                StartCoroutine(traySpawner.spawnOrder());
+            }
+            else if(!TM.isTutoring)
+            {
+                playSfx(GameObject.Find("sfx_startDay").GetComponent<AudioSource>());
+                closed = false;
+                upgradesUI.GetComponent<Animator>().SetBool("in", false);
+                //upgradesUI.SetActive(false);
+                //day++;
+                jam = 8;
+                menit = 0;
+                startDay = true;
+                spawner.tutup = false;
+                StartCoroutine(timing());
+                StartCoroutine(traySpawner.spawnOrder());
+            }
         }
     }
     public void spawning(Transform prov, Sprite food, tray order)

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class fastTime : MonoBehaviour
 {
-    [SerializeField] private float speed = 2f;
+    //[SerializeField] private float speed = 2f;
     [SerializeField] private Image img;
     [SerializeField] private GameObject fastUI;
     GM gm;

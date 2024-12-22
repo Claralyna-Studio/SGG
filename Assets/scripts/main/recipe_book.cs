@@ -228,20 +228,21 @@ public class recipe_book : MonoBehaviour, IDataPersistence
                 drink1.sprite = curr_recipe1.food;
                 drink1.gameObject.SetActive(false);
             }
+
             //unlock prev first 
             else if (trayS.canProv_maxFood[trayS.canProv.IndexOf(curr_recipe1.prov)] - 1 < (all_index[index1]) % 3 && 
                 trayS.canProv_maxFood[trayS.canProv.IndexOf(curr_recipe1.prov)] - 1 < (all_index[index1] - 1) % 3 &&
                 (all_index[index1]) % 3 > 0)
             {
                 //Debug.Log("recipe locked, need prev unlocked");
-                //canUnlock = false;
-                canUnlock = true;
+                canUnlock = false;
+                //canUnlock = true;
 
 
                 lockRecipe.GetComponent<Animator>().SetBool("out", false);
-                /*moneyText.text = "-";
-                crystalText.text = "-";*/
-                if (curr_recipe1.unlockMoney > 0)
+                moneyText.text = "-";
+                crystalText.text = "-";
+/*                if (curr_recipe1.unlockMoney > 0)
                 {
                     moneyText.text = curr_recipe1.unlockMoney.ToString("##,#");
                 }
@@ -256,10 +257,10 @@ public class recipe_book : MonoBehaviour, IDataPersistence
                 else
                 {
                     crystalText.text = curr_recipe1.unlockCrystal.ToString();
-                }
+                }*/
                 lockRecipe.transform.parent.gameObject.SetActive(true);
-                //lockText.text = "Must unlock the previous recipe first";
-                lockText.text = " ";
+                lockText.text = "Must unlock the previous recipe first";
+                //lockText.text = " ";
                 food_name.text = "?????";
                 desc3.text = "Description:\n?????\n\n\n\nOrigin:\n???";
                 food1.sprite = curr_recipe1.food;
@@ -350,12 +351,27 @@ public class recipe_book : MonoBehaviour, IDataPersistence
     bool click = false;
     public void clicked()
     {
-        if(!GameObject.Find("penanda").GetComponent<Image>().enabled)
+        if(TM.isTutoring && TM.canClick)
         {
-            gm.isReadingRecipe = true;
-            click = !click;
-            UI.SetBool("clicked", click);
-            GetComponent<Animator>().SetBool("clicked", click);
+            TM tm = FindObjectOfType<TM>();
+            tm.next();
+            if (!GameObject.Find("penanda").GetComponent<Image>().enabled)
+            {
+                gm.isReadingRecipe = true;
+                click = !click;
+                UI.SetBool("clicked", click);
+                GetComponent<Animator>().SetBool("clicked", click);
+            }
+        }
+        else if(!TM.isTutoring)
+        {
+            if (!GameObject.Find("penanda").GetComponent<Image>().enabled)
+            {
+                gm.isReadingRecipe = true;
+                click = !click;
+                UI.SetBool("clicked", click);
+                GetComponent<Animator>().SetBool("clicked", click);
+            }
         }
     }
     public void backAnimUI()
@@ -387,16 +403,35 @@ public class recipe_book : MonoBehaviour, IDataPersistence
     }
     public void next()
     {
-        if (!pindahMark && index1 < recipes.Count-1)
+        if(TM.isTutoring && TM.canClick)
         {
-            index1++;
-            //index2++;
-            //Debug.Log((index1) % 3);
+            if (!pindahMark && index1 < recipes.Count-1)
+            {
+                index1++;
+                //index2++;
+                //Debug.Log((index1) % 3);
+            }
+            else if(pindahMark && index1 < recipes.Count - 1)
+            {
+                pindahMark = false;
+                index1 = tempIndex;
+            }
+            TM tm = FindObjectOfType<TM>();
+            tm.next();
         }
-        else if(pindahMark && index1 < recipes.Count - 1)
+        else if(!TM.isTutoring)
         {
-            pindahMark = false;
-            index1 = tempIndex;
+            if (!pindahMark && index1 < recipes.Count - 1)
+            {
+                index1++;
+                //index2++;
+                //Debug.Log((index1) % 3);
+            }
+            else if (pindahMark && index1 < recipes.Count - 1)
+            {
+                pindahMark = false;
+                index1 = tempIndex;
+            }
         }
     }
     public void prev()
@@ -439,7 +474,8 @@ public class recipe_book : MonoBehaviour, IDataPersistence
             all_index.Remove(temp);
             for (int i = 0; i < all_index.Count; i++)
             {
-                if (all_index[i] > temp)
+                //di sort
+                /*if (all_index[i] > temp)
                 {
                     all_index.Insert(i, temp);
                     break;
@@ -447,9 +483,29 @@ public class recipe_book : MonoBehaviour, IDataPersistence
                 else if (all_index[i] < temp && i == all_index.Count-1)
                 {
                     all_index.Add(temp);
+                }*/
+
+                //cek apakah yg sblmnya udh kebuka
+                resep tempR1 = new resep();
+                resep tempR2 = new resep();
+                if(i > 0 && i < all_index.Count-1)
+                {
+                    tempR1 = recipes[all_index[i-1]];
+                    tempR2 = recipes[all_index[i+1]];
+                    if(tempR2.prov != curr_recipe1.prov && tempR1.prov == curr_recipe1.prov)
+                    {
+                        all_index.Insert(i, temp);
+                        index1 = i;
+                        break;
+                    }
+                }
+                else
+                {
+                    index1 = i;
+                    all_index.Add(temp);
                 }
             }
-            index1 = all_index[all_index.IndexOf(temp)];
+            //index1 = all_index[all_index.IndexOf(temp)];
         }
         else
         {

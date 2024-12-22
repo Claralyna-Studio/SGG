@@ -17,11 +17,12 @@ public class tray : MonoBehaviour
     traySpawner spawner;
     cargo_spawner spawner2;
     GM gm;
+    public string orderName;
     public Sprite food;
     public string provName;
     public Transform prov;
-    Image food_notepad;
-    Image food_notepad2;
+    //Image food_notepad;
+    //Image food_notepad2;
     //TextMeshProUGUI text_notepad;
     [SerializeField] private GameObject penanda;
     [SerializeField] private Image[] img;
@@ -31,6 +32,7 @@ public class tray : MonoBehaviour
     [SerializeField] private notepad note;
     public bool isCooking = false;
     public bool restriction = false;
+    public List<string> curr_diseases;
     public List<GameObject> curr_restrictions;
     //[SerializeField] private List<GameObject> curr_restrictions;
     public bool done = false;
@@ -53,8 +55,8 @@ public class tray : MonoBehaviour
         spawner2 = FindObjectOfType<cargo_spawner>();
         moneyPlus_particle = GameObject.Find("UI").transform.GetChild(0).gameObject;
         prov = GameObject.Find("sprites").transform.Find(provName);
-        food_notepad = GameObject.Find("FOOD_NOTEPAD").GetComponent<Image>();
-        food_notepad2 = GameObject.Find("DRINK_NOTEPAD").GetComponent<Image>();
+        //food_notepad = GameObject.Find("FOOD_NOTEPAD").GetComponent<Image>();
+        //food_notepad2 = GameObject.Find("DRINK_NOTEPAD").GetComponent<Image>();
         //text_notepad = GameObject.Find("TEXT_NOTEPAD").GetComponent<TextMeshProUGUI>();
         //tray.isClicked = false;
         anim = GetComponent<Animator>();
@@ -69,18 +71,18 @@ public class tray : MonoBehaviour
             img[0].sprite = food;
             img[0].gameObject.SetActive(true);
             img[1].gameObject.SetActive(false);
-            food_notepad.sprite = food;
-            food_notepad.enabled = true;
-            food_notepad2.enabled = false;
+            //food_notepad.sprite = food;
+            //food_notepad.enabled = true;
+            //food_notepad2.enabled = false;
         }
         else
         {
             img[1].sprite = food;
             img[1].gameObject.SetActive(true);
             img[0].gameObject.SetActive(false);
-            food_notepad2.sprite = food;
-            food_notepad.enabled = false;
-            food_notepad2.enabled = true;
+            //food_notepad2.sprite = food;
+            //food_notepad.enabled = false;
+            //food_notepad2.enabled = true;
         }
     }
 
@@ -103,7 +105,7 @@ public class tray : MonoBehaviour
                 anim.SetBool("clicked", true);
                 penanda.GetComponent<Image>().enabled = true;
             }
-            else if (restriction && note.order != this)
+            else if (restriction/* && note.order != this*/)
             {
                 anim.SetBool("clicked", true);
                 //tray.isClicked = true;
@@ -119,6 +121,23 @@ public class tray : MonoBehaviour
         {
             GameObject.Find("TextBoat").GetComponent<Animator>().Play("warning");
         }
+    }
+    public void addRes(GameObject res)
+    {
+        if (curr_restrictions.Contains(res))
+        {
+            curr_restrictions.Remove(res);
+        }
+        else
+        {
+            curr_restrictions.Add(res);
+        }
+    }
+    public void readyToShip()
+    {
+        gm.canShip = true;
+        anim.SetBool("clicked", true);
+        penanda.GetComponent<Image>().enabled = true;
     }
     public void hasClicked()
     {
@@ -142,8 +161,8 @@ public class tray : MonoBehaviour
     {
         if(restriction)
         {
-            anim2.SetBool("in", true);
             note.order = this;
+            anim2.SetBool("in", true);
         }
     }
     public void exitNotePad()

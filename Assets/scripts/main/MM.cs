@@ -85,6 +85,7 @@ public class MM : MonoBehaviour
         if (!DataPersistenceManager.instance.HasGameData())
         {
             newGame(true);
+            tutor = true;
         }
         else
         {

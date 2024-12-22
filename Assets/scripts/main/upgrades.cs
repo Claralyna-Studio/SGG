@@ -16,6 +16,7 @@ public class upgrades : MonoBehaviour, IDataPersistence
     traySpawner tray_spawner;
     cargo_spawner cargo;
     [SerializeField] private List<GameObject> meja_upgrade;
+    [SerializeField] private List<GameObject> unlockButtons;
     public List<string> pulauUnlockedName;
     public List<bool> pulauUnlocked;
     [Header("per prov")]
@@ -215,6 +216,13 @@ public class upgrades : MonoBehaviour, IDataPersistence
                 }
             }
         }
+        for (int i = 0; i < pulauUnlocked.Count; i++)
+        {
+            if (pulauUnlocked[i] && unlockButtons[i]!=null)
+            {
+                unlockButtons[i].SetActive(false);
+            }
+        }
         //pindah();
         //Debug.LogError("Start: " + DateTime.Now.ToString() + " dan " + pausedDate.ToString());
     }
@@ -395,7 +403,7 @@ public class upgrades : MonoBehaviour, IDataPersistence
             gm.addMoney(-moneyUnlock[idx]);
             gm.addCrystal(-crystalUnlock[idx]);
         }
-        pulau.SetActive(false);
+        pulau.transform.parent.gameObject.SetActive(false);
     }
     // Update is called once per frame
     void Update()
