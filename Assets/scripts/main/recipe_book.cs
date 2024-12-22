@@ -482,7 +482,7 @@ public class recipe_book : MonoBehaviour, IDataPersistence
     }
     public void openRecipe()
     {
-        if(canUnlock && GM.money >=  curr_recipe1.unlockMoney && GM.crystal >= curr_recipe1.unlockCrystal)
+        if(!TM.isTutoring && canUnlock && GM.money >=  curr_recipe1.unlockMoney && GM.crystal >= curr_recipe1.unlockCrystal)
         {
         //Debug.Log("AAA");
             gm.addMoney(-curr_recipe1.unlockMoney);

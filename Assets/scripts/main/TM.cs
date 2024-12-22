@@ -142,9 +142,12 @@ public class TM : MonoBehaviour
             bgRect.localPosition = Vector3.Lerp(bgRect.localPosition,localPoint,Time.deltaTime*20f);
 
         }
-        if (Input.GetMouseButtonDown(0) && idx < 3 && canClick)
+        if (Input.GetMouseButtonDown(0) && canClick)
         {
-            next();
+            if(idx < 3 || idx == 17)
+            {
+                next();
+            }
         }
         /*tutorOrang.SetBool("talking", canClick);*/
     }
@@ -176,7 +179,9 @@ public class TM : MonoBehaviour
             }
             else
             {
-
+                isTutoring = false;
+                canClick = true;
+                tutor.SetTrigger("next");
             }
         }
     }
@@ -185,9 +190,9 @@ public class TM : MonoBehaviour
         //Destroy(gameObject);
         this.gameObject.SetActive(false);
     }
-    public void showTutor()
+/*    public void showTutor()
     {
-/*        foreach (GameObject go in tutor)
+*//*        foreach (GameObject go in tutor)
         {
             if(GM.day <= 3)
             {
@@ -197,8 +202,8 @@ public class TM : MonoBehaviour
             {
                 go.SetActive(false);
             }
-        }*/
-    }
+        }*//*
+    }*/
     int count = 5;
     IEnumerator typing()
     {

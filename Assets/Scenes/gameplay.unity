@@ -27171,7 +27171,7 @@ MonoBehaviour:
   - 'You can also speed up time by holding down the speed button besides the timer. '
   - Great job! Now gather enough money for upgrades and expand the restaurant.
   - Try to upgrade the cooking duration in Bali.
-  - Grea! Now start the day when you're ready.
+  - Great! Now start the day when you're ready.
   - Now we wait for order...
   - Some customer has food restrictions that you have to watch out for.
   - The guide book will show you what ingredients they can't consume.
@@ -27190,10 +27190,10 @@ MonoBehaviour:
   - {fileID: 1425360230}
   - {fileID: 84132928}
   - {fileID: 84132928}
+  - {fileID: 715936780}
   - {fileID: 84132928}
   - {fileID: 84132928}
-  - {fileID: 84132928}
-  - {fileID: 84132928}
+  - {fileID: 715936780}
   - {fileID: 84132928}
   - {fileID: 84132928}
   toUI: 0

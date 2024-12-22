@@ -88,11 +88,11 @@ public class tray : MonoBehaviour
         tm = FindObjectOfType<TM>();
         if(TM.isTutoring && TM.canClick && tm)
         {
-            if(tm.idx == 6 || tm.idx == 12)
+            if(tm.idx == 6 || tm.idx == 13)
             {
                 int temp = tm.idx;
-                tm.next();
                 tm.curr_button[temp+1] = this.transform;
+                tm.next();
             }
         }
     }

@@ -250,6 +250,14 @@ public class GM : MonoBehaviour, IDataPersistence
     public bool closed = true;
     public void close_day()
     {
+        if(TM.isTutoring)
+        {
+            TM tm = FindObjectOfType<TM>();
+            if (tm && tm.idx == 10)
+            {
+                tm.next();
+            }
+        }
         day++;
         if(day % 7 == 0)
         {

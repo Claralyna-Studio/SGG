@@ -944,7 +944,7 @@ public class upgrades : MonoBehaviour, IDataPersistence
     [SerializeField] private int idx = 0;
     public void upgradeBoat(TextMeshProUGUI text)
     {
-        if(!isUpgradingBoat && GM.money >= moneyBoat && GM.crystal >= crystalBoat)
+        if(!TM.isTutoring && !isUpgradingBoat && GM.money >= moneyBoat && GM.crystal >= crystalBoat)
         {
             //Debug.LogWarning(text.gameObject.name);
             tempText[1] = text;
@@ -969,7 +969,7 @@ public class upgrades : MonoBehaviour, IDataPersistence
     }
     public void upgradeBoatSpeed(TextMeshProUGUI text)
     {
-        if (!isUpgradingBoat && GM.money >= moneyBoatSpeed && GM.crystal >= crystalBoatSpeed)
+        if (!TM.isTutoring && !isUpgradingBoat && GM.money >= moneyBoatSpeed && GM.crystal >= crystalBoatSpeed)
         {
             tempText[2] = text;
             Debug.LogWarning("clicked");
@@ -994,46 +994,97 @@ public class upgrades : MonoBehaviour, IDataPersistence
     {
         if(GM.money >= money && GM.crystal >= crystal)
         {
-            non_active[0].SetActive(false);
-            non_active[1].SetActive(false);
-            non_active[2].SetActive(true);
-            non_active[3].SetActive(true);
-            isUpgrading = true;
-            /*        if (curr_prov.gameObject.tag == "Bali")
+            if(TM.isTutoring)
+            {
+                TM tm = FindObjectOfType<TM>();
+                if(tm && tm.idx == 11)
+                {
+                    tm.next();
+                    non_active[0].SetActive(false);
+                    non_active[1].SetActive(false);
+                    non_active[2].SetActive(true);
+                    non_active[3].SetActive(true);
+                    isUpgrading = true;
+                    /*        if (curr_prov.gameObject.tag == "Bali")
+                            {
+                                idx = 0;
+                            }
+                            else if (curr_prov.gameObject.tag == "Jawa")
+                            {
+                                idx = 1;
+                            }*/
+                    if (berapaKaliUpgrade[idx] == 0)
                     {
-                        idx = 0;
+                        waktu[0] = 30;
                     }
-                    else if (curr_prov.gameObject.tag == "Jawa")
+                    else if (berapaKaliUpgrade[idx] == 1)
                     {
-                        idx = 1;
-                    }*/
-            if (berapaKaliUpgrade[idx] == 0)
-            {
-                waktu[0] = 30;
-            }
-            else if(berapaKaliUpgrade[idx] == 1)
-            {
-                waktu[0] = 60;
-            }
-            else if (berapaKaliUpgrade[idx] == 2)
-            {
-                waktu[0] = 60;
-            }
-            else if (berapaKaliUpgrade[idx] == 3)
-            {
-                waktu[0] = 300;
+                        waktu[0] = 60;
+                    }
+                    else if (berapaKaliUpgrade[idx] == 2)
+                    {
+                        waktu[0] = 60;
+                    }
+                    else if (berapaKaliUpgrade[idx] == 3)
+                    {
+                        waktu[0] = 300;
+                    }
+                    else
+                    {
+                        waktu[0] = 600;
+                    }
+                    gm.addMoney(-money);
+                    gm.addCrystal(-crystal);
+                    //GM.money -= money;
+                    //GM.crystal -= crystal;
+                    //Debug.Log(upgrading.Count);
+                    tempText[0] = timerText;
+                    upgrading[0] = StartCoroutine(upgradeTimer(0));
+                }
             }
             else
             {
-                waktu[0] = 600;
+                non_active[0].SetActive(false);
+                non_active[1].SetActive(false);
+                non_active[2].SetActive(true);
+                non_active[3].SetActive(true);
+                isUpgrading = true;
+                /*        if (curr_prov.gameObject.tag == "Bali")
+                        {
+                            idx = 0;
+                        }
+                        else if (curr_prov.gameObject.tag == "Jawa")
+                        {
+                            idx = 1;
+                        }*/
+                if (berapaKaliUpgrade[idx] == 0)
+                {
+                    waktu[0] = 30;
+                }
+                else if(berapaKaliUpgrade[idx] == 1)
+                {
+                    waktu[0] = 60;
+                }
+                else if (berapaKaliUpgrade[idx] == 2)
+                {
+                    waktu[0] = 60;
+                }
+                else if (berapaKaliUpgrade[idx] == 3)
+                {
+                    waktu[0] = 300;
+                }
+                else
+                {
+                    waktu[0] = 600;
+                }
+                gm.addMoney(-money);
+                gm.addCrystal(-crystal);
+                //GM.money -= money;
+                //GM.crystal -= crystal;
+                //Debug.Log(upgrading.Count);
+                tempText[0] = timerText;
+                upgrading[0] = StartCoroutine(upgradeTimer(0));
             }
-            gm.addMoney(-money);
-            gm.addCrystal(-crystal);
-            //GM.money -= money;
-            //GM.crystal -= crystal;
-            //Debug.Log(upgrading.Count);
-            tempText[0] = timerText;
-            upgrading[0] = StartCoroutine(upgradeTimer(0));
         }
     }
     public IEnumerator upgradeTimer(int idx)
