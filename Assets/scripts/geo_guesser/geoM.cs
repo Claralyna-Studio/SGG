@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
-public class geoM : MonoBehaviour
+public class geoM : MonoBehaviour, IDataPersistence
 {
     public Vector2 pin;
     public Vector2 kota;
@@ -46,6 +46,22 @@ public class geoM : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (!PlayerPrefs.HasKey("bgm") || !PlayerPrefs.HasKey("sfx"))
+        {
+            PlayerPrefs.SetFloat("bgm", 1);
+            PlayerPrefs.SetFloat("sfx", 1);
+            bgm.value = 1;
+            sfx.value = 1;
+            mixer.SetFloat("bgm", PlayerPrefs.GetFloat("bgm"));
+            mixer.SetFloat("sfx", PlayerPrefs.GetFloat("sfx"));
+        }
+        else
+        {
+            bgm.value = PlayerPrefs.GetFloat("bgm");
+            sfx.value = PlayerPrefs.GetFloat("sfx");
+            mixer.SetFloat("bgm", PlayerPrefs.GetFloat("bgm"));
+            mixer.SetFloat("sfx", PlayerPrefs.GetFloat("sfx"));
+        }
         pauseUI.SetActive(false);
         Time.timeScale = 1;
         textDay.text = "Day: " + GM.day.ToString("##,#");
@@ -200,5 +216,17 @@ public class geoM : MonoBehaviour
         GameObject.Find("LOADING").GetComponent<loading>().gameScene = "main_menu";
         GameObject.Find("LOADING").GetComponent<Animator>().Play("in");
         //SceneManager.LoadScene(0);
+    }
+
+    public void LoadData(GameData data)
+    {
+        //kosong
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.money = GM.money;
+        data.crystal = GM.crystal;
+        data.day = GM.day;
     }
 }

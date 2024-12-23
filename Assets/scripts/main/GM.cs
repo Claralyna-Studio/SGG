@@ -50,8 +50,8 @@ public class GM : MonoBehaviour, IDataPersistence
         {
             dayText.text = "Day: " + day.ToString("##,#");
         }
-        money += 1000000;
-        crystal += 1000000;
+        //money += 1000000;
+        //crystal += 1000000;
         GameObject.Find("LOADING").GetComponent<Animator>().Play("out");
 /*        if(PlayerPrefs.HasKey("day"))
         {
