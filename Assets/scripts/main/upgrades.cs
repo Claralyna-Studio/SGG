@@ -1124,6 +1124,7 @@ public class upgrades : MonoBehaviour, IDataPersistence
             cargo.masakTime[this.idx]--;
             foodPrep_seconds[this.idx] -= 2;
             berapaKaliUpgrade[this.idx]++;
+            crystalSpeedUp[this.idx] += 2;
             float currFoodPrep = foodPrep_seconds[this.idx];
             timerText.text = "Faster Food Preperations: \n" + currFoodPrep.ToString() + " seconds -> " + (currFoodPrep -= 2).ToString() + " seconds";
             coll.SetActive(true);
