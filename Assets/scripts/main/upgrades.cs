@@ -551,7 +551,14 @@ public class upgrades : MonoBehaviour, IDataPersistence
                     //meja_upgrade[i].SetActive(true);
                     if(i == traySpawner.trayMax || traySpawner.trayMax == 5)
                     {
-                        meja_upgrade[i].GetComponent<Animator>().SetBool("in",true);
+                        if(gm.closed)
+                        {
+                            //meja_upgrade[i].GetComponent<Animator>().SetBool("in",true);
+                        }
+                        else
+                        {
+                            meja_upgrade[i].GetComponent<Animator>().SetBool("in",false);
+                        }
                     }
                     else
                     {
@@ -1000,46 +1007,49 @@ public class upgrades : MonoBehaviour, IDataPersistence
                 if(tm && tm.idx == 11)
                 {
                     tm.next();
-                    non_active[0].SetActive(false);
-                    non_active[1].SetActive(false);
-                    non_active[2].SetActive(true);
-                    non_active[3].SetActive(true);
-                    isUpgrading = true;
-                    /*        if (curr_prov.gameObject.tag == "Bali")
-                            {
-                                idx = 0;
-                            }
-                            else if (curr_prov.gameObject.tag == "Jawa")
-                            {
-                                idx = 1;
-                            }*/
-                    if (berapaKaliUpgrade[idx] == 0)
+                    if(!isUpgrading)
                     {
-                        waktu[0] = 30;
+                        non_active[0].SetActive(false);
+                        non_active[1].SetActive(false);
+                        non_active[2].SetActive(true);
+                        non_active[3].SetActive(true);
+                        isUpgrading = true;
+                        /*        if (curr_prov.gameObject.tag == "Bali")
+                                {
+                                    idx = 0;
+                                }
+                                else if (curr_prov.gameObject.tag == "Jawa")
+                                {
+                                    idx = 1;
+                                }*/
+                        if (berapaKaliUpgrade[idx] == 0)
+                        {
+                            waktu[0] = 30;
+                        }
+                        else if (berapaKaliUpgrade[idx] == 1)
+                        {
+                            waktu[0] = 60;
+                        }
+                        else if (berapaKaliUpgrade[idx] == 2)
+                        {
+                            waktu[0] = 60;
+                        }
+                        else if (berapaKaliUpgrade[idx] == 3)
+                        {
+                            waktu[0] = 300;
+                        }
+                        else
+                        {
+                            waktu[0] = 600;
+                        }
+                        gm.addMoney(-money);
+                        gm.addCrystal(-crystal);
+                        //GM.money -= money;
+                        //GM.crystal -= crystal;
+                        //Debug.Log(upgrading.Count);
+                        tempText[0] = timerText;
+                        upgrading[0] = StartCoroutine(upgradeTimer(0));
                     }
-                    else if (berapaKaliUpgrade[idx] == 1)
-                    {
-                        waktu[0] = 60;
-                    }
-                    else if (berapaKaliUpgrade[idx] == 2)
-                    {
-                        waktu[0] = 60;
-                    }
-                    else if (berapaKaliUpgrade[idx] == 3)
-                    {
-                        waktu[0] = 300;
-                    }
-                    else
-                    {
-                        waktu[0] = 600;
-                    }
-                    gm.addMoney(-money);
-                    gm.addCrystal(-crystal);
-                    //GM.money -= money;
-                    //GM.crystal -= crystal;
-                    //Debug.Log(upgrading.Count);
-                    tempText[0] = timerText;
-                    upgrading[0] = StartCoroutine(upgradeTimer(0));
                 }
             }
             else

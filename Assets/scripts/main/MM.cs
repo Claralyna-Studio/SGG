@@ -28,7 +28,7 @@ public class MM : MonoBehaviour
         else
         {
             startButton.SetActive(true);
-            tutor = false;
+            //tutor = false;
         }
         if (!intro)
         {
@@ -85,7 +85,6 @@ public class MM : MonoBehaviour
         if (!DataPersistenceManager.instance.HasGameData())
         {
             newGame(true);
-            tutor = true;
         }
         else
         {
@@ -97,6 +96,7 @@ public class MM : MonoBehaviour
         if(yesNo)
         {
             DataPersistenceManager.instance.NewGame();
+            tutor = true;
             mulai();
         }
         else

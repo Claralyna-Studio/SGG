@@ -35,12 +35,12 @@ public class notepad : MonoBehaviour
     }
     public void tambah(int idx)
     {
-        if (order && order.input_restrictions.Contains(restrictions_mark[idx]))
+        if (order && !order.input_restrictions.Contains(restrictions_mark[idx]))
         {
             order.input_restrictions.Add(restrictions_mark[idx]);
             restrictions_mark[idx].transform.GetChild(0).gameObject.SetActive(false);
         }
-        else if (order && !order.input_restrictions.Contains(restrictions_mark[idx]))
+        else if (order && order.input_restrictions.Contains(restrictions_mark[idx]))
         {
             //order.input_restrictions[order.input_restrictions.IndexOf(restrictions_mark[idx])] = null;
             //order.input_restrictions.Remove(restrictions_mark[idx]);
@@ -83,20 +83,32 @@ public class notepad : MonoBehaviour
         GetComponent<Animator>().SetBool("in", false);
         order.exitNotePad();
     }
+    [SerializeField] private Animator sendButton;
+    //bool canShip = true;
     public void send()
     {
-        bool canShip = true;
         foreach (GameObject res in order.input_restrictions)
         {
-            if (!order.curr_restrictions.Contains(res))
+            if (!order.curr_restrictions.Contains(res) || order.input_restrictions.Count != order.curr_restrictions.Count)
             {
-                canShip = false; 
+                order.canShip = false; 
                 break;
             }
+            else
+            {
+                order.canShip = true;
+            }
         }
-        if (canShip)
+        if (order.canShip)
         {
+            //order.canShip = true;
+            sendButton.Play("idle");
+            exitNotePad();
             order.readyToShip();
+        }
+        else
+        {
+            sendButton.Play("wrong");
         }
     }
 }

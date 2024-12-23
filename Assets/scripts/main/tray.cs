@@ -37,6 +37,7 @@ public class tray : MonoBehaviour
     public List<GameObject> input_restrictions;
     //[SerializeField] private List<GameObject> curr_restrictions;
     public bool done = false;
+    public bool canShip = true;
     TM tm;
     //public static bool isClicked;
     // Start is called before the first frame update
@@ -109,7 +110,7 @@ public class tray : MonoBehaviour
     {
         if (TM.isTutoring && tm)
         {
-            if(tm.idx == 7)
+            if(tm.idx == 7 || tm.idx == 14)
             {
                 tm.next();
             }
@@ -117,14 +118,16 @@ public class tray : MonoBehaviour
             {
                 //clicked2 = true;
                 spawner.curr_tray = this;
-                if (!restriction)
+                if (!restriction || canShip)
                 {
                     gm.canShip = true;
                     anim.SetBool("clicked", true);
                     penanda.GetComponent<Image>().enabled = true;
                 }
-                else if (restriction/* && note.order != this*/)
+                else if (restriction && !canShip/* && note.order != this*/)
                 {
+                    //Debug.Log("DONE");
+                    penanda.GetComponent<Image>().enabled = false;
                     anim.SetBool("clicked", true);
                     callNotePad();
                     //tray.isClicked = true;
@@ -147,14 +150,16 @@ public class tray : MonoBehaviour
             {
                 //clicked2 = true;
                 spawner.curr_tray = this;
-                if (!restriction)
+                if (!restriction || canShip)
                 {
                     gm.canShip = true;
                     anim.SetBool("clicked", true);
                     penanda.GetComponent<Image>().enabled = true;
                 }
-                else if (restriction/* && note.order != this*/)
+                else if (restriction && !canShip/* && note.order != this*/)
                 {
+                    //Debug.Log("DONE");
+                    penanda.GetComponent<Image>().enabled = false;
                     anim.SetBool("clicked", true);
                     callNotePad();
                     //tray.isClicked = true;
@@ -209,7 +214,7 @@ public class tray : MonoBehaviour
     }
     public void callNotePad()
     {
-        if(restriction)
+        if(restriction && !canShip)
         {
             note.order = this;
             anim2.SetBool("in", true);
@@ -217,7 +222,7 @@ public class tray : MonoBehaviour
     }
     public void exitNotePad()
     {
-        if (!restriction)
+        if (!restriction || canShip)
         {
             penanda.GetComponent <Image>().enabled = false;
             gm.canShip = false;
@@ -229,8 +234,8 @@ public class tray : MonoBehaviour
             {
                 penanda.GetComponent<Image>().enabled = false;
                 gm.canShip = false;
-                note.order = null;
-                anim2.SetBool("in", false);
+                //note.order = null;
+                //anim2.SetBool("in", false);
                 anim.SetBool("clicked", false);
                 //tray.isClicked = false;
             }   

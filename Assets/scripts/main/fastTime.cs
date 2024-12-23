@@ -69,8 +69,11 @@ public class fastTime : MonoBehaviour
                 if(tm && tm.idx == 9)
                 {
                     tm.next();
+                    fastUI.SetActive(true);
+                    Time.timeScale = 2.5f;
+                    img.color = Color.gray;
                 }
-                else if(tm && tm.idx > 9)
+                else if(tm && tm.idx >= 9)
                 {
                     fastUI.SetActive(true);
                     Time.timeScale = 2.5f;

@@ -26,22 +26,32 @@ public class TM : MonoBehaviour
         text.maxVisibleCharacters = 0;
         if(MM.tutor)
         {
-            isTutoring = true;
-            //showTutor();
-            anchorMaxAwal = bg.GetComponent<RectTransform>().anchorMax;
-            anchorMinAwal = bg.GetComponent<RectTransform>().anchorMin;
-            pivotAwal = bg.GetComponent<RectTransform>().pivot;
-            StartCoroutine(typing());
-/*            foreach (Button button in buttons)
+            if(GM.day <= 1)
             {
-                button.enabled = false;
-            }*/
-        }
-        else
-        {
-            isTutoring = false;
-            GetComponent<Animator>().Play("stayOut");
-            //this.gameObject.SetActive(false);
+                isTutoring = true;
+                //showTutor();
+                anchorMaxAwal = bg.GetComponent<RectTransform>().anchorMax;
+                anchorMinAwal = bg.GetComponent<RectTransform>().anchorMin;
+                pivotAwal = bg.GetComponent<RectTransform>().pivot;
+                StartCoroutine(typing());
+    /*            foreach (Button button in buttons)
+                {
+                    button.enabled = false;
+                }*/
+            }
+            else if(GM.day == 2)
+            {
+                isTutoring = true;
+                idx = 11;
+                GetComponent<Animator>().Play("11");
+                StartCoroutine(typing());
+            }
+            else
+            {
+                isTutoring = false;
+                GetComponent<Animator>().Play("stayOut");
+                //this.gameObject.SetActive(false);
+            }
         }
         //StartCoroutine(typing());
     }
@@ -144,7 +154,7 @@ public class TM : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(0) && canClick)
         {
-            if(idx < 3 || idx == 17)
+            if(idx < 3 || idx > 15)
             {
                 next();
             }

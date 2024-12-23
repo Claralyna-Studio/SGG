@@ -24,6 +24,7 @@ public class recipe_book : MonoBehaviour, IDataPersistence
         public long unlockMoney;
         public long unlockCrystal;
         [TextArea] public string description;
+        [TextArea] public string restrictions;
     }
     [SerializeField] private List<resep> recipes;
     [SerializeField] private resep curr_recipe1;
@@ -64,6 +65,14 @@ public class recipe_book : MonoBehaviour, IDataPersistence
     {
         if (isUI)
         {
+            if(index1 < 0)
+            {
+                index1 = 0;
+            }
+            else if(index1 >= recipes.Count)
+            {
+                index1 = recipes.Count - 1;
+            }
             for (int i = 0; i < mark.transform.childCount; i++)
             {
                 if(upg.pulauUnlocked[upg.pulauUnlockedName.IndexOf(mark.transform.GetChild(i).gameObject.name)])
@@ -152,7 +161,7 @@ public class recipe_book : MonoBehaviour, IDataPersistence
                     tempProv = curr_recipe1.prov;
                 }
                 //desc3.text = "Description: \n" + curr_recipe1.description + "\n\n\nOrigin: " + curr_recipe1.prov;
-                desc3.text = "Description: \n" + curr_recipe1.description + "\n\n\nOrigin: " + tempProv;
+                desc3.text = "Description: \n" + curr_recipe1.description + "\n\n\nOrigin: " + tempProv + "\n\nRestrictions:\n" + curr_recipe1.restrictions;
                 food1.sprite = curr_recipe1.food;
                 food1.gameObject.SetActive(true);
                 drink1.sprite = curr_recipe1.food;
@@ -187,7 +196,7 @@ public class recipe_book : MonoBehaviour, IDataPersistence
                 lockRecipe.transform.parent.gameObject.SetActive(true);
                 lockText.text = "Must unlock the island first";
                 food_name.text = "?????";
-                desc3.text = "Description:\n?????\n\n\n\nOrigin:\n???";
+                desc3.text = "Description:\n?????\n\n\n\nOrigin:\n???" + "\n\nRestrictions:\n?????";
                 food1.sprite = curr_recipe1.food;
                 food1.gameObject.SetActive(false);
                 drink1.sprite = curr_recipe1.food;
@@ -222,7 +231,7 @@ public class recipe_book : MonoBehaviour, IDataPersistence
                 lockRecipe.transform.parent.gameObject.SetActive(true);
                 lockText.text = " ";
                 food_name.text = "?????";
-                desc3.text = "Description:\n?????\n\n\n\nOrigin:\n???";
+                desc3.text = "Description:\n?????\n\n\n\nOrigin:\n???" + "\n\nRestrictions:\n?????";
                 food1.sprite = curr_recipe1.food;
                 food1.gameObject.SetActive(false);
                 drink1.sprite = curr_recipe1.food;
@@ -262,7 +271,7 @@ public class recipe_book : MonoBehaviour, IDataPersistence
                 lockText.text = "Must unlock the previous recipe first";
                 //lockText.text = " ";
                 food_name.text = "?????";
-                desc3.text = "Description:\n?????\n\n\n\nOrigin:\n???";
+                desc3.text = "Description:\n?????\n\n\n\nOrigin:\n???" + "\n\nRestrictions:\n?????";
                 food1.sprite = curr_recipe1.food;
                 food1.gameObject.SetActive(false);
                 drink1.sprite = curr_recipe1.food;
@@ -354,12 +363,13 @@ public class recipe_book : MonoBehaviour, IDataPersistence
         if(TM.isTutoring && TM.canClick)
         {
             TM tm = FindObjectOfType<TM>();
-            if(tm.idx == 3)
+            if(tm.idx == 3 || tm.idx == 15)
             {
                 tm.next();
             }
             if (!GameObject.Find("penanda").GetComponent<Image>().enabled)
             {
+
                 gm.isReadingRecipe = true;
                 click = !click;
                 UI.SetBool("clicked", click);

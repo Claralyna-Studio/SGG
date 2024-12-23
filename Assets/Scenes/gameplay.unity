@@ -4346,7 +4346,7 @@ RectTransform:
   - {fileID: 161460271}
   - {fileID: 1963415316}
   m_Father: {fileID: 1675764940}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -4533,7 +4533,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0000333786, y: 130}
+  m_AnchoredPosition: {x: -2000, y: 130}
   m_SizeDelta: {x: 247, y: 328}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &224672369
@@ -5550,7 +5550,7 @@ RectTransform:
   - {fileID: 2029142261}
   - {fileID: 913566542}
   m_Father: {fileID: 415145498}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -5693,7 +5693,7 @@ RectTransform:
   - {fileID: 1052087375}
   - {fileID: 2047567976}
   m_Father: {fileID: 1675764940}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7890,7 +7890,7 @@ RectTransform:
   - {fileID: 1328019843}
   - {fileID: 573227775}
   m_Father: {fileID: 1675764940}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -8578,7 +8578,6 @@ RectTransform:
   - {fileID: 1005962651}
   - {fileID: 816326311}
   - {fileID: 42036916}
-  - {fileID: 935931715}
   - {fileID: 715936780}
   - {fileID: 2101780187}
   - {fileID: 1746865512}
@@ -9419,7 +9418,7 @@ RectTransform:
   - {fileID: 539993557}
   - {fileID: 1782599566}
   m_Father: {fileID: 1675764940}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -15501,7 +15500,7 @@ RectTransform:
   - {fileID: 13551531}
   - {fileID: 1755141505}
   m_Father: {fileID: 415145498}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -15645,6 +15644,7 @@ MonoBehaviour:
     unlockMoney: 0
     unlockCrystal: 0
     description: 
+    restrictions: 
   UI: {fileID: 1543617180}
   food1: {fileID: 0}
   drink1: {fileID: 0}
@@ -17437,7 +17437,7 @@ RectTransform:
   m_GameObject: {fileID: 755342038}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 995458713}
@@ -18851,7 +18851,7 @@ RectTransform:
   m_Children:
   - {fileID: 1233636637}
   m_Father: {fileID: 415145498}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -21094,17 +21094,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 935931714}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 43.30127}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2076977334}
   - {fileID: 804744914}
   - {fileID: 1219488101}
   - {fileID: 982912586}
-  m_Father: {fileID: 415145498}
-  m_RootOrder: 9
+  m_Father: {fileID: 1675764940}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -21119,7 +21119,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 935931714}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
@@ -21169,6 +21169,7 @@ MonoBehaviour:
   drink: {fileID: 1754997964}
   title: {fileID: 2101256425}
   res: {fileID: 309392991}
+  sendButton: {fileID: 1767872336}
 --- !u!1 &939174546
 GameObject:
   m_ObjectHideFlags: 0
@@ -22504,7 +22505,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -22605,7 +22606,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &982912586
 RectTransform:
   m_ObjectHideFlags: 0
@@ -28634,7 +28635,7 @@ RectTransform:
   - {fileID: 995458713}
   - {fileID: 84132928}
   m_Father: {fileID: 1675764940}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -28705,7 +28706,8 @@ MonoBehaviour:
     you will lose 1 heart.
   - 'You can also speed up time by holding down the speed button besides the timer. '
   - Great job! Now gather enough money for upgrades and expand the restaurant.
-  - Try to upgrade the cooking duration in Bali.
+  - Try to upgrade the cooking duration in Bali. You can also finish the upgrade
+    by clicking the diamond.
   - Great! Now start the day when you're ready.
   - Now we wait for order...
   - Some customer has food restrictions that you have to watch out for.
@@ -28724,7 +28726,7 @@ MonoBehaviour:
   - {fileID: 84132928}
   - {fileID: 1425360230}
   - {fileID: 84132928}
-  - {fileID: 84132928}
+  - {fileID: 1503464043}
   - {fileID: 715936780}
   - {fileID: 84132928}
   - {fileID: 84132928}
@@ -37540,7 +37542,7 @@ RectTransform:
   - {fileID: 1731480555}
   - {fileID: 175258289}
   m_Father: {fileID: 1675764940}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -37602,6 +37604,17 @@ MonoBehaviour:
     unlockCrystal: 0
     description: Grillled satay made with minced meat, grated coconut, lime leaves,
       and spices.
+    restrictions: '-Not Spicy: no chilli
+
+      -Pescatarian: no red meat, poultry
+
+      -Vegan:
+      no meat, egg, milk
+
+      -Vegetarian: no meat
+
+      -Seafood Allergy: no
+      seafood'
   - prov: Bali
     food_name: Chicken Betutu
     food: {fileID: 21300000, guid: 4a50c78aec6120147b315a924168bf45, type: 3}
@@ -37609,6 +37622,7 @@ MonoBehaviour:
     unlockCrystal: 0
     description: Chicken or duck, that is the question. Wrapped with banana leaves
       and mized with mixture of spices, these poultry dish is tender and flavourful.
+    restrictions: 
   - prov: Bali
     food_name: Suckling Pig
     food: {fileID: 21300000, guid: 94217949636ec0745b75dcdc1137cb55, type: 3}
@@ -37616,6 +37630,7 @@ MonoBehaviour:
     unlockCrystal: 3
     description: Crispy roasted pork marinated with blended spices including turmeric,
       garlic, and coriander
+    restrictions: 
   - prov: Nusa Tenggara Barat
     food_name: Plecing
     food: {fileID: 21300000, guid: 6e84627001a59f64183cbd63646b77c7, type: 3}
@@ -37623,12 +37638,14 @@ MonoBehaviour:
     unlockCrystal: 0
     description: Spicy salad made from water spinach and beansprout, topped with
       chili-based sambal sauce.
+    restrictions: 
   - prov: Nusa Tenggara Barat
     food_name: Sepat Bulbul
     food: {fileID: 21300000, guid: 0b3a936d1646b4a4ba204abcb04c53f1, type: 3}
     unlockMoney: 100000
     unlockCrystal: 5
     description: 'A traditional fish dish cooked in sour and spicy broth. '
+    restrictions: 
   - prov: Nusa Tenggara Barat
     food_name: Chicken Taliwang
     food: {fileID: 21300000, guid: 7e49332f26a009b44a81c507a6cdcc84, type: 3}
@@ -37636,6 +37653,7 @@ MonoBehaviour:
     unlockCrystal: 5
     description: 'Grilled spicy chicken with flacourful sauce made from chili, garlic,
       and other spices. Typically serverd with rice and sambal. '
+    restrictions: 
   - prov: Nusa Tenggara Timur
     food_name: Karmanaci
     food: {fileID: 21300000, guid: ace24d11bdc77f540acc27405642d942, type: 3}
@@ -37643,6 +37661,7 @@ MonoBehaviour:
     unlockCrystal: 0
     description: Chopped tenderloin mixed with spices and sweet soy sauce, leaving
       light savoury flavor.
+    restrictions: 
   - prov: Nusa Tenggara Timur
     food_name: Bose Corn
     food: {fileID: 21300000, guid: 89b3e384674739b45b1b6acc31e76179, type: 3}
@@ -37650,6 +37669,7 @@ MonoBehaviour:
     unlockCrystal: 2
     description: Hearty, savory dish made of corn and other vegetables like beans,
       pumpkin, and sometimes meat.
+    restrictions: 
   - prov: Nusa Tenggara Timur
     food_name: Se'i
     food: {fileID: 21300000, guid: 013daa616ae79f64282e73327eb40351, type: 3}
@@ -37657,6 +37677,7 @@ MonoBehaviour:
     unlockCrystal: 5
     description: Smoked marinated pork or beef with a distinct flavor, served with
       rice and spicy sambal.
+    restrictions: 
   - prov: Banten
     food_name: Sticky Rice Bintul
     food: {fileID: 21300000, guid: 97e4f804e4ca1b7468b7f269962b04ca, type: 3}
@@ -37664,6 +37685,7 @@ MonoBehaviour:
     unlockCrystal: 0
     description: Soft and chery traditional Indonesian snack made from glutinous
       sticky rice seasoned with grated coconut and other spices.
+    restrictions: 
   - prov: Banten
     food_name: Sticky Rice Bintul
     food: {fileID: 21300000, guid: 97e4f804e4ca1b7468b7f269962b04ca, type: 3}
@@ -37671,6 +37693,7 @@ MonoBehaviour:
     unlockCrystal: 999999
     description: Soft and chery traditional Indonesian snack made from glutinous
       sticky rice seasoned with grated coconut and other spices.
+    restrictions: 
   - prov: Banten
     food_name: Sticky Rice Bintul
     food: {fileID: 21300000, guid: 97e4f804e4ca1b7468b7f269962b04ca, type: 3}
@@ -37678,6 +37701,7 @@ MonoBehaviour:
     unlockCrystal: 999999
     description: Soft and chery traditional Indonesian snack made from glutinous
       sticky rice seasoned with grated coconut and other spices.
+    restrictions: 
   - prov: DKI Jakarta
     food_name: Pletok Beer
     food: {fileID: -1086090775, guid: cac14afc25e5409458992d9d0b0f9948, type: 3}
@@ -37685,12 +37709,14 @@ MonoBehaviour:
     unlockCrystal: 0
     description: Non-alchoholic drink served hot or cold, using a mic of spices like
       ginger and cinnamon.
+    restrictions: 
   - prov: DKI Jakarta
     food_name: Egg Crust
     food: {fileID: 21300000, guid: 31bb7f72d7735f34f9d716aaa86334a7, type: 3}
     unlockMoney: 200000
     unlockCrystal: 2
     description: This is not just an omelete. It's an extrodinary omelatte!
+    restrictions: 
   - prov: DKI Jakarta
     food_name: Pletok Beer
     food: {fileID: -1086090775, guid: cac14afc25e5409458992d9d0b0f9948, type: 3}
@@ -37698,6 +37724,7 @@ MonoBehaviour:
     unlockCrystal: 9999999
     description: Non-alchoholic drink served hot or cold, using a mic of spices like
       ginger and cinnamon.
+    restrictions: 
   - prov: Jawa Barat
     food_name: Bajigur
     food: {fileID: 21300000, guid: ed3bec071c0398b408d32673e9699e0a, type: 3}
@@ -37705,6 +37732,7 @@ MonoBehaviour:
     unlockCrystal: 0
     description: 'Comforting, warm drink made from coconut miliik, palm sugar, and
       aromatic spices like ginger and salt. It''s popular during coldweather. '
+    restrictions: 
   - prov: Jawa Barat
     food_name: Bajigur
     food: {fileID: 21300000, guid: ed3bec071c0398b408d32673e9699e0a, type: 3}
@@ -37712,6 +37740,7 @@ MonoBehaviour:
     unlockCrystal: 999999
     description: 'Comforting, warm drink made from coconut miliik, palm sugar, and
       aromatic spices like ginger and salt. It''s popular during coldweather. '
+    restrictions: 
   - prov: Jawa Barat
     food_name: Bajigur
     food: {fileID: 21300000, guid: ed3bec071c0398b408d32673e9699e0a, type: 3}
@@ -37719,6 +37748,7 @@ MonoBehaviour:
     unlockCrystal: 9999999
     description: 'Comforting, warm drink made from coconut miliik, palm sugar, and
       aromatic spices like ginger and salt. It''s popular during coldweather. '
+    restrictions: 
   - prov: Jawa Tengah
     food_name: Wedang Ronde
     food: {fileID: 21300000, guid: 3f747ecf3e6cc2942b2380103a00ae9a, type: 3}
@@ -37726,6 +37756,7 @@ MonoBehaviour:
     unlockCrystal: 0
     description: Floating glutinous rice (Ronde) on ginger tea. It's similiar to
       peanut and sugar filled mochi.
+    restrictions: 
   - prov: Jawa Tengah
     food_name: Es Dawet
     food: {fileID: 21300000, guid: 0b3361163360dbd45a673b9892c3e1c0, type: 3}
@@ -37733,6 +37764,7 @@ MonoBehaviour:
     unlockCrystal: 2
     description: Refreshing creamy iced dessert with rice flour jelly, palm sugar
       syrup, and coconut milk.
+    restrictions: 
   - prov: Jawa Tengah
     food_name: Wedang Ronde
     food: {fileID: 21300000, guid: 3f747ecf3e6cc2942b2380103a00ae9a, type: 3}
@@ -37740,6 +37772,7 @@ MonoBehaviour:
     unlockCrystal: 999999
     description: Floating glutinous rice (Ronde) on ginger tea. It's similiar to
       peanut and sugar filled mochi.
+    restrictions: 
   - prov: D.I. Yogyakarta
     food_name: Bakpia
     food: {fileID: 21300000, guid: 50658c3c2e0528644a95cc99ee362187, type: 3}
@@ -37747,6 +37780,7 @@ MonoBehaviour:
     unlockCrystal: 0
     description: Round pastry with flaky crust and a soft, sweet paste filing. The
       most popular ones are chocolate, cheeese, durian, or mung bean paste.
+    restrictions: 
   - prov: D.I. Yogyakarta
     food_name: Bakpia
     food: {fileID: 21300000, guid: 50658c3c2e0528644a95cc99ee362187, type: 3}
@@ -37754,6 +37788,7 @@ MonoBehaviour:
     unlockCrystal: 999999
     description: Round pastry with flaky crust and a soft, sweet paste filing. The
       most popular ones are chocolate, cheeese, durian, or mung bean paste.
+    restrictions: 
   - prov: D.I. Yogyakarta
     food_name: Bakpia
     food: {fileID: 21300000, guid: 50658c3c2e0528644a95cc99ee362187, type: 3}
@@ -37761,12 +37796,14 @@ MonoBehaviour:
     unlockCrystal: 999999
     description: Round pastry with flaky crust and a soft, sweet paste filing. The
       most popular ones are chocolate, cheeese, durian, or mung bean paste.
+    restrictions: 
   - prov: Jawa Timur
     food_name: Wingko Babat
     food: {fileID: 21300000, guid: a43aa492e0dd0524f8d2235963a2322c, type: 3}
     unlockMoney: 150000
     unlockCrystal: 1
     description: 'Chewy, sweet, and slightly smoky cake with distinct aroma. '
+    restrictions: 
   - prov: Jawa Timur
     food_name: Es Puter
     food: {fileID: 21300000, guid: 9e44ae64fb804dc42b137221142a1f69, type: 3}
@@ -37774,12 +37811,14 @@ MonoBehaviour:
     unlockCrystal: 2
     description: A much safer option ice cream as it is made from coconut instead
       of dairy.
+    restrictions: 
   - prov: Jawa Timur
     food_name: Wingko Babat
     food: {fileID: 21300000, guid: a43aa492e0dd0524f8d2235963a2322c, type: 3}
     unlockMoney: 999999
     unlockCrystal: 999999
     description: 'Chewy, sweet, and slightly smoky cake with distinct aroma. '
+    restrictions: 
   curr_recipe1:
     prov: 
     food_name: 
@@ -37787,6 +37826,7 @@ MonoBehaviour:
     unlockMoney: 0
     unlockCrystal: 0
     description: 
+    restrictions: 
   UI: {fileID: 715936784}
   food1: {fileID: 1346055499}
   drink1: {fileID: 1258338249}
@@ -41154,6 +41194,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 935931715}
   - {fileID: 2047067216}
   - {fileID: 1682340834}
   - {fileID: 395105906}
@@ -41341,7 +41382,7 @@ RectTransform:
   m_Children:
   - {fileID: 1189985527}
   m_Father: {fileID: 1675764940}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -42190,7 +42231,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 415145498}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -43119,6 +43160,7 @@ GameObject:
   - component: {fileID: 1767872335}
   - component: {fileID: 1767872334}
   - component: {fileID: 1767872333}
+  - component: {fileID: 1767872336}
   m_Layer: 5
   m_Name: send
   m_TagString: Untagged
@@ -43139,12 +43181,13 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 977250455}
+  - {fileID: 2014451549}
   m_Father: {fileID: 1219488101}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 42}
+  m_AnchoredPosition: {x: 12.2, y: 42}
   m_SizeDelta: {x: 160, y: 50}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1767872333
@@ -43160,7 +43203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -43193,7 +43236,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 935931718}
         m_TargetAssemblyTypeName: notepad, Assembly-CSharp
-        m_MethodName: exitNotePad
+        m_MethodName: send
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -43241,6 +43284,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1767872331}
   m_CullTransparentMesh: 1
+--- !u!95 &1767872336
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1767872331}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a1677bfd34b95a546ac7ed83231d1182, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1769496913
 GameObject:
   m_ObjectHideFlags: 0
@@ -45628,7 +45691,7 @@ RectTransform:
   - {fileID: 670925886}
   - {fileID: 1425360230}
   m_Father: {fileID: 415145498}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -46168,7 +46231,7 @@ RectTransform:
   - {fileID: 1283363949}
   - {fileID: 1524487002}
   m_Father: {fileID: 1675764940}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -47851,7 +47914,7 @@ RectTransform:
   - {fileID: 1531902978}
   - {fileID: 253223238}
   m_Father: {fileID: 1675764940}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -49857,6 +49920,141 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2013874656}
   m_CullTransparentMesh: 1
+--- !u!1 &2014451548
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2014451549}
+  - component: {fileID: 2014451551}
+  - component: {fileID: 2014451550}
+  m_Layer: 5
+  m_Name: Text (TMP) (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2014451549
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014451548}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1767872332}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 6.4000015, y: 40.490005}
+  m_SizeDelta: {x: 54.27, y: -27.63}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2014451550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014451548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Food Restrictions incorrect
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 3a2e2963713de2547a143566b730b8ef, type: 2}
+  m_sharedMaterial: {fileID: -1853938148241398070, guid: 3a2e2963713de2547a143566b730b8ef, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4278198615
+  m_fontColor: {r: 0.33962262, g: 0.13054284, b: 0, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 18.3
+  m_fontSizeBase: 24
+  m_fontWeight: 400
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 1
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 1024
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &2014451551
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014451548}
+  m_CullTransparentMesh: 1
 --- !u!1 &2016981424
 GameObject:
   m_ObjectHideFlags: 0
@@ -50658,7 +50856,7 @@ RectTransform:
   m_Children:
   - {fileID: 1904854752}
   m_Father: {fileID: 1675764940}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -50756,7 +50954,7 @@ RectTransform:
   m_Children:
   - {fileID: 1232276868}
   m_Father: {fileID: 1675764940}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -51467,7 +51665,6 @@ MonoBehaviour:
     - 10
     - 10
     - 10
-    restrictions_diseases: []
   - foodName:
     - Sticky Rice Bintul
     province: Banten
@@ -51476,7 +51673,6 @@ MonoBehaviour:
     prices: 204e000000000000
     cookTime:
     - 10
-    restrictions_diseases: []
   - foodName:
     - Bakpia
     province: D.I. Yogyakarta
@@ -51485,7 +51681,6 @@ MonoBehaviour:
     prices: b888000000000000
     cookTime:
     - 10
-    restrictions_diseases: []
   - foodName:
     - Pletok Beer
     - Egg Crust
@@ -51495,7 +51690,6 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 31bb7f72d7735f34f9d716aaa86334a7, type: 3}
     prices: 5046000000000000a861000000000000
     cookTime: []
-    restrictions_diseases: []
   - foodName:
     - Bajigur
     province: Jawa Barat
@@ -51503,7 +51697,6 @@ MonoBehaviour:
     - {fileID: 21300000, guid: ed3bec071c0398b408d32673e9699e0a, type: 3}
     prices: e02e000000000000
     cookTime: []
-    restrictions_diseases: []
   - foodName:
     - Wedang Ronde
     - Es Dawet
@@ -51514,7 +51707,6 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 0b3361163360dbd45a673b9892c3e1c0, type: 3}
     prices: 6c6b000000000000ec2c000000000000983a000000000000
     cookTime: []
-    restrictions_diseases: []
   - foodName:
     - Wingko Babat
     - Es Puter
@@ -51524,7 +51716,6 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 9e44ae64fb804dc42b137221142a1f69, type: 3}
     prices: 409c000000000000983a000000000000
     cookTime: []
-    restrictions_diseases: []
   - foodName:
     - Plecing
     - Sepat Bulbul
@@ -51536,7 +51727,6 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 7e49332f26a009b44a81c507a6cdcc84, type: 3}
     prices: 983a000000000000409c000000000000084c010000000000
     cookTime: []
-    restrictions_diseases: []
   - foodName:
     - Karmanaci
     - Bose Corn
@@ -51548,18 +51738,39 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 013daa616ae79f64282e73327eb40351, type: 3}
     prices: c8af000000000000c8af000000000000101b020000000000
     cookTime: []
-    restrictions_diseases: []
   curr_order:
     foodName: []
     province: 
     food: []
     prices: 
     cookTime: []
-    restrictions_diseases: []
-  all_diseases: []
-  all_restrictions: []
-  curr_disease: []
-  curr_restrictions: []
+  restricts:
+  - foodName: Lilit Satay
+    diseases: Not Spicy
+    curr_restrictions:
+    - {fileID: 995140406}
+  - foodName: Lilit Satay
+    diseases: Pescatarian
+    curr_restrictions:
+    - {fileID: 1065359530}
+    - {fileID: 135267589}
+  - foodName: Lilit Satay
+    diseases: Vegan
+    curr_restrictions:
+    - {fileID: 1065359530}
+    - {fileID: 135267589}
+    - {fileID: 1453741241}
+  - foodName: Lilit Satay
+    diseases: Vegetarian
+    curr_restrictions:
+    - {fileID: 1065359530}
+    - {fileID: 135267589}
+    - {fileID: 1453741241}
+  - foodName: Lilit Satay
+    diseases: Seafood Allergy
+    curr_restrictions:
+    - {fileID: 1453741241}
+  curr_restricts: []
   canProv:
   - Bali
   - Nusa Tenggara Timur
@@ -52366,7 +52577,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -52984,7 +53195,7 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 415145498}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
