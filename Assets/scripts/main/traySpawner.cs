@@ -209,10 +209,6 @@ public class traySpawner : MonoBehaviour, IDataPersistence
             //chances buat restrictions (max 2 penyakit :p)
             else
             {
-                curr_restricts.Clear();
-                int idx = canProv_maxFood[canProv.IndexOf(curr_order.province)]-1;
-                //int b = UnityEngine.Random.Range(0, curr_order.food.Count);
-                //Debug.Log(curr_order.province + "." + idx);
             
                 do
                 {
@@ -220,6 +216,11 @@ public class traySpawner : MonoBehaviour, IDataPersistence
                     curr_order = order[a];
                 } while (!canProv.Contains(curr_order.province) || canProv_maxFood[canProv.IndexOf(curr_order.province)] <= 0);
                 bool haveRes = false;
+
+                curr_restricts.Clear();
+                int idx = canProv_maxFood[canProv.IndexOf(curr_order.province)]-1;
+                //int b = UnityEngine.Random.Range(0, curr_order.food.Count);
+                //Debug.Log(curr_order.province + "." + idx);
                 //restrictions
                 if (UnityEngine.Random.Range(0, 100) >= 50)
                 {
