@@ -204,7 +204,7 @@ public class TM : MonoBehaviour
             }
         }*//*
     }*/
-    int count = 5;
+    int count = 4;
     IEnumerator typing()
     {
         count--;
@@ -212,13 +212,14 @@ public class TM : MonoBehaviour
         {
             GameObject.Find("sfx_dialog").GetComponent<AudioSource>().Stop();
             GameObject.Find("sfx_dialog").GetComponent<AudioSource>().Play();
-            count = 5;
+            count = 4;
         }
         canClick = false;
         tutorOrang.SetBool("talking",true);
         text.text = tutorial[idx];
         text.maxVisibleCharacters++;
-        yield return new WaitForSeconds(typingSpeed);
+        //Debug.Log(typingSpeed);
+        yield return new WaitForSeconds(0.01f);
         if (text.maxVisibleCharacters < tutorial[idx].Length)
         {
             StartCoroutine(typing());
@@ -233,9 +234,10 @@ public class TM : MonoBehaviour
     {
         tutorOrang.SetBool("talking", false);
         canClick = false;
-        text.maxVisibleCharacters--;
-        float temp = typingSpeed * 0.2f;
-        yield return new WaitForSeconds(temp);
+        //text.maxVisibleCharacters--;
+        text.maxVisibleCharacters = 0;
+        //float temp = typingSpeed * 0.5f;
+        yield return new WaitForSeconds(0.001f);
         if (text.maxVisibleCharacters > 0)
         {
             StartCoroutine(deleteTyping());

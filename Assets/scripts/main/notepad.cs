@@ -23,14 +23,29 @@ public class notepad : MonoBehaviour
     {
         for (int i = 0; i < restrictions_mark.Count; i++)
         {
-            if (order.curr_restrictions.Contains(restrictions_mark[i].transform.parent.gameObject))
+            if (order && order.input_restrictions.Contains(restrictions_mark[i]))
             {
-                restrictions_mark[i].SetActive(true);
+                restrictions_mark[i].transform.GetChild(0).gameObject.SetActive(true);
             }
             else
             {
-                restrictions_mark [i].SetActive(false);
+                restrictions_mark [i].transform.GetChild(0).gameObject.SetActive(false);
             }
+        }
+    }
+    public void tambah(int idx)
+    {
+        if (order && order.input_restrictions.Contains(restrictions_mark[idx]))
+        {
+            order.input_restrictions.Add(restrictions_mark[idx]);
+            restrictions_mark[idx].transform.GetChild(0).gameObject.SetActive(false);
+        }
+        else if (order && !order.input_restrictions.Contains(restrictions_mark[idx]))
+        {
+            //order.input_restrictions[order.input_restrictions.IndexOf(restrictions_mark[idx])] = null;
+            //order.input_restrictions.Remove(restrictions_mark[idx]);
+            order.input_restrictions.RemoveAll(x => x == restrictions_mark[idx]);
+            restrictions_mark[idx].transform.GetChild(0).gameObject.SetActive(true);
         }
     }
     public void buka()
@@ -70,6 +85,18 @@ public class notepad : MonoBehaviour
     }
     public void send()
     {
-        order.readyToShip();
+        bool canShip = true;
+        foreach (GameObject res in order.input_restrictions)
+        {
+            if (!order.curr_restrictions.Contains(res))
+            {
+                canShip = false; 
+                break;
+            }
+        }
+        if (canShip)
+        {
+            order.readyToShip();
+        }
     }
 }

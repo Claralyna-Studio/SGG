@@ -34,6 +34,7 @@ public class tray : MonoBehaviour
     public bool restriction = false;
     public List<string> curr_diseases;
     public List<GameObject> curr_restrictions;
+    public List<GameObject> input_restrictions;
     //[SerializeField] private List<GameObject> curr_restrictions;
     public bool done = false;
     TM tm;
