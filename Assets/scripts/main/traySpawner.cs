@@ -30,7 +30,7 @@ public class traySpawner : MonoBehaviour, IDataPersistence
     [Serializable]
     struct restrictions
     {
-        public string foodName;
+        public List<string> foodName;
         [TextArea] public string diseases;
         public List<GameObject> curr_restrictions;
     }
@@ -171,11 +171,11 @@ public class traySpawner : MonoBehaviour, IDataPersistence
                 //curr_disease.Clear();
                 //curr_restrictions.Clear();
                 //canRestrict = true;
-                if (muchRes <= 3)
+/*                if (muchRes <= 3)
                 {
                     muchRes = 0;
-                }
-                else if (muchRes > 3 && muchRes <= 6)
+                }*/
+                if (muchRes <= 5)
                 {
                     muchRes = 1;
                 }
@@ -209,7 +209,6 @@ public class traySpawner : MonoBehaviour, IDataPersistence
             //chances buat restrictions (max 2 penyakit :p)
             else
             {
-            
                 do
                 {
                     int a = UnityEngine.Random.Range(0, order.Length);
@@ -221,28 +220,44 @@ public class traySpawner : MonoBehaviour, IDataPersistence
                 int idx = canProv_maxFood[canProv.IndexOf(curr_order.province)]-1;
                 //int b = UnityEngine.Random.Range(0, curr_order.food.Count);
                 //Debug.Log(curr_order.province + "." + idx);
+                //b itu recipenya
+                int b = 0;
+                do
+                {
+                    b = UnityEngine.Random.Range(-3, 3);
+                } while (b > idx || b < -idx);
+                if(b < 0)
+                {
+                    b = -b;
+                }
                 //restrictions
-                if (UnityEngine.Random.Range(0, 100) >= 50)
+                int res = UnityEngine.Random.Range(0, 100);
+                if (GM.day >= 2)
                 {
                     for (int i = 0; i < restricts.Length; i++)
                     {
-                        if (curr_order.foodName.Contains(restricts[i].foodName))
+                        if (restricts[i].foodName.Contains(curr_order.foodName[b])/*curr_order.foodName.Contains(restricts[i].foodName)*/)
                         {
                             haveRes = true;
                             break;
                         }
+                        else
+                        {
+                            haveRes = false;
+                        }
+                //Debug.LogError("Res foodname: " + restricts[i].foodName +" dan currOrder foodname"+ curr_order.foodName[b]);
                     }
                     if(haveRes)
                     {
                         //curr_disease.Clear();
                         //curr_restrictions.Clear();
                         canRestrict = true;
-                        muchRes = UnityEngine.Random.Range(1, 9);
-                        if (muchRes <= 3)
+                        muchRes = UnityEngine.Random.Range(1, 10);
+/*                        if (muchRes <= 3)
                         {
                             muchRes = 0;
-                        }
-                        else if (muchRes > 3 && muchRes <= 6)
+                        }*/
+                        if (muchRes <= 5)
                         {
                             muchRes = 1;
                         }
@@ -250,43 +265,53 @@ public class traySpawner : MonoBehaviour, IDataPersistence
                         {
                             muchRes = 2;
                         }
+                        //Debug.LogError("Res chance: " + res.ToString() + " dan muchRes: " + muchRes.ToString());
+                    }
+                    else
+                    {
+                        canRestrict = false;
                     }
                 }
                 //no restrictions
                 GameObject clone = Instantiate(tray_prefab, parent.transform);
 
-                //b itu recipenya
-                int b = 0;
-                do
-                {
-                    b = UnityEngine.Random.Range(-3, 3);
-                } while (b > idx || b < -idx);
-                if (b >= 0)
-                {
-                    if (canRestrict)
+/*                if (b >= 0)
+                {*/
+                    if (res >= 50 && canRestrict)
                     {
                         clone.gameObject.GetComponent<tray>().canShip = false;
                         clone.gameObject.GetComponent<tray>().restriction = true;
                         for (int i = 0; i < muchRes; i++)
                         {
+                            List<int> randomize = new List<int>();
+                            for(int j = 0;j<restricts.Length;j++)
+                            {
+                                randomize.Add(j);
+                            }
                             int random = 0;
                             do
                             {
-                                random = UnityEngine.Random.Range(0, restricts.Length);
-                            } while (curr_restricts.Contains(restricts[random]) || curr_restricts[random].foodName != curr_order.foodName[b]);
+                                random = randomize[UnityEngine.Random.Range(0, randomize.Count)];
+                                randomize.Remove(random);
+                            } while (curr_restricts.Contains(restricts[random]) || !restricts[random].foodName.Contains(curr_order.foodName[b]));
+                            //randomize.Clear();
                             curr_restricts.Add(restricts[random]);
+
                             clone.gameObject.GetComponent<tray>().curr_diseases.Add(curr_restricts[i].diseases);
                             for (int j = 0; j < curr_restricts[i].curr_restrictions.Count; j++)
                             {
-                                clone.gameObject.GetComponent<tray>().curr_restrictions.Add(curr_restricts[i].curr_restrictions[j]);
+                                if(!clone.gameObject.GetComponent<tray>().curr_restrictions.Contains(curr_restricts[i].curr_restrictions[j]))
+                                {
+                                    clone.gameObject.GetComponent<tray>().curr_restrictions.Add(curr_restricts[i].curr_restrictions[j]);
+                                }
                             }
                         }
                     }
                     clone.gameObject.GetComponent<tray>().orderName = curr_order.foodName[b];
                     clone.gameObject.GetComponent<tray>().coins = curr_order.prices[b];
                     clone.gameObject.GetComponent<tray>().food = curr_order.food[b];
-                }
-                else
+                //}
+/*                else
                 {
                     //curr_restricts = restricts[-b];
                     if (canRestrict)
@@ -310,12 +335,12 @@ public class traySpawner : MonoBehaviour, IDataPersistence
                     clone.gameObject.GetComponent<tray>().orderName = curr_order.foodName[-b];
                     clone.gameObject.GetComponent<tray>().coins = curr_order.prices[-b];
                     clone.gameObject.GetComponent<tray>().food = curr_order.food[-b];
-                }
+                }*/
                 clone.gameObject.GetComponent<tray>().provName = curr_order.province;
                 clone.transform.SetParent(parent.transform, false);
-                if(b >= 0)
-                {
-                    if(canRestrict)
+/*                if(b >= 0)
+                {*/
+/*                    if(canRestrict)
                     {
                         for (int i = 0; i < muchRes; i++)
                         {
@@ -334,9 +359,9 @@ public class traySpawner : MonoBehaviour, IDataPersistence
                     }
                     clone.gameObject.GetComponent<tray>().orderName = curr_order.foodName[b];
                     clone.gameObject.GetComponent<tray>().coins = curr_order.prices[b];
-                    clone.gameObject.GetComponent<tray>().food = curr_order.food[b];
-                }
-                else
+                    clone.gameObject.GetComponent<tray>().food = curr_order.food[b];*/
+                //}
+/*                else
                 {
                     //curr_restricts = restricts[-b];
                     if(canRestrict)
@@ -361,7 +386,7 @@ public class traySpawner : MonoBehaviour, IDataPersistence
                     clone.gameObject.GetComponent<tray>().food = curr_order.food[-b];
                 }
                 clone.gameObject.GetComponent<tray>().provName = curr_order.province;
-                clone.transform.SetParent(parent.transform, false);
+                clone.transform.SetParent(parent.transform, false);*/
             }
 
             //GameObject clone = Instantiate(tray_prefab, parent.transform);

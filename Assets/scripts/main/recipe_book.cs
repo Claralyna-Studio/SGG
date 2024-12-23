@@ -365,9 +365,14 @@ public class recipe_book : MonoBehaviour, IDataPersistence
             TM tm = FindObjectOfType<TM>();
             if(tm.idx == 3 || tm.idx == 15)
             {
+                gm.isReadingRecipe = true;
+                click = true;
+                UI.SetBool("clicked", click);
+                GetComponent<Animator>().SetBool("clicked", click);
+                //Debug.Log("WOIIII");
                 tm.next();
             }
-            if (!GameObject.Find("penanda").GetComponent<Image>().enabled)
+            else if (!GameObject.Find("penanda").GetComponent<Image>().enabled)
             {
 
                 gm.isReadingRecipe = true;

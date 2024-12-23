@@ -16,9 +16,11 @@ public class cargo_spawner : MonoBehaviour, IDataPersistence
     public float speed = 0.5f;
     int idxLast = 0;
     Transform pos;
+    upgrades upg;
     // Start is called before the first frame update
     void Start()
     {
+        upg = FindObjectOfType<upgrades>();
         spawner = FindObjectOfType<traySpawner>();
         pos = GameObject.Find("sprites").transform.Find("Bali");
         gm = FindObjectOfType<GM>();
@@ -40,18 +42,56 @@ public class cargo_spawner : MonoBehaviour, IDataPersistence
         if(!gm.lose)
         {
             int idx = 0;
-            if(target.gameObject.tag == "Bali")
+            /*            if(target.gameObject.tag == "Bali")
+                        {
+                            idx = 0;
+                        }
+                        else if(target.gameObject.tag == "Jawa")
+                        {
+                            idx = 1;
+                        }*/
+            if (target.gameObject.name == "Bali")
             {
                 idx = 0;
             }
-            else if(target.gameObject.tag == "Jawa")
+            else if (target.gameObject.name == "Nusa Tenggara Timur")
             {
                 idx = 1;
+            }
+            else if (target.gameObject.name == "Nusa Tenggara Barat")
+            {
+                idx = 2;
+            }
+
+            else if (target.gameObject.name == "Banten")
+            {
+                idx = 3;
+            }
+            else if (target.gameObject.name == "DKI Jakarta")
+            {
+                idx = 4;
+            }
+            else if (target.gameObject.name == "Jawa Barat")
+            {
+                idx = 5;
+            }
+            else if (target.gameObject.name == "Jawa Tengah")
+            {
+                idx = 6;
+            }
+            else if (target.gameObject.name == "D.I. Yogyakarta")
+            {
+                idx = 7;
+            }
+            else if (target.gameObject.name == "Jawa Timur")
+            {
+                idx = 8;
             }
             GameObject clone = Instantiate(cargo_prefab, pos.position, Quaternion.identity);
             clone.transform.GetChild(1).GetComponent<AIAgent>().Tray = order;
             clone.transform.GetChild(1).GetComponent<AIAgent>().foods = food;
             clone.transform.GetChild(1).GetComponent<AIAgent>().masakTime = masakTime[idx];
+            //clone.transform.GetChild(1).GetComponent<AIAgent>().masakTime = upg.foodPrep_seconds[idx];
             clone.transform.GetChild(1).GetComponent<AIAgent>().speed = speed;
             clone.transform.GetChild(1).GetComponent<AIAgent>().target = target;
             clone.transform.GetChild(1).GetComponent<AIAgent>().canMove = true;
