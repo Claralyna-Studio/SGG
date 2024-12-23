@@ -4281,8 +4281,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -587544182134614360, guid: 7e4617465048f874084e1d7d7c5570ee, type: 2}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
+  m_audioClip: {fileID: 8300000, guid: 5e200c56e57e0cf4b8ee7e3b2f49b6ad, type: 3}
+  m_PlayOnAwake: 1
   m_Volume: 0
   m_Pitch: 1
   Loop: 1
@@ -4380,7 +4380,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &192563693
 GameObject:
@@ -14688,6 +14688,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   order: {fileID: 0}
+  restrictions_mark: []
+  food: {fileID: 0}
+  drink: {fileID: 0}
+  title: {fileID: 0}
+  res: {fileID: 0}
+  sendButton: {fileID: 0}
 --- !u!225 &546084896
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -15256,6 +15262,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mark: {fileID: 0}
   index1: 0
+  all_index: 
   recipes: []
   curr_recipe1:
     prov: 
@@ -15264,6 +15271,7 @@ MonoBehaviour:
     unlockMoney: 0
     unlockCrystal: 0
     description: 
+    restrictions: 
   UI: {fileID: 0}
   food1: {fileID: 0}
   drink1: {fileID: 0}
@@ -17463,6 +17471,8 @@ RectTransform:
   m_Children:
   - {fileID: 1834120227}
   - {fileID: 642081018}
+  - {fileID: 1874554173}
+  - {fileID: 1881535751}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -25104,6 +25114,8 @@ MonoBehaviour:
   mixer: {fileID: 24100000, guid: 7e4617465048f874084e1d7d7c5570ee, type: 2}
   bgm: {fileID: 1076253474}
   sfx: {fileID: 2029511135}
+  crystalPar: {fileID: 1881535746}
+  paused: 0
   pauseUI: {fileID: 642081016}
 --- !u!4 &1094018970
 Transform:
@@ -25118,7 +25130,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1098607016
 GameObject:
@@ -25187,8 +25199,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278253823
-  m_fontColor: {r: 1, g: 0.9708301, b: 0, a: 1}
+    rgba: 4294770432
+  m_fontColor: {r: 0, g: 1, b: 0.9898858, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -29696,7 +29708,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4c1c93e94f3f394a9be0e9ead99dd46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
   img: {fileID: 1401038493}
   fastUI: {fileID: 0}
 --- !u!114 &1401038492
@@ -31883,6 +31894,7 @@ MonoBehaviour:
   isUpgrading: 0
   isUpgradingBoat: 0
   meja_upgrade: []
+  unlockButtons: []
   pulauUnlockedName:
   - Sunda Kecil
   - Jawa
@@ -31914,6 +31926,7 @@ MonoBehaviour:
   moneyUnlock: 
   crystalUnlock: 
   unlockIslandButtons: {fileID: 0}
+  startDay: {fileID: 0}
   upgradeBoatButton: {fileID: 801169975}
   upgradeBoatText: {fileID: 475490746}
   upgradeBoatTextMoney: {fileID: 0}
@@ -32348,7 +32361,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1559668374
 GameObject:
@@ -32897,7 +32910,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1574985050
 GameObject:
@@ -37710,39 +37723,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1856153664}
   m_CullTransparentMesh: 1
---- !u!1 &1858556558
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1858556559}
-  m_Layer: 0
-  m_Name: PARTICLES
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1858556559
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1858556558}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.2946775, y: -1.6682414, z: 44.554066}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1874554173}
-  - {fileID: 1881535751}
-  m_Father: {fileID: 0}
-  m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1872089919
 GameObject:
   m_ObjectHideFlags: 0
@@ -37918,18 +37898,18 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1874554168}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 45.445934}
-  m_LocalScale: {x: 0.00289, y: 0.00289, z: 0.00289}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 717554101}
-  m_Father: {fileID: 1858556559}
-  m_RootOrder: 0
+  m_Father: {fileID: 681943674}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.2946775, y: 1.6682414}
-  m_SizeDelta: {x: 187, y: 214}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1881535746
 GameObject:
@@ -38030,17 +38010,17 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1881535746}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 45.445934}
-  m_LocalScale: {x: 0.00289, y: 0.00289, z: 0.00289}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.22, y: 0.22, z: 0.22}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 819377130}
-  m_Father: {fileID: 1858556559}
-  m_RootOrder: 1
+  m_Father: {fileID: 681943674}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.2946775, y: 1.6682414}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 187, y: 214}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1883240744
@@ -41893,76 +41873,77 @@ MonoBehaviour:
   curr_tray: {fileID: 0}
   upg: {fileID: 0}
   order:
-  - province: Bali
+  - foodName: []
+    province: Bali
     food:
     - {fileID: 21300000, guid: 942fac82ff2475b429d6b4e01c363648, type: 3}
     - {fileID: 21300000, guid: 4a50c78aec6120147b315a924168bf45, type: 3}
     - {fileID: 21300000, guid: 94217949636ec0745b75dcdc1137cb55, type: 3}
     prices: 30750000d0fb0100
     cookTime: []
-    restrictions: []
-  - province: Banten
+  - foodName: []
+    province: Banten
     food:
     - {fileID: 21300000, guid: 97e4f804e4ca1b7468b7f269962b04ca, type: 3}
     prices: 
     cookTime: []
-    restrictions: []
-  - province: D.I. Yogyakarta
+  - foodName: []
+    province: D.I. Yogyakarta
     food:
     - {fileID: 21300000, guid: 50658c3c2e0528644a95cc99ee362187, type: 3}
     prices: 
     cookTime: []
-    restrictions: []
-  - province: DKI Jakarta
+  - foodName: []
+    province: DKI Jakarta
     food:
     - {fileID: -1086090775, guid: cac14afc25e5409458992d9d0b0f9948, type: 3}
     prices: 
     cookTime: []
-    restrictions: []
-  - province: Jawa Barat
+  - foodName: []
+    province: Jawa Barat
     food:
     - {fileID: 21300000, guid: ed3bec071c0398b408d32673e9699e0a, type: 3}
     prices: 
     cookTime: []
-    restrictions: []
-  - province: Jawa Tengah
+  - foodName: []
+    province: Jawa Tengah
     food:
     - {fileID: 21300000, guid: 3f747ecf3e6cc2942b2380103a00ae9a, type: 3}
     - {fileID: 21300000, guid: 0b3361163360dbd45a673b9892c3e1c0, type: 3}
     - {fileID: 21300000, guid: 0b3361163360dbd45a673b9892c3e1c0, type: 3}
     prices: 6c6b0000ec2c0000
     cookTime: []
-    restrictions: []
-  - province: Jawa Timur
+  - foodName: []
+    province: Jawa Timur
     food:
     - {fileID: 21300000, guid: a43aa492e0dd0524f8d2235963a2322c, type: 3}
     - {fileID: 21300000, guid: 9e44ae64fb804dc42b137221142a1f69, type: 3}
     prices: 409c0000983a0000
     cookTime: []
-    restrictions: []
-  - province: Nusa Tenggara Barat
+  - foodName: []
+    province: Nusa Tenggara Barat
     food:
     - {fileID: 21300000, guid: 6e84627001a59f64183cbd63646b77c7, type: 3}
     - {fileID: 21300000, guid: 0b3a936d1646b4a4ba204abcb04c53f1, type: 3}
     - {fileID: 21300000, guid: 7e49332f26a009b44a81c507a6cdcc84, type: 3}
     prices: 983a0000409c0000
     cookTime: []
-    restrictions: []
-  - province: Nusa Tenggara Timur
+  - foodName: []
+    province: Nusa Tenggara Timur
     food:
     - {fileID: 21300000, guid: ace24d11bdc77f540acc27405642d942, type: 3}
     - {fileID: 21300000, guid: 89b3e384674739b45b1b6acc31e76179, type: 3}
     - {fileID: 21300000, guid: 013daa616ae79f64282e73327eb40351, type: 3}
     prices: c8af0000c8af0000
     cookTime: []
-    restrictions: []
   curr_order:
+    foodName: []
     province: 
     food: []
     prices: 
     cookTime: []
-    restrictions: []
-  curr_restrictions: []
+  restricts: []
+  curr_restricts: []
   canProv:
   - Bali
   - Nusa Tenggara Timur
@@ -41975,6 +41956,7 @@ MonoBehaviour:
   - Jawa Timur
   canProv_maxFood: 010000000100000001000000010000000100000001000000010000000100000001000000
   upgradeTray: 50c30000a0860100400d030020a10700
+  upgraded: 0
   current: {fileID: 0}
   next: {fileID: 0}
   text: {fileID: 0}

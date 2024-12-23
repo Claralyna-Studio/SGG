@@ -23,7 +23,23 @@ public class province : MonoBehaviour
         //transform.localScale = prov.gameObject.transform.lossyScale * 100f;
         prov.color = Color.Lerp(prov.color, curr_color, Time.deltaTime * 10f);
     }
-    pin_collider curr = null;
+    [SerializeField] private pin_collider curr = null;
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "pin" && collision.TryGetComponent<pin_collider>(out pin_collider coll) && !coll.select && coll.prov == "" && !curr)
+        {
+            //Debug.Log("WOI");
+            /*            if (collision.TryGetComponent<pin_collider>(out pin_collider coll) && !coll.select && !coll.prov)
+                        {
+                            coll.prov = this.gameObject;
+                            coll.select = true;
+                        }*/
+            curr = coll;
+            coll.prov = this.gameObject.name;
+            coll.select = true;
+            curr_color = new Color(coll.color.r, coll.color.g, coll.color.b, 0.7f);
+        }
+    }
     private void OnTriggerStay2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "pin" && collision.TryGetComponent<pin_collider>(out pin_collider coll) && !coll.select && coll.prov == "" && !curr)
@@ -39,7 +55,6 @@ public class province : MonoBehaviour
             coll.select = true;
             curr_color = new Color(coll.color.r, coll.color.g, coll.color.b,0.7f);
         }
-
     }
     private void OnTriggerExit2D(Collider2D collision)
     {

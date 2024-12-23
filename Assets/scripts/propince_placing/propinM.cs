@@ -138,10 +138,13 @@ public class propinM : MonoBehaviour
     }
     bool allCorrect = true;
     int correct = 0;
+    [SerializeField] private GameObject[] moneyPar;
+    [SerializeField] private GameObject crystalPar;
     public void locked(Button lokk)
     {
         lokk.interactable = false;
         GameObject.Find("sfx_locked").GetComponent<AudioSource>().Play();
+        int idx = 0;
         foreach(pin_collider pin in pins)
         {
             if (pin.province.ToLower() == pin.prov.ToLower())
@@ -151,6 +154,9 @@ public class propinM : MonoBehaviour
                 Debug.Log("Betul");
                 pin.checkText.text = "Correct!";
                 pin.check.color = Color.green;
+                moneyPar[idx].transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "+ 50,000";
+                moneyPar[idx].transform.position = new Vector2(Camera.main.WorldToScreenPoint(pin.transform.position).x, Camera.main.WorldToScreenPoint(pin.transform.position).y + 2f);
+                moneyPar[idx].SetActive(true);
                 GM.money += 50000;
             }
             else
@@ -160,15 +166,22 @@ public class propinM : MonoBehaviour
                 pin.checkText.text = "Wrong!";
                 pin.check.color = Color.red;
             }
+            idx++;
             pin.check.GetComponent<Animator>().SetTrigger("check");
         }
         if (/*allCorrect*/ correct >= 5)
         {
             //PlayerPrefs.SetInt("crystal", PlayerPrefs.GetInt("crystal")+1);
+            crystalPar.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "+ 2";
+            //crystalPar.transform.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y+5f);
+            crystalPar.SetActive(true);
             GM.crystal += 2;
         }
         else if (correct == 3 || correct == 4)
         {
+            crystalPar.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "+ 1";
+            //crystalPar.transform.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y + 5f);
+            crystalPar.SetActive(true);
             GM.crystal += 1;
         }
         Invoke("balikGame", 5f);    

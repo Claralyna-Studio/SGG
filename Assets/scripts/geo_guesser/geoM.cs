@@ -114,6 +114,9 @@ public class geoM : MonoBehaviour
 
         if (counting && akur < akurasi)
         {
+
+            akur = Mathf.MoveTowards(akur, akurasi, Time.deltaTime*100f);
+            akur = Mathf.Round(akur * 100f) / 100f;
             textAkurasi.text = akur.ToString() + "%";
             bubble.color = Color.Lerp(bubble.color, correct, Time.deltaTime*2);
         }
@@ -121,11 +124,12 @@ public class geoM : MonoBehaviour
         int detik = Mathf.FloorToInt(timer % 60);
         timerText.text = string.Format("{0:00}:{1:00}", menit, detik);
     }
+    [SerializeField] private GameObject crystalPar;
     public void pinned()
     {
         city.transform.GetChild(0).gameObject.SetActive(true);
         pin = Camera.main.ScreenToWorldPoint(pin);
-        Debug.Log(Vector2.Distance(pin,city.transform.position));
+        //Debug.Log(Vector2.Distance(pin,city.transform.position));
         if(Vector2.Distance(pin, city.transform.position) <= toleransi_jarak)
         {
             akurasi = 100.00f;
@@ -136,16 +140,19 @@ public class geoM : MonoBehaviour
             akurasi = (100f - (Vector2.Distance(pin, city.transform.position) * 20f));
         }
         akurasi = Mathf.Round(akurasi * 100f) / 100f;
-        akur = Mathf.MoveTowards(akur, akurasi, Time.deltaTime*100f);
-        akur = Mathf.Round(akur * 100f) / 100f;
-        if(akur >= 80.00f)
+        if(akurasi >= 80.00f)
         {
+            crystalPar.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "+ 2";
+            crystalPar.SetActive(true);
             GM.crystal += 2;
         }
-        else if(akur >= 60.00f && akur < 80.00f)
+        else if(akurasi >= 60.00f && akur < 80.00f)
         {
+            crystalPar.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "+ 1";
+            crystalPar.SetActive(true);
             GM.crystal += 1;
         }
+        //GameObject.Find("moneyPlus_particle").SetActive(true);
         counting = true;
         Invoke("balikGame", 5f);
         //textAkurasi.text = akurasi.ToString() + "%";
