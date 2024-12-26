@@ -540,7 +540,7 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: stayOut
+  - m_Name: out
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -747,7 +747,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: stayOut
+    m_ConditionEvent: out
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 6267799699122690541}
@@ -950,7 +950,10 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: stayOut
+    m_ConditionEvent: out
+    m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: next
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -3550170918771912727}
