@@ -425,8 +425,11 @@ public class GM : MonoBehaviour, IDataPersistence
 
     public void SaveData(ref GameData data)
     {
-        data.money = money;
-        data.crystal = crystal;
-        data.day = day;
+        if(closed)
+        {
+            data.money = money;
+            data.crystal = crystal;
+            data.day = day;
+        }
     }
 }

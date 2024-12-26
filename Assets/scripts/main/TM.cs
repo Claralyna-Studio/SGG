@@ -53,6 +53,10 @@ public class TM : MonoBehaviour
                 //this.gameObject.SetActive(false);
             }
         }
+        else
+        {
+            isTutoring = false;
+        }
         //StartCoroutine(typing());
     }
 /*    public void highlightUI(string h)
@@ -152,7 +156,7 @@ public class TM : MonoBehaviour
             bgRect.localPosition = Vector3.Lerp(bgRect.localPosition,localPoint,Time.deltaTime*20f);
 
         }
-        if (Input.GetMouseButtonDown(0) && canClick)
+        if (isTutoring && Input.GetMouseButtonDown(0) && canClick)
         {
             if(idx < 3 || idx > 15)
             {
@@ -236,12 +240,22 @@ public class TM : MonoBehaviour
         }
         else
         {
+            if(idx == 10)
+            {
+                CancelInvoke("stayOut");
+                Invoke("stayOut", 6f);
+            }
             tutorOrang.SetBool("talking",false);
             canClick = true;
         }
     }
+    void stayOut()
+    {
+        tutor.SetBool("out", true);
+    }
     IEnumerator deleteTyping()
     {
+        tutor.SetBool("out", false);
         tutorOrang.SetBool("talking", false);
         canClick = false;
         //text.maxVisibleCharacters--;
@@ -257,6 +271,11 @@ public class TM : MonoBehaviour
             if (idx < tutorial.Length - 1)
             {
                 idx++;
+                if(idx == 9)
+                {
+                    idx++;
+                    tutor.SetTrigger("next");
+                }
             }
             StartCoroutine(typing());
         }
